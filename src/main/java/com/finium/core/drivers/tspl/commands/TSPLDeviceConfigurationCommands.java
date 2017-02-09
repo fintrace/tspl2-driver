@@ -20,6 +20,9 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * TSPL2 Device Reconfiguration Commands.
+ * <p>
+ * <b>Syntax</b><br>
+ * SET &lt;COMMAND&gt; &lt;VALUE&gt;
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -101,6 +104,7 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
     private CommandValues commandValue;
 
     /**
+     * @param command
      * @param commandValue
      */
     private TSPLDeviceConfigurationCommands(DeviceConfigCommand command, CommandValues commandValue) {

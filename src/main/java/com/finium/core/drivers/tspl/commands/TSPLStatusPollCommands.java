@@ -17,6 +17,10 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * These commands support RS-232, USB and Ethernet.
+ * <p>
+ * <b>Syntax</b><br>
+ * &lt;ESC&gt;!&lt;COMMAND&gt;<br><br>
+ * <i>&lt;ESC&gt; is ASCII 27, escape character</i>
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -149,6 +153,10 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     private String description;
     private String command;
 
+    /**
+     * @param command
+     * @param description
+     */
     private TSPLStatusPollCommands(String command, String description) {
         this.command = command;
         this.description = description;
