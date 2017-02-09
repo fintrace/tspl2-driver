@@ -10,9 +10,14 @@
  */
 package com.finium.core.drivers.tspl.listeners;
 
+import com.finium.core.drivers.tspl.connection.TSPLConnectionClient;
 import com.finium.core.drivers.tspl.exceptions.ConnectionClientException;
 
 /**
+ * This listener provide a callback structure or listener pattern template for
+ * monitoring the {@linkplain TSPLConnectionClient} data exchanges. The caller of any
+ * method in this interface must be from an independent Thread.
+ *
  * @author Venkaiah Chowdary Koneru
  */
 public interface DataListener {

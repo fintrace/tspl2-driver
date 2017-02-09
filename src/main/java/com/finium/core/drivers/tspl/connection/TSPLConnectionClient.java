@@ -1,7 +1,7 @@
 /*
  * Copyright © 2017, Finium Solutions, All Rights Reserved
  * 
- * TsplConnectionClient.java
+ * TSPLConnectionClient.java
  * Modification History
  * *************************************************************
  * Date				Author		Comment
@@ -22,7 +22,7 @@ import javax.usb.UsbException;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public interface TsplConnectionClient {
+public interface TSPLConnectionClient {
 
     /**
      * Add a ClientListener to this client. This method will not check for
@@ -91,7 +91,7 @@ public interface TsplConnectionClient {
 
     /**
      * Instruct the client to send TSPL2 communication message. This method will
-     * either return immediately or block until the submission is complete.
+     * either return immediately or block until the submission is complete depending on the implementation.
      * Listen for response using the provided listeners call backs. (ie, DataListener).
      *
      * @param tsplMessage The message to send.

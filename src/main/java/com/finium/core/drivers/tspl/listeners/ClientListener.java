@@ -10,11 +10,11 @@
  */
 package com.finium.core.drivers.tspl.listeners;
 
-import com.finium.core.drivers.tspl.connection.TsplConnectionClient;
+import com.finium.core.drivers.tspl.connection.TSPLConnectionClient;
 
 /**
  * This listener provide a callback structure or listener pattern template for
- * monitoring the <code>TsplConnectionClient</code> statuses. The caller of any
+ * monitoring the {@linkplain TSPLConnectionClient} statuses. The caller of any
  * method in this interface must be from an independent Thread.
  *
  * @author Venkaiah Chowdary Koneru
@@ -27,7 +27,7 @@ public interface ClientListener {
      *
      * @param client The client that has established the connection.
      */
-    void connectionEstablished(TsplConnectionClient client);
+    void connectionEstablished(TSPLConnectionClient client);
 
     /**
      * This method will be invoked by client when a connection has been dropped
@@ -35,7 +35,7 @@ public interface ClientListener {
      *
      * @param client The client that has dropped the connection.
      */
-    void connectionLost(TsplConnectionClient client);
+    void connectionLost(TSPLConnectionClient client);
 
     /**
      * This method will be invoked by client if it has experience IO exception
@@ -47,5 +47,5 @@ public interface ClientListener {
      * @param e      Exception that it has encounter, most likely it will be an
      *               IOException.
      */
-    void connectionIsFailing(TsplConnectionClient client, Exception e);
+    void connectionIsFailing(TSPLConnectionClient client, Exception e);
 }

@@ -11,9 +11,11 @@
 package com.finium.core.drivers.tspl.exceptions;
 
 /**
+ * This exception can be used to indicate any in-correct state/status
+ *
  * @author Venkaiah Chowdary Koneru
  */
-public class PrinterException extends RuntimeException{
+public class PrinterException extends RuntimeException {
     private static final long serialVersionUID = -7032802716798268348L;
     private String message;
 
@@ -25,7 +27,6 @@ public class PrinterException extends RuntimeException{
     }
 
     /**
-     *
      * @param message
      */
     public PrinterException(String message) {

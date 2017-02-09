@@ -25,12 +25,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * USB based client communication implementation
+ * USB based client communication implementation for TSPL2 device
  *
  * @author Venkaiah Chowdary Koneru
  */
 @Slf4j
-public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListener {
+public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListener {
     private List<ClientListener> clientListeners = new ArrayList<ClientListener>();
     private List<DataListener> dataListeners = new ArrayList<DataListener>();
     private ExecutorService executorService = Executors.newCachedThreadPool();
@@ -218,7 +218,7 @@ public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListe
     }
 
     /**
-     * retrieves the desired USB device from the given root hub based on the
+     * Retrieves the desired USB device from the given root hub based on the
      * vendorId and productId.
      *
      * @param hub       the root hub services object
@@ -239,7 +239,7 @@ public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListe
     }
 
     /**
-     * finds the USBDevice's interface and claims the interface
+     * Finds the USBDevice's interface and claims the interface
      */
     private void findAndClaimInterface() {
         UsbConfiguration configuration = usbDevice.getActiveUsbConfiguration();
@@ -346,7 +346,8 @@ public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListe
     }
 
     /**
-     *
+     * All the client listeners will be informed about the successful
+     * connection establishment to the TSPL2 device.
      */
     private void notifyConnection() {
         clientListeners.forEach((listener) -> {
@@ -355,7 +356,8 @@ public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListe
     }
 
     /**
-     *
+     * All the client listeners will be informed about loss of connection
+     * to the TSPL2 device.
      */
     private void notifyConnectionLost() {
         clientListeners.forEach((listener) -> {
@@ -364,7 +366,8 @@ public class USBConnectionClient implements TsplConnectionClient, UsbDeviceListe
     }
 
     /**
-     *
+     * All the client listeners will be informed about persistent connection failure
+     * to the TSPL2 device.
      */
     private void notifyConnectionFailed() {
         clientListeners.forEach((listener) -> {
