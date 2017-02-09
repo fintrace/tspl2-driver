@@ -2,10 +2,12 @@ tspl2-driver
 ============
 
 This library will help you to communicate with TSPL2 (TSC brand) based printers.
+
 This drivers supports communication with printer over 
 * USB Communcation
 * Ethernet (WIP)
 * Bluetooth (WIP)
+
 
 Hello World
 =================
