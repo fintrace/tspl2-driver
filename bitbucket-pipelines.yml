@@ -1,0 +1,9 @@
+# Check the guides at https://confluence.atlassian.com/x/VYk8Lw for more examples.
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.3.3
+
+pipelines:
+  default:
+    - step:
+        script: 
+          - mvn clean install
