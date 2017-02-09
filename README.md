@@ -12,7 +12,7 @@ This drivers supports communication with printer over
 Hello World
 =================
 
-Add dependy in your pom
+Add dependency in your pom
 
   	  
 ```
