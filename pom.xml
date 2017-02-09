@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.finium.core.drivers</groupId>
+    <artifactId>tspl2-driver</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>tspl2-driver</name>
+    <description>Java Api for Zepra Zpl generator and communication</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For using usb4java with javax-usb -->
+        <dependency>
+            <groupId>org.usb4java</groupId>
+            <artifactId>usb4java-javax</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <scm>
+        <connection>scm:git:git://bitbucket.org/fintrace/tspl2-driver.git</connection>
+        <url>https://bitbucket.org/fintrace/tspl2-driver</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>koneru.chowdary</id>
+            <name>Venkaiah Chowdary Koneru</name>
+            <email>koneru.chowdary@gmail.com</email>
+            <roles>
+                <role>Software Architect</role>
+                <role>Technical Lead</role>
+                <role>Team Lead</role>
+            </roles>
+            <url>http://www.venkykoneru.com</url>
+        </developer>
+    </developers>
+</project>
