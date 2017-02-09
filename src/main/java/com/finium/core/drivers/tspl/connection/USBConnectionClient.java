@@ -10,6 +10,7 @@
  */
 package com.finium.core.drivers.tspl.connection;
 
+import com.finium.core.drivers.tspl.exceptions.PrinterException;
 import com.finium.core.drivers.tspl.listeners.ClientListener;
 import com.finium.core.drivers.tspl.listeners.DataListener;
 import lombok.extern.slf4j.Slf4j;

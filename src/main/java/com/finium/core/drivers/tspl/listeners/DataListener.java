@@ -10,7 +10,7 @@
  */
 package com.finium.core.drivers.tspl.listeners;
 
-import com.finium.core.drivers.tspl.connection.ConnectionClientException;
+import com.finium.core.drivers.tspl.exceptions.ConnectionClientException;
 
 /**
  * @author Venkaiah Chowdary Koneru

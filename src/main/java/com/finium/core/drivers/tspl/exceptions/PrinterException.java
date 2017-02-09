@@ -8,7 +8,7 @@
  * Feb 09, 2017		Venkaiah Chowdary Koneru		Created
  * *************************************************************
  */
-package com.finium.core.drivers.tspl.connection;
+package com.finium.core.drivers.tspl.exceptions;
 
 /**
  * @author Venkaiah Chowdary Koneru

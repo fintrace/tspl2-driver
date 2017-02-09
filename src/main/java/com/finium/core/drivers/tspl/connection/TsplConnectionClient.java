@@ -53,7 +53,7 @@ public interface TsplConnectionClient {
     void removeDataListener(DataListener listener);
 
     /**
-     *
+     * initializes the printer with defaults.
      */
     void init();
 
@@ -75,7 +75,9 @@ public interface TsplConnectionClient {
     void disconnect();
 
     /**
-     *
+     * Shutdown the communication channels to the printer.
+     * Once shutdown is invoked, Client should invoke TsplConnectionClient#init() again
+     * in order to initiate the communication.
      */
     void shutdown();
 

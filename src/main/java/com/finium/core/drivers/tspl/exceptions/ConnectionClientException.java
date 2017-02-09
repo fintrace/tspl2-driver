@@ -8,7 +8,7 @@
  * Feb 09, 2017		Venkaiah Chowdary Koneru		Created
  * *************************************************************
  */
-package com.finium.core.drivers.tspl.connection;
+package com.finium.core.drivers.tspl.exceptions;
 
 /**
  * Exception that will be thrown by the internal process of Zebra client.
