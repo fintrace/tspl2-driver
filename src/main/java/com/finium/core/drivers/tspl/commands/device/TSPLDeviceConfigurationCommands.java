@@ -8,14 +8,14 @@
  * Feb 09, 2017		Venkaiah Chowdary Koneru		Created
  * *************************************************************
  */
-package com.finium.core.drivers.tspl.commands;
+package com.finium.core.drivers.tspl.commands.device;
 
+import com.finium.core.drivers.tspl.commands.TSPLCommand;
 import com.finium.core.drivers.tspl.commands.values.*;
 
 import java.io.UnsupportedEncodingException;
 
 import static com.finium.core.drivers.tspl.DriverConstants.SET_PREFIX;
-import static com.finium.core.drivers.tspl.commands.DeviceConfigCommand.*;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
@@ -31,74 +31,74 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
     /**
      * Disable cutter function.
      */
-    PARTIAL_CUTTER_OFF(PARTIAL_CUTTER, PartialCutterValues.OFF),
+    PARTIAL_CUTTER_OFF(DeviceConfigCommand.PARTIAL_CUTTER, PartialCutterValues.OFF),
 
     /**
      * Set printer to cut label at the end of printing job.
      */
-    PARTIAL_CUTTER_BATCH(PARTIAL_CUTTER, PartialCutterValues.BATCH),
+    PARTIAL_CUTTER_BATCH(DeviceConfigCommand.PARTIAL_CUTTER, PartialCutterValues.BATCH),
 
     /**
      * Set number of printing labels per cut. 0<= pieces <=65535.
      * Shall append the this command with the number of pieces.
      */
-    PARTIAL_CUTTER_PIECES(PARTIAL_CUTTER, PartialCutterValues.Pieces),
+    PARTIAL_CUTTER_PIECES(DeviceConfigCommand.PARTIAL_CUTTER, PartialCutterValues.Pieces),
 
     /**
      * Disable cutter function.
      */
-    CUTTER_OFF(CUTTER, PartialCutterValues.OFF),
+    CUTTER_OFF(DeviceConfigCommand.CUTTER, PartialCutterValues.OFF),
 
     /**
      * Set printer to cut label at the end of printing job.
      */
-    CUTTER_BATCH(CUTTER, PartialCutterValues.BATCH),
+    CUTTER_BATCH(DeviceConfigCommand.CUTTER, PartialCutterValues.BATCH),
 
     /**
      * Set number of printing labels per cut. 0<= pieces <=65535.
      * Shall append the this command with the number of pieces.
      */
-    CUTTER_PIECES(CUTTER, PartialCutterValues.Pieces),
+    CUTTER_PIECES(DeviceConfigCommand.CUTTER, PartialCutterValues.Pieces),
 
     /**
      * Diasbles label backfeeding
      */
-    BACK_OFF(BACK, BackCommandValues.OFF),
+    BACK_OFF(DeviceConfigCommand.BACK, BackCommandValues.OFF),
 
     /**
      * enables label backfeeding
      */
-    BACK_ON(BACK, BackCommandValues.ON),
+    BACK_ON(DeviceConfigCommand.BACK, BackCommandValues.ON),
 
     /**
      * Enable the self-peeling function
      */
-    PEEL_ON(PEEL, PeelCommandValues.ON),
+    PEEL_ON(DeviceConfigCommand.PEEL, PeelCommandValues.ON),
 
     /**
      * Disables the self-peeling function
      */
-    PEEL_OFF(PEEL, PeelCommandValues.OFF),
+    PEEL_OFF(DeviceConfigCommand.PEEL, PeelCommandValues.OFF),
 
     /**
      * Turn on the "HEAD OPEN" sensor
      */
-    HEAD_ON(HEAD, HeadCommandValues.ON),
+    HEAD_ON(DeviceConfigCommand.HEAD, HeadCommandValues.ON),
 
     /**
      * Turn off the "HEAD OPEN" sensor
      */
-    HEAD_OFF(HEAD, HeadCommandValues.OFF),
+    HEAD_OFF(DeviceConfigCommand.HEAD, HeadCommandValues.OFF),
 
     /**
      * Enable ribbon encoder sensor.
      */
-    ENCODER_ON(ENCODER, EncoderCommandValues.ON),
+    ENCODER_ON(DeviceConfigCommand.ENCODER, EncoderCommandValues.ON),
 
     /**
      * Disable ribbon encoder sensor.
      */
-    ENCODER_OFF(ENCODER, EncoderCommandValues.OFF);
+    ENCODER_OFF(DeviceConfigCommand.ENCODER, EncoderCommandValues.OFF);
 
     private DeviceConfigCommand command;
     private CommandValues commandValue;

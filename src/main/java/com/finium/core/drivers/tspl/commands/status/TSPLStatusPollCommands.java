@@ -8,7 +8,9 @@
  * Feb 09, 2017		Venkaiah Chowdary Koneru		Created
  * *************************************************************
  */
-package com.finium.core.drivers.tspl.commands;
+package com.finium.core.drivers.tspl.commands.status;
+
+import com.finium.core.drivers.tspl.commands.TSPLCommand;
 
 import java.io.UnsupportedEncodingException;
 

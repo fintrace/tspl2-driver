@@ -8,7 +8,7 @@
  * Feb 09, 2017		Venkaiah Chowdary Koneru		Created
  * *************************************************************
  */
-package com.finium.core.drivers.tspl.commands;
+package com.finium.core.drivers.tspl.commands.device;
 
 /**
  * High-level Device Reconfiguration Commands.

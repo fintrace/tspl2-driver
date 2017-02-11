@@ -97,4 +97,10 @@ public interface TSPLConnectionClient {
      * @param tsplMessage The message to send.
      */
     void send(String tsplMessage);
+
+    /**
+     *
+     * @param message
+     */
+    void send(byte[] message);
 }
