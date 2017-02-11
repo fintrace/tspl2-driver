@@ -27,7 +27,8 @@ public final class TSPLLabelUtils {
     }
 
     /**
-     * parses the content and replaces any <<< >>> occurann
+     * parses the content and replaces any <<< >>> occurrences
+     *
      * @param labelTemplate
      * @param parameters
      * @return
