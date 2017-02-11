@@ -17,12 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.usb.*;
 import javax.usb.event.*;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * USB based client communication implementation for TSPL2 device
@@ -180,12 +180,17 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      */
     @Override
     public void send(String tsplMessage) {
+        send(tsplMessage.getBytes(US_ASCII));
+    }
+
+    @Override
+    public void send(byte[] message) {
         if (!isConnected) {
             throw new PrinterException("Printer is not connected");
         }
 
         try {
-            writePipe.syncSubmit(tsplMessage.getBytes(Charset.forName("US-ASCII")));
+            writePipe.syncSubmit(message);
         } catch (UsbException e) {
             log.error("Exception submit", e);
         }
@@ -319,11 +324,7 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
     private void notifyReadDataEvent(UsbPipeDataEvent dataEvent) {
         dataListeners.forEach((DataListener dataListener) -> {
             executorService.execute(() -> {
-                try {
-                    dataListener.messageReceived(new String(dataEvent.getData(), "US-ASCII"));
-                } catch (UnsupportedEncodingException e) {
-                    log.error("", e);
-                }
+                dataListener.messageReceived(new String(dataEvent.getData(), US_ASCII));
             });
         });
     }
@@ -336,11 +337,7 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
     private void notifyWriteDataEvent(UsbPipeDataEvent dataEvent) {
         dataListeners.forEach((DataListener dataListener) -> {
             executorService.execute(() -> {
-                try {
-                    dataListener.messageSent(new String(dataEvent.getData(), "US-ASCII"));
-                } catch (UnsupportedEncodingException e) {
-                    log.error("", e);
-                }
+                dataListener.messageSent(new String(dataEvent.getData(), US_ASCII));
             });
         });
     }

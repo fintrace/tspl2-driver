@@ -10,7 +10,7 @@
  */
 package com.finium.core.drivers.tspl.commands.values;
 
-import com.finium.core.drivers.tspl.commands.DeviceConfigCommand;
+import com.finium.core.drivers.tspl.commands.device.DeviceConfigCommand;
 
 /**
  * PARTIAL_CUTTER command values
