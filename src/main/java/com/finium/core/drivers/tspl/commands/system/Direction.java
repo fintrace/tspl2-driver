@@ -51,6 +51,6 @@ public class Direction implements TSPLCommand<byte[]> {
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
         return (DIRECTION.name() + (printPositionAsFeed ? "1" : "0") + ","
-                + (printMirrorImage ? "1" : "0")).getBytes(US_ASCII);
+                + (printMirrorImage ? "1" : "0") + "\n").getBytes(US_ASCII);
     }
 }

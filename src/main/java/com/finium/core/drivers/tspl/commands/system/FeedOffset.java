@@ -56,6 +56,6 @@ public class FeedOffset implements TSPLCommand<byte[]> {
             throw new LabelParserException("ParseException OFFSET Command: offset can't be empty");
         }
 
-        return (SystemCommand.OFFSET.name() + " " + offsetDistance + " mm").getBytes(US_ASCII);
+        return (SystemCommand.OFFSET.name() + " " + offsetDistance + " mm\n").getBytes(US_ASCII);
     }
 }

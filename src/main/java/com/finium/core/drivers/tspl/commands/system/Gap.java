@@ -67,6 +67,6 @@ public class Gap implements TSPLCommand<byte[]> {
 
         return (SystemCommand.GAP.name() + " "
                 + labelDistance + " mm," + labelOffsetDistance
-                + " mm").getBytes(US_ASCII);
+                + " mm\n").getBytes(US_ASCII);
     }
 }

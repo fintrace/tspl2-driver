@@ -84,6 +84,6 @@ public class Bar implements TSPLCommand<byte[]> {
     public byte[] getCommand() throws UnsupportedEncodingException {
         return (BAR.name() + " " + xCoordinate + ","
                 + yCoordinate + ","
-                + width + "," + height).getBytes(US_ASCII);
+                + width + "," + height + "\n").getBytes(US_ASCII);
     }
 }

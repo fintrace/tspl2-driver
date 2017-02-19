@@ -72,7 +72,7 @@ public class Print implements TSPLCommand<byte[]> {
         }
 
         return (PRINT.name() + " " + nbLabels +
-                (nbCopies != null ? ("," + nbCopies) : ""))
+                (nbCopies != null ? ("," + nbCopies) : "") + "\n")
                 .getBytes(US_ASCII);
     }
 }

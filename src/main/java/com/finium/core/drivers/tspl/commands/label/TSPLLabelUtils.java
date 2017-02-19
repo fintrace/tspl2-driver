@@ -1,7 +1,7 @@
 /*
  * Copyright © 2017, Finium Solutions, All Rights Reserved
  * 
- * TSPLLabel.java
+ * TSPLLabelUtils.java
  * Modification History
  * *************************************************************
  * Date				Author		Comment
@@ -17,16 +17,18 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public final class TSPLLabel {
+public final class TSPLLabelUtils {
 
 
     /**
-     *
+     * private to prevent un-necessary instantiation
      */
-    private TSPLLabel() {
+    private TSPLLabelUtils() {
     }
 
     /**
+     * parses the content and replaces any <<< >>> occurrences
+     *
      * @param labelTemplate
      * @param parameters
      * @return

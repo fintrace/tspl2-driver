@@ -56,6 +56,6 @@ public class Speed implements TSPLCommand<byte[]> {
             throw new LabelParserException("ParseException SPEED Command: speed can't be empty");
         }
 
-        return (SystemCommand.SPEED.name() + " " + printSpeed).getBytes(US_ASCII);
+        return (SystemCommand.SPEED.name() + " " + printSpeed + "\n").getBytes(US_ASCII);
     }
 }

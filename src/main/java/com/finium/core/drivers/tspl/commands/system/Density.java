@@ -60,6 +60,6 @@ public class Density implements TSPLCommand<byte[]> {
             throw new LabelParserException("ParseException DENSITY Command: darkness can't be empty");
         }
 
-        return (SystemCommand.DENSITY.name() + " " + darkness).getBytes(US_ASCII);
+        return (SystemCommand.DENSITY.name() + " " + darkness + "\n").getBytes(US_ASCII);
     }
 }

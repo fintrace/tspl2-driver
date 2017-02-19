@@ -11,55 +11,63 @@
 package com.finium.core.drivers.tspl.commands.label;
 
 import com.finium.core.drivers.tspl.commands.TSPLCommand;
+import lombok.Builder;
+import lombok.Data;
 
 import java.io.UnsupportedEncodingException;
+
+import static com.finium.core.drivers.tspl.commands.label.BarcodeAlignment.DEFAULT_LEFT;
+import static com.finium.core.drivers.tspl.commands.label.LabelCommand.BARCODE;
+import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * This command prints 1D barcodes. The available barcodes are listed below:<br>
  * <pre>
- * <b>Code Type Description Max. data length</b>
- * 128 Code 128, switching code subset automatically.
- * 128M Code 128, switching code subset manually.
- * EAN128 EAN128, switching code subset automatically.
- * 25 Interleaved 2 of 5. Length is even
- * 25C Interleaved 2 of 5 with check digit. Length is odd
- * 39 Code 39, switching standard and full ASCII mode automatically.
- * 39C Code 39 with check digit.
- * 93 Code 93.
- * EAN13 EAN 13. 12
- * EAN13+2 EAN 13 with 2 digits add-on. 14
- * EAN13+5 EAN 13 with 5 digits add-on. 17
- * EAN8 EAN 8. 7
- * EAN8+2 EAN 8 with 2 digits add-on. 9
- * EAN8+5 EAN 8 with 5 digits add-on. 12
- * CODA Codabar.
- * POST Postnet. 5, 9, 11
- * UPCA UPC-A. 11
- * UPCA+2 UPC-A with 2 digits add-on. 13
- * UPA+5 UPC-A with 5 digits add-on. 16
- * UPCE UPC-E. 6
- * UPCE+2 UPC-E with 2 digits add-on. 8
- * UPE+5 UPC-E with 5 digits add-on. 11
- * MSI MSI.
- * MSIC MSI with check digit.
- * PLESSEY PLESSEY.
- * CPOST China post.
- * ITF14 ITF14.  13
- * EAN14 EAN14.  13
- * 11 Code 11.
- * TELEPEN Telepen.
- * TELEPENN Telepen number.
- * PLANET Planet.
- * CODE49 Code 49.
- * DPI Deutsche Post Identcode. 11
- * DPL Deutsche Post Leitcode. 13
- * LOGMARS A special use of Code 39.
+ * <b>Code Type Description Max. data length</b><br>
+ * 128 Code 128, switching code subset automatically.<br>
+ * 128M Code 128, switching code subset manually.<br>
+ * EAN128 EAN128, switching code subset automatically.<br>
+ * 25 Interleaved 2 of 5. Length is even<br>
+ * 25C Interleaved 2 of 5 with check digit. Length is odd<br>
+ * 39 Code 39, switching standard and full ASCII mode automatically.<br>
+ * 39C Code 39 with check digit.<br>
+ * 93 Code 93.<br>
+ * EAN13 EAN 13. 12<br>
+ * EAN13+2 EAN 13 with 2 digits add-on. 14<br>
+ * EAN13+5 EAN 13 with 5 digits add-on. 17<br>
+ * EAN8 EAN 8. 7<br>
+ * EAN8+2 EAN 8 with 2 digits add-on. 9<br>
+ * EAN8+5 EAN 8 with 5 digits add-on. 12<br>
+ * CODA Codabar.<br>
+ * POST Postnet. 5, 9, 11<br>
+ * UPCA UPC-A. 11<br>
+ * UPCA+2 UPC-A with 2 digits add-on. 13<br>
+ * UPA+5 UPC-A with 5 digits add-on. 16<br>
+ * UPCE UPC-E. 6<br>
+ * UPCE+2 UPC-E with 2 digits add-on. 8<br>
+ * UPE+5 UPC-E with 5 digits add-on. 11<br>
+ * MSI MSI.<br>
+ * MSIC MSI with check digit.<br>
+ * PLESSEY PLESSEY.<br>
+ * CPOST China post.<br>
+ * ITF14 ITF14.  13<br>
+ * EAN14 EAN14.  13<br>
+ * 11 Code 11.<br>
+ * TELEPEN Telepen.<br>
+ * TELEPENN Telepen number.<br>
+ * PLANET Planet.<br>
+ * CODE49 Code 49.<br>
+ * DPI Deutsche Post Identcode. 11<br>
+ * DPL Deutsche Post Leitcode. 13<br>
+ * LOGMARS A special use of Code 39.<br>
  * </pre>
  * <b>Syntax</b><br>
  * BARCODE X,Y, "code type",height,human readable,rotation,narrow,wide,[alignment,] "content "<br>
  *
  * @author Venkaiah Chowdary Koneru
  */
+@Data
+@Builder
 public class Barcode implements TSPLCommand<byte[]> {
     /**
      * x-coordinate of bar code on the label
@@ -77,12 +85,54 @@ public class Barcode implements TSPLCommand<byte[]> {
     private int height;
 
     /**
+     * code type
+     */
+    private BarcodeType codeType;
+
+    /**
      * human readable
      */
     private BarcodeHRCAlignment hrcAlignment;
 
+    /**
+     * rotation
+     */
+    private BarcodeRotation rotation;
+
+    /**
+     * Width of narrow element (in dots)
+     */
+    private int narrow;
+
+    /**
+     * Width of wide element (in dots)
+     */
+    private int wide;
+
+    /**
+     * alignment of barcode. Default is (0) : left
+     */
+    private BarcodeAlignment alignment = DEFAULT_LEFT;
+
+    /**
+     * content of the barcode
+     */
+    private String content;
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
-        return new byte[0];
+        return (BARCODE.name() + " " + xCoordinate + ","
+                + yCoordinate + ","
+                + "\"" + codeType.getCodeType() + "\"" + ","
+                + height + ","
+                + hrcAlignment.getAlignment() + ","
+                + rotation + ","
+                + narrow + ","
+                + wide + ","
+                + alignment.getAlignment() + ","
+                + "\"" + content + "\"\n").getBytes(US_ASCII);
     }
 }

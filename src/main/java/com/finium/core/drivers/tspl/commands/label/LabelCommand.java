@@ -23,5 +23,25 @@ public enum LabelCommand {
     /**
      * 1D barcodes.
      */
-    BARCODE
+    BARCODE,
+
+    /**
+     * to draw rectangles on the label.
+     */
+    BOX,
+
+    /**
+     * to draw circle on the label.
+     */
+    CIRCLE,
+
+    /**
+     * to draw an ellipse on the label.
+     */
+    ELLIPSE,
+
+    /**
+     * DataMatrix 2D bar code
+     */
+    DMATRIX
 }

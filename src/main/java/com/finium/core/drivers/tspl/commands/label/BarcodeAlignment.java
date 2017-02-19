@@ -1,7 +1,7 @@
 /*
  * Copyright © 2017, Finium Solutions, All Rights Reserved
  * 
- * BarcodeHRCAlignment.java
+ * BarcodeAlignment.java
  * Modification History
  * *************************************************************
  * Date				Author		Comment
@@ -11,42 +11,42 @@
 package com.finium.core.drivers.tspl.commands.label;
 
 /**
- * Human readable code alignment<br>
+ * alignment of barcode<br>
  * <p>
- * 0: not readable<br>
- * 1: human readable aligns to left<br>
- * 2: human readable aligns to center<br>
- * 3: human readable aligns to right<br>
+ * 0 : default (Left)<br>
+ * 1 : Left<br>
+ * 2 : Center<br>
+ * 3 : Right<br>
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum BarcodeHRCAlignment {
+public enum BarcodeAlignment {
     /**
-     * not readable
+     * default (Left)
      */
-    NO_HRC_DISPLAY(0),
+    DEFAULT_LEFT(0),
 
     /**
-     * human readable aligns to left
+     * Left
      */
-    HRC_ALIGN_LEFT(1),
+    LEFT(1),
 
     /**
-     * human readable aligns to center
+     * Center
      */
-    HRC_ALIGN_CENTER(2),
+    CENTER(2),
 
     /**
-     * human readable aligns to right
+     * Right
      */
-    HRC_ALIGN_RIGHT(3);
+    RIGHT(3);
 
     private int alignment;
 
     /**
      * @param alignment
      */
-    private BarcodeHRCAlignment(int alignment) {
+    private BarcodeAlignment(int alignment) {
         this.alignment = alignment;
     }
 

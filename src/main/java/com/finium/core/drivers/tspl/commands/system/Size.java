@@ -67,6 +67,6 @@ public class Size implements TSPLCommand<byte[]> {
 
         return (SystemCommand.SIZE.name() + " "
                 + labelWidth + " mm," + labelLength
-                + " mm").getBytes(US_ASCII);
+                + " mm\n").getBytes(US_ASCII);
     }
 }
