@@ -272,10 +272,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * @return the USBPipe
      */
     private UsbPipe getReadPipe() {
-        if (!isConnected) {
-            throw new PrinterException("Printer is not connected");
-        }
-
         UsbPipe localReadPipe = usbInterface.getUsbEndpoint((byte) outPipeAddress).getUsbPipe();
         localReadPipe.addUsbPipeListener(new UsbPipeListener() {
             @Override
@@ -297,10 +293,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * @return USBPipe
      */
     private UsbPipe getWritePipe() {
-        if (!isConnected) {
-            throw new PrinterException("Printer is not connected");
-        }
-
         UsbPipe localWritePipe = usbInterface.getUsbEndpoint((byte) inPipeAddress).getUsbPipe();
         localWritePipe.addUsbPipeListener(new UsbPipeListener() {
             @Override
