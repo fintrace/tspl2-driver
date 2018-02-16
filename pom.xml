@@ -7,40 +7,28 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>tspl2-driver</name>
-    <description>Java Api for Zepra Zpl generator and communication</description>
+    <description>Java client for TSPL2 generator and USB communication</description>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <lombok.version>1.16.10</lombok.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <usb4java.version>1.2.0</usb4java.version>
+        <junit.version>4.11</junit.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.10</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-
-        <!-- For using usb4java with javax-usb -->
-        <dependency>
-            <groupId>org.usb4java</groupId>
-            <artifactId>usb4java-javax</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <scm>
+        <url>http://github.com/finium-source/tspl2-driver</url>
+        <connection>scm:git:git://github.com/finium-source/tspl2-driver.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/finium-source/tspl2-driver.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <plugins>
             <plugin>
@@ -52,12 +40,171 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>filter-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <filtering>true</filtering>
+                                    <directory>${basedir}</directory>
+                                    <include>license-metadata.txt</include>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-and-rename-file</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${project.build.outputDirectory}/META-INF/license-metadata.txt</sourceFile>
+                            <destinationFile>${project.build.outputDirectory}/META-INF/License.txt</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>${project.organization.name}</Built-By>
+                            <Implementation-Title>${project.artifactId}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Sealed>true</Sealed>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.10.b1</version>
+                <configuration>
+                    <header>license-metadata.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                    <properties>
+                        <project>
+                            ${project.name}
+                        </project>
+                        <project.organization.name>${project.organization.name}</project.organization.name>
+                    </properties>
+                    <includes>
+                        <include>src/main/java/**</include>
+                        <include>src/test/java/**</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>licenses</artifactId>
+                        <version>1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>7.7</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <failsOnError>true</failsOnError>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    <scm>
-        <connection>scm:git:git://bitbucket.org/fintrace/tspl2-driver.git</connection>
-        <url>https://bitbucket.org/fintrace/tspl2-driver</url>
-    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- For using usb4java with javax-usb -->
+        <dependency>
+            <groupId>org.usb4java</groupId>
+            <artifactId>usb4java-javax</artifactId>
+            <version>${usb4java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <organization>
+        <name>Finium Solutions</name>
+    </organization>
     <developers>
         <developer>
             <id>koneru.chowdary</id>
@@ -68,7 +215,32 @@
                 <role>Technical Lead</role>
                 <role>Team Lead</role>
             </roles>
-            <url>http://www.venkykoneru.com</url>
+        </developer>
+        <developer>
+            <id>koneru.chowdary</id>
+            <name>Venkaiah Chowdary Koneru</name>
+            <email>koneru.chowdary@gmail.com</email>
+            <roles>
+                <role>Software Architect</role>
+                <role>Technical Lead</role>
+                <role>Team Lead</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>chalampavuluri</id>
+            <name>Venkata Chalam Pavuluri</name>
+            <email>chalampavuluri@gmail.com</email>
+            <roles>
+                <role>Contributor</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>sominenisrinu</id>
+            <name>Srinu Somineni</name>
+            <email>sominenisrinu@gmail.com</email>
+            <roles>
+                <role>Contributor</role>
+            </roles>
         </developer>
     </developers>
 </project>

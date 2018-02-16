@@ -24,10 +24,11 @@ import java.io.UnsupportedEncodingException;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
- * This command defines the selective, extra label feeding length each form feed takes, which, especially
- * in peel-off mode and cutter mode, is used to adjust label stop position, so as for label to register at
- * proper places for the intended purposes. The printer back tracks the extra feeding length before the
- * next run of printing.
+ * This command defines the selective, extra label feeding length
+ * each form feed takes, which, especially in peel-off mode and cutter
+ * mode, is used to adjust label stop position, so as for label to
+ * register at proper places for the intended purposes. The printer back
+ * tracks the extra feeding length before the next run of printing.
  *
  * @author Venkaiah Chowdary Koneru
  */

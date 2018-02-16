@@ -22,8 +22,9 @@ import com.finium.core.drivers.tspl.listeners.DataListener;
 import javax.usb.UsbException;
 
 /**
- * This interface define the Connection level contract with the TSPL (a.k.a TSC branded printer) system.
- * Implementation can be done with TCP/IP Socket, USB or other mechanism.
+ * This interface define the Connection level contract with the
+ * TSPL (a.k.a TSC branded printer) system. Implementation can be done
+ * with TCP/IP Socket, USB or other mechanism.
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -96,8 +97,9 @@ public interface TSPLConnectionClient {
 
     /**
      * Instruct the client to send TSPL2 communication message. This method will
-     * either return immediately or block until the submission is complete depending on the implementation.
-     * Listen for response using the provided listeners call backs. (ie, DataListener).
+     * either return immediately or block until the submission is complete depending
+     * on the implementation. Listen for response using the provided listeners
+     * call backs. (ie, DataListener).
      *
      * @param tsplMessage The message to send.
      */

@@ -63,7 +63,8 @@ public class Print implements TSPLCommand<byte[]> {
      */
     public Print(Integer nbLabels, Integer nbCopies) {
         if (nbLabels == null) {
-            throw new LabelParserException("ParseException PRINT Command: number of sets of labels is required");
+            throw new LabelParserException("ParseException PRINT Command: "
+                    + "number of sets of labels is required");
         }
 
         this.nbLabels = nbLabels;
@@ -73,11 +74,12 @@ public class Print implements TSPLCommand<byte[]> {
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
         if (nbLabels == null) {
-            throw new LabelParserException("ParseException PRINT Command: number of sets of labels is required");
+            throw new LabelParserException("ParseException PRINT Command: "
+                    + "number of sets of labels is required");
         }
 
-        return (PRINT.name() + " " + nbLabels +
-                (nbCopies != null ? ("," + nbCopies) : "") + "\n")
+        return (PRINT.name() + " " + nbLabels
+                + (nbCopies != null ? ("," + nbCopies) : "") + "\n")
                 .getBytes(US_ASCII);
     }
 }

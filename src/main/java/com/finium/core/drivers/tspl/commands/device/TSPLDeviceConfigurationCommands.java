@@ -16,7 +16,12 @@
 package com.finium.core.drivers.tspl.commands.device;
 
 import com.finium.core.drivers.tspl.commands.TSPLCommand;
-import com.finium.core.drivers.tspl.commands.values.*;
+import com.finium.core.drivers.tspl.commands.values.BackCommandValues;
+import com.finium.core.drivers.tspl.commands.values.CommandValues;
+import com.finium.core.drivers.tspl.commands.values.EncoderCommandValues;
+import com.finium.core.drivers.tspl.commands.values.HeadCommandValues;
+import com.finium.core.drivers.tspl.commands.values.PartialCutterValues;
+import com.finium.core.drivers.tspl.commands.values.PeelCommandValues;
 
 import java.io.UnsupportedEncodingException;
 
@@ -112,7 +117,8 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
      * @param command
      * @param commandValue
      */
-    private TSPLDeviceConfigurationCommands(DeviceConfigCommand command, CommandValues commandValue) {
+    TSPLDeviceConfigurationCommands(DeviceConfigCommand command,
+                                    CommandValues commandValue) {
         this.command = command;
         this.commandValue = commandValue;
     }
@@ -122,7 +128,8 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
      */
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
-        return (SET_PREFIX + " " + this.command.name() + " " + this.commandValue.getCommandValue())
+        return (SET_PREFIX + " " + this.command.name()
+                + " " + this.commandValue.getCommandValue())
                 .getBytes(US_ASCII);
     }
 }

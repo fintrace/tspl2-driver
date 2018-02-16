@@ -51,7 +51,7 @@ public enum BarcodeHRCAlignment {
     /**
      * @param alignment
      */
-    private BarcodeHRCAlignment(int alignment) {
+    BarcodeHRCAlignment(int alignment) {
         this.alignment = alignment;
     }
 

@@ -33,10 +33,11 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     /**
-     * This command obtains the printer status at any time, even in the event of printer error. An inquiry
-     * request is solicited by sending an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
-     * to the printer. A one byte character is returned, flagging the printer status. A 0 signifies the printer is
-     * ready to print labels.
+     * This command obtains the printer status at any time, even in the event
+     * of printer error. An inquiry request is solicited by sending
+     * an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
+     * to the printer. A one byte character is returned, flagging the printer status.
+     * A 0 signifies the printer is ready to print labels.
      * <p>
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!?
@@ -62,8 +63,9 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     STATUS("?", "Printer Status"),
 
     /**
-     * This command obtains the printer status at any time, even in the event of printer error. An inquiry
-     * request is solicited by sending an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
+     * This command obtains the printer status at any time, even in the
+     * event of printer error. An inquiry request is solicited by sending
+     * an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
      * to the printer. 8 bytes will be returned, flagging the printer status.
      * <p>
      * <b>Syntax </b><br>
@@ -112,7 +114,8 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     STATUS_LONG("S", "Printer Status"),
 
     /**
-     * This command is using to PAUSE the printer. The beginning of the command is an ESCAPE character
+     * This command is using to PAUSE the printer. The beginning of the command
+     * is an ESCAPE character
      * (ASCII 27).
      * <p>
      * <b>Syntax</b><br>
@@ -121,7 +124,8 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     PAUSE("P", "Pause Printer"),
 
     /**
-     * This command is using to cancel the PAUSE status of printer. The beginning of the command is an
+     * This command is using to cancel the PAUSE status of printer. The
+     * beginning of the command is an
      * ESCAPE character (ASCII 27).
      * <p>
      * <b>Syntax</b><br>
@@ -130,8 +134,9 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     CANCEL_PAUSE("O", "Cancel Printer Pause"),
 
     /**
-     * This command resets the printer. The beginning of the command is an ESCAPE character (ASCII 27).
-     * The files downloaded in memory will be deleted. This command cannot be sent in dump mode.
+     * This command resets the printer. The beginning of the command is
+     * an ESCAPE character (ASCII 27). The files downloaded in memory
+     * will be deleted. This command cannot be sent in dump mode.
      * <p>
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!R
@@ -139,8 +144,9 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     RESET("R", "Reset Printer"),
 
     /**
-     * This command is using to feed a label. This function is the same as to press the FEED button. The
-     * beginning of the command is an ESCAPE character (ASCII 27).
+     * This command is using to feed a label. This function is the same as
+     * to press the FEED button. The beginning of the command is
+     * an ESCAPE character (ASCII 27).
      * <p>
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!F
@@ -148,7 +154,8 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
     FEED_LABEL("F", "Feed Label"),
 
     /**
-     * This command can cancel all printing files. The beginning of the command is an ESCAPE character
+     * This command can cancel all printing files. The beginning of the
+     * command is an ESCAPE character
      * (ASCII 27).
      * <p>
      * <b>Syntax</b><br>
@@ -164,7 +171,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
      * @param command
      * @param description
      */
-    private TSPLStatusPollCommands(String command, String description) {
+    TSPLStatusPollCommands(String command, String description) {
         this.command = command;
         this.description = description;
     }

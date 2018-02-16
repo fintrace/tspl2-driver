@@ -38,11 +38,13 @@ public final class TSPLLabelUtils {
      * @param parameters
      * @return
      */
-    public static byte[] parseAndGetLabelContent(String labelTemplate, Map<String, String> parameters) {
+    public static byte[] parseAndGetLabelContent(String labelTemplate,
+                                                 Map<String, String> parameters) {
 
         String localTemplate = labelTemplate;
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            localTemplate = localTemplate.replaceAll("<<<" + entry.getKey() + ">>>", entry.getValue());
+            localTemplate = localTemplate.replaceAll("<<<" + entry.getKey()
+                    + ">>>", entry.getValue());
         }
 
         return localTemplate.getBytes(US_ASCII);

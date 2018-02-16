@@ -19,7 +19,8 @@ package com.finium.core.drivers.tspl.commands.label;
  * code type<br>
  * <p>
  * <b><i>Note:</i></b><br>
- * TDP-643 Plus , TTP-243, TTP-342, TTP-244ME and TTP-342M models are not supported MSI, MSIC, PLESSY, ITF14,
+ * TDP-643 Plus , TTP-243, TTP-342, TTP-244ME and TTP-342M models are
+ * not supported MSI, MSIC, PLESSY, ITF14,
  * EAN14 and 11.<br>
  * TTP-248M model are not supported MSIC and 11.
  *
@@ -46,7 +47,8 @@ public enum BarcodeType {
      * 103 Start (CODE A)<br>
      * 104 Start (CODE B)<br>
      * 105 Start (CODE C)<br>
-     * Use “!” as a starting character for the control code followed by three control codes. If the start subset
+     * Use “!” as a starting character for the control code followed
+     * by three control codes. If the start subset
      * is not set, the default starting subset is B.
      */
     CODE_128M("128M"),
@@ -233,7 +235,7 @@ public enum BarcodeType {
     /**
      * @param codeType
      */
-    private BarcodeType(String codeType) {
+    BarcodeType(String codeType) {
         this.codeType = codeType;
     }
 
