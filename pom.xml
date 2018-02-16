@@ -7,7 +7,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>tspl2-driver</name>
-    <description>Java Api for Zepra Zpl generator and communication</description>
+    <description>Java client for TSPL2 generator and USB communication</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -68,7 +68,32 @@
                 <role>Technical Lead</role>
                 <role>Team Lead</role>
             </roles>
-            <url>http://www.venkykoneru.com</url>
+        </developer>
+        <developer>
+            <id>koneru.chowdary</id>
+            <name>Venkaiah Chowdary Koneru</name>
+            <email>koneru.chowdary@gmail.com</email>
+            <roles>
+                <role>Software Architect</role>
+                <role>Technical Lead</role>
+                <role>Team Lead</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>chalampavuluri</id>
+            <name>Venkata Chalam Pavuluri</name>
+            <email>chalampavuluri@gmail.com</email>
+            <roles>
+                <role>Contributor</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>sominenisrinu</id>
+            <name>Srinu Somineni</name>
+            <email>sominenisrinu@gmail.com</email>
+            <roles>
+                <role>Contributor</role>
+            </roles>
         </developer>
     </developers>
 </project>
