@@ -51,7 +51,8 @@ public class Density implements TSPLCommand<byte[]> {
      */
     public Density(Integer darkness) {
         if (darkness == null) {
-            throw new LabelParserException("ParseException DENSITY Command: darkness can't be empty");
+            throw new LabelParserException("ParseException DENSITY Command: "
+                    + "darkness can't be empty");
         }
         this.darkness = darkness;
     }
@@ -62,7 +63,8 @@ public class Density implements TSPLCommand<byte[]> {
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
         if (darkness == null) {
-            throw new LabelParserException("ParseException DENSITY Command: darkness can't be empty");
+            throw new LabelParserException("ParseException DENSITY Command: "
+                    + "darkness can't be empty");
         }
 
         return (SystemCommand.DENSITY.name() + " " + darkness + "\n").getBytes(US_ASCII);

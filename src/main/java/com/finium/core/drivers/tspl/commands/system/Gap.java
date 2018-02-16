@@ -54,7 +54,8 @@ public class Gap implements TSPLCommand<byte[]> {
      */
     public Gap(Integer labelDistance, Integer labelOffsetDistance) {
         if (labelDistance == null || labelOffsetDistance == null) {
-            throw new LabelParserException("ParseException GAP Command: label distance and label offset should be specified");
+            throw new LabelParserException("ParseException GAP Command: "
+                    + "label distance and label offset should be specified");
         }
 
         this.labelDistance = labelDistance;
@@ -67,7 +68,8 @@ public class Gap implements TSPLCommand<byte[]> {
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
         if (labelDistance == null && labelOffsetDistance != null) {
-            throw new LabelParserException("ParseException GAP Command: label distance and label offset should be specified");
+            throw new LabelParserException("ParseException GAP Command: "
+                    + "label distance and label offset should be specified");
         }
 
         return (SystemCommand.GAP.name() + " "

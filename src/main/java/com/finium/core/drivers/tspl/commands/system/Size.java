@@ -54,7 +54,8 @@ public class Size implements TSPLCommand<byte[]> {
      */
     public Size(Integer labelWidth, Integer labelLength) {
         if (labelWidth == null || labelLength == null) {
-            throw new LabelParserException("ParseException SIZE Command: label width and label length should be specified");
+            throw new LabelParserException("ParseException SIZE Command: "
+                    + "label width and label length should be specified");
         }
 
         this.labelWidth = labelWidth;
@@ -67,7 +68,8 @@ public class Size implements TSPLCommand<byte[]> {
     @Override
     public byte[] getCommand() throws UnsupportedEncodingException {
         if (labelWidth == null || labelLength == null) {
-            throw new LabelParserException("ParseException SIZE Command: label width and label length should be specified");
+            throw new LabelParserException("ParseException SIZE Command: "
+                    + "label width and label length should be specified");
         }
 
         return (SystemCommand.SIZE.name() + " "

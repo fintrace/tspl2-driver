@@ -25,7 +25,8 @@ import static com.finium.core.drivers.tspl.commands.label.LabelCommand.DMATRIX;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
- * This command defines a DataMatrix 2D bar code. Currently, only <b>ECC200</b> error correction is supported.<br>
+ * This command defines a DataMatrix 2D bar code. Currently, only
+ * <b>ECC200</b> error correction is supported.<br>
  * <p>
  * <b>Syntax</b><br>
  * DMATRIX x,y,width,height,[c#,x#,r#,a#,row,col,] "content"<br>

@@ -52,7 +52,7 @@ public enum BarcodeRotation {
     /**
      * @param rotation
      */
-    private BarcodeRotation(int rotation) {
+    BarcodeRotation(int rotation) {
         this.rotation = rotation;
     }
 
