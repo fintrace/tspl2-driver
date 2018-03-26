@@ -10,9 +10,9 @@ sudo: false
 script: mvn clean package
 after_success:
   - if [ -n "$TRAVIS_TAG" ]; then
-      openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $GPG_DIR/pubring.kbx.enc -out $GPG_DIR/pubring.kbx -d;
-      mvn deploy -B -U --settings $GPG_DIR/settings.xml -DperformRelease=true -DskipTests=true;
-  fi
+        openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $GPG_DIR/pubring.kbx.enc -out $GPG_DIR/pubring.kbx -d;
+        mvn deploy -B -U --settings $GPG_DIR/settings.xml -DperformRelease=true -DskipTests=true;
+    fi
 env:
   global:
     - GPG_DIR="`pwd`/travis"
