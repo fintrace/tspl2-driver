@@ -1,6 +1,4 @@
 language: java
-services:
-  - docker
 jdk:
   - oraclejdk8
 cache:
