@@ -4,7 +4,7 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>tspl2-driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>

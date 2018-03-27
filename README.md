@@ -20,8 +20,7 @@ Add dependency in your pom
 <dependency>
     <groupId>com.finium.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.1</version>
-    <scope>compile</scope>
+    <version>0.0.2-SNAPSHOT</version>
 </dependency>
 ```
 
