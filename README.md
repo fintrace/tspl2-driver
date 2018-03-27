@@ -15,13 +15,12 @@ Hello World
 Add dependency in your pom
 
   	  
-```
-#!java
+```xml
 
 <dependency>
     <groupId>com.finium.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <scope>compile</scope>
 </dependency>
 ```
