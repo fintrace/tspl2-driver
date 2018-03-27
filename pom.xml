@@ -4,9 +4,10 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>tspl2-driver</name>
+    <url>https://github.com/fintrace/tspl2-driver</url>
     <description>Java client for TSPL2 generator and USB communication</description>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -27,8 +28,8 @@
                 <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
                 <gpg.defaultKeyring>false</gpg.defaultKeyring>
-                <gpg.publicKeyring>${env.GPG_DIR}/pubring.kbx</gpg.publicKeyring>
-                <gpg.secretKeyring>${env.GPG_DIR}/pubring.kbx</gpg.secretKeyring>
+                <gpg.publicKeyring>${env.GPG_DIR}/pubring.gpg</gpg.publicKeyring>
+                <gpg.secretKeyring>${env.GPG_DIR}/secring.gpg</gpg.secretKeyring>
             </properties>
             <activation>
                 <property>
@@ -57,9 +58,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.0</version>
                         <configuration>
                             <!--Prevent the javadoc-plugin from generating errors that terminate a build-->
-                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <doclint>none</doclint>
                         </configuration>
                         <executions>
                             <execution>
