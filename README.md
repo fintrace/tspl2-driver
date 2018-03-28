@@ -17,9 +17,9 @@ Add dependency in your pom
 ```xml
 
 <dependency>
-    <groupId>com.finium.core.drivers</groupId>
+    <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
