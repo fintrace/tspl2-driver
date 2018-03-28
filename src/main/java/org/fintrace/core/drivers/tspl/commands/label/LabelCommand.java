@@ -48,5 +48,10 @@ public enum LabelCommand {
     /**
      * DataMatrix 2D bar code
      */
-    DMATRIX
+    DMATRIX,
+
+    /**
+     * CODABLOCK
+     */
+    CODABLOCK
 }
