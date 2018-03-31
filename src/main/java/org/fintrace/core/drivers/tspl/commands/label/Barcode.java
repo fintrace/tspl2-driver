@@ -15,11 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
-
-import java.io.UnsupportedEncodingException;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -65,7 +63,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * LOGMARS A special use of Code 39.<br>
  * </pre>
  * <b>Syntax</b><br>
- * BARCODE X,Y, "code type",height,human readable,rotation,narrow,wide,[alignment,] "content "<br>
+ * BARCODE X,Y, "code type",height,human readable,rotation,narrow,wide,[alignment,] "content"<br>
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -100,7 +98,8 @@ public class Barcode implements TSPLCommand<byte[]> {
     /**
      * rotation
      */
-    private BarcodeRotation rotation;
+    @Builder.Default
+    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
 
     /**
      * Width of narrow element (in dots)
@@ -115,6 +114,7 @@ public class Barcode implements TSPLCommand<byte[]> {
     /**
      * alignment of barcode. Default is (0) : left
      */
+    @Builder.Default
     private BarcodeAlignment alignment = BarcodeAlignment.DEFAULT_LEFT;
 
     /**
@@ -126,7 +126,7 @@ public class Barcode implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (LabelCommand.BARCODE.name() + " " + xCoordinate + ","
                 + yCoordinate + ","
                 + "\"" + codeType.getCodeType() + "\"" + ","

@@ -15,12 +15,10 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
-import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.UnsupportedEncodingException;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -66,7 +64,7 @@ public class Gap implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         if (labelDistance == null && labelOffsetDistance != null) {
             throw new LabelParserException("ParseException GAP Command: "
                     + "label distance and label offset should be specified");

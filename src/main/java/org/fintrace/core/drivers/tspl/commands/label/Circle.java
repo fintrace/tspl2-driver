@@ -15,14 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.CIRCLE;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.CIRCLE;
 
 /**
  * This command draws a circle on the label.<br>
@@ -61,7 +59,7 @@ public class Circle implements TSPLCommand<byte[]> {
     private Integer thickness;
 
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (CIRCLE.name() + " "
                 + xStart + ","
                 + yStart + ","

@@ -33,28 +33,28 @@ public class ConnectionClientException extends Exception {
     /**
      * Constructor with message and possible causing exception
      *
-     * @param arg0 Additional message regarding the error.
-     * @param arg1 The exception/throwable that causing the error.
+     * @param msg Additional message regarding the error.
+     * @param t   The exception/throwable that causing the error.
      */
-    public ConnectionClientException(String arg0, Throwable arg1) {
-        super(arg0, arg1);
+    public ConnectionClientException(String msg, Throwable t) {
+        super(msg, t);
     }
 
     /**
      * Constructor with message.
      *
-     * @param arg0 The message about causing error.
+     * @param msg The message about causing error.
      */
-    public ConnectionClientException(String arg0) {
-        super(arg0);
+    public ConnectionClientException(String msg) {
+        super(msg);
     }
 
     /**
      * Constructor with causing exception.
      *
-     * @param arg0 The exception/throwable that causing the error.
+     * @param t The exception/throwable that causing the error.
      */
-    public ConnectionClientException(Throwable arg0) {
-        super(arg0);
+    public ConnectionClientException(Throwable t) {
+        super(t);
     }
 }

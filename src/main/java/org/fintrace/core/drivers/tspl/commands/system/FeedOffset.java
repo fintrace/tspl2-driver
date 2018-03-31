@@ -15,11 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.NoArgsConstructor;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
-import lombok.NoArgsConstructor;
-
-import java.io.UnsupportedEncodingException;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -57,7 +55,7 @@ public class FeedOffset implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         if (offsetDistance == null) {
             throw new LabelParserException("ParseException OFFSET Command: offset can't be empty");
         }

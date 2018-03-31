@@ -19,15 +19,14 @@ import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * This command draws CODABLOCK F mode barcode.
  * <br><br>
  * <b>Syntax</b><br>
- *     CODABLOCK x,y,rotation,[row height,]module width,] "content"
+ * CODABLOCK x,y,rotation,[row height,]module width,] "content"
+ *
  * @author Venkaiah Chowdary Koneru
  */
 @Data
@@ -46,17 +45,20 @@ public class CodaBlockF implements TSPLCommand<byte[]> {
     /**
      * rotation
      */
-    private BarcodeRotation rotation;
+    @Builder.Default
+    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
 
     /**
      * Row height (in dots).<br>
      * The height of individual row equals to row height x module width (Default is 8)
      */
+    @Builder.Default
     private int rowHeight = 8;
 
     /**
      * Width of narrow element of CODABLOCK in dots (Default is 2)
      */
+    @Builder.Default
     private int moduleWidth = 2;
 
     /**
@@ -68,9 +70,16 @@ public class CodaBlockF implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (LabelCommand.CODABLOCK.name() + " " + xCoordinate
-                + "," + yCoordinate + "," + rotation + "," + rowHeight
-                + "," + moduleWidth + ", \"" + content + "\"").getBytes(US_ASCII);
+    public byte[] getCommand() {
+        StringBuilder command = new StringBuilder(LabelCommand.CODABLOCK.name());
+        command.append(" ")
+                .append(xCoordinate).append(",")
+                .append(yCoordinate).append(",")
+                .append(rotation.getRotation()).append(",")
+                .append(rowHeight).append(",")
+                .append(moduleWidth).append(",")
+                .append(" ").append("\"").append(content).append("\"\n");
+
+        return command.toString().getBytes(US_ASCII);
     }
 }

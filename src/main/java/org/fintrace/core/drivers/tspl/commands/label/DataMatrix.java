@@ -15,14 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.DMATRIX;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.DMATRIX;
 
 /**
  * This command defines a DataMatrix 2D bar code. Currently, only
@@ -131,13 +129,15 @@ public class DataMatrix implements TSPLCommand<byte[]> {
      * 180 : Rotate 180 degrees clockwise<br>
      * 270 : Rotate 270 degrees clockwise<br>
      */
-    private BarcodeRotation rotation;
+    @Builder.Default
+    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
 
     /**
      * Shape<br>
      * 0 : Square (default)
      * 1 : Rectangle
      */
+    @Builder.Default
     private boolean isRectangle = false;
 
     /**
@@ -159,7 +159,7 @@ public class DataMatrix implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         StringBuilder dataMatrix = new StringBuilder(DMATRIX.name());
         dataMatrix.append(" ")
                 .append(xCoordinate).append(",")

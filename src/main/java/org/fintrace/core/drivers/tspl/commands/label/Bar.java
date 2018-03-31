@@ -15,11 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.UnsupportedEncodingException;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -85,7 +83,7 @@ public class Bar implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (LabelCommand.BAR.name() + " " + xCoordinate + ","
                 + yCoordinate + ","
                 + width + "," + height + "\n").getBytes(US_ASCII);

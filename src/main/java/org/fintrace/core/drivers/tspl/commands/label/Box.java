@@ -15,11 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
-
-import java.io.UnsupportedEncodingException;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -77,10 +75,11 @@ public class Box implements TSPLCommand<byte[]> {
     /**
      * Optional. radius of the round corner. Default is 0.
      */
+    @Builder.Default
     private Integer radius = 0;
 
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (LabelCommand.BOX.name() + " " + xCoordinate + ","
                 + yCoordinate + ","
                 + xEndCoordinate + ","

@@ -29,7 +29,6 @@ public interface TSPLCommand<T> {
      * returns the TSPL2 command
      *
      * @return
-     * @throws UnsupportedCharsetException
      */
-    T getCommand() throws UnsupportedEncodingException;
+    T getCommand();
 }

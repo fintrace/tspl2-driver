@@ -17,10 +17,8 @@ package org.fintrace.core.drivers.tspl.commands.status;
 
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.DriverConstants.STATUS_COMMAND_PREFIX;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.STATUS_COMMAND_PREFIX;
 
 /**
  * These commands support RS-232, USB and Ethernet.
@@ -191,7 +189,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
      * @return TSPL Command in ASCII bytes
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return ((char) 27 + STATUS_COMMAND_PREFIX + command).getBytes(US_ASCII);
     }
 }

@@ -15,14 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.ELLIPSE;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.ELLIPSE;
 
 /**
  * This command draws an ellipse on the label.<br>
@@ -71,7 +69,7 @@ public class Ellipse implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (ELLIPSE.name() + " "
                 + xCoordinate + ","
                 + yCoordinate + ","

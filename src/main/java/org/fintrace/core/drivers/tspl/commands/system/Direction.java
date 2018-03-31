@@ -15,14 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.DIRECTION;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.DIRECTION;
 
 /**
  * This command defines the printout direction and mirror image. This will be stored in the printer
@@ -54,7 +52,7 @@ public class Direction implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (DIRECTION.name() + (printPositionAsFeed ? "1" : "0") + ","
                 + (printMirrorImage ? "1" : "0") + "\n").getBytes(US_ASCII);
     }

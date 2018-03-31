@@ -15,15 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
-import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.PRINT;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.PRINT;
 
 /**
  * This command prints the label format currently stored in the image buffer.<br>
@@ -72,7 +70,7 @@ public class Print implements TSPLCommand<byte[]> {
     }
 
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         if (nbLabels == null) {
             throw new LabelParserException("ParseException PRINT Command: "
                     + "number of sets of labels is required");

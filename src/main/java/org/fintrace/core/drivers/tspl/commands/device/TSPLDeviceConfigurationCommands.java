@@ -15,6 +15,7 @@
  */
 package org.fintrace.core.drivers.tspl.commands.device;
 
+import org.fintrace.core.drivers.tspl.DriverConstants;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.commands.values.BackCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.CommandValues;
@@ -22,9 +23,6 @@ import org.fintrace.core.drivers.tspl.commands.values.EncoderCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.HeadCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.PartialCutterValues;
 import org.fintrace.core.drivers.tspl.commands.values.PeelCommandValues;
-import org.fintrace.core.drivers.tspl.DriverConstants;
-
-import java.io.UnsupportedEncodingException;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -127,7 +125,7 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public byte[] getCommand() {
         return (DriverConstants.SET_PREFIX + " " + this.command.name()
                 + " " + this.commandValue.getCommandValue())
                 .getBytes(US_ASCII);
