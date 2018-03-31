@@ -15,9 +15,6 @@
  */
 package org.fintrace.core.drivers.tspl.commands;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.UnsupportedCharsetException;
-
 /**
  * TSPL2 Command set
  *

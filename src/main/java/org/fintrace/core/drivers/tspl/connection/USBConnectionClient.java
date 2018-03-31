@@ -28,7 +28,6 @@ import javax.usb.UsbException;
 import javax.usb.UsbHostManager;
 import javax.usb.UsbHub;
 import javax.usb.UsbInterface;
-import javax.usb.UsbInterfacePolicy;
 import javax.usb.UsbPipe;
 import javax.usb.UsbServices;
 import javax.usb.event.UsbDeviceDataEvent;
