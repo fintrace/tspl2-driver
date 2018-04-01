@@ -29,17 +29,17 @@ public class CodaBlockFTest {
     public void testDefault() {
         CodaBlockF codaBlockF = CodaBlockF.builder().build();
 
-        Assertions.assertEquals(8, codaBlockF.getRowHeight());
-        Assertions.assertEquals(2, codaBlockF.getModuleWidth());
+        Assertions.assertNull(codaBlockF.getRowHeight());
+        Assertions.assertNull(codaBlockF.getModuleWidth());
         Assertions.assertNull(codaBlockF.getContent());
-        Assertions.assertEquals(0, codaBlockF.getXCoordinate());
-        Assertions.assertEquals(0, codaBlockF.getYCoordinate());
+        Assertions.assertNull(codaBlockF.getXCoordinate());
+        Assertions.assertNull(codaBlockF.getYCoordinate());
         Assertions.assertEquals(BarcodeRotation.NO_ROTATION, codaBlockF.getRotation());
     }
 
     @Test
     public void testCommand() {
-        String command = "CODABLOCK 10,50,0,8,2, \"We stand behind our products.\"\n";
+        String command = "CODABLOCK 10,50,0, \"We stand behind our products.\"\n";
         String content = "We stand behind our products.";
         CodaBlockF codaBlockF = CodaBlockF.builder()
                 .content(content)
@@ -48,11 +48,11 @@ public class CodaBlockFTest {
                 .yCoordinate(50)
                 .build();
 
-        Assertions.assertEquals(8, codaBlockF.getRowHeight());
-        Assertions.assertEquals(2, codaBlockF.getModuleWidth());
+        Assertions.assertNull(codaBlockF.getRowHeight());
+        Assertions.assertNull(codaBlockF.getModuleWidth());
         Assertions.assertEquals(content, codaBlockF.getContent());
-        Assertions.assertEquals(10, codaBlockF.getXCoordinate());
-        Assertions.assertEquals(50, codaBlockF.getYCoordinate());
+        Assertions.assertEquals(10, codaBlockF.getXCoordinate().intValue());
+        Assertions.assertEquals(50, codaBlockF.getYCoordinate().intValue());
         Assertions.assertEquals(BarcodeRotation.NO_ROTATION, codaBlockF.getRotation());
 
         Assertions.assertEquals(command, new String(codaBlockF.getCommand()));

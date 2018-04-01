@@ -15,9 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
 /**
  * This command clears the image buffer.
@@ -32,13 +32,13 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public class ClearBuffer implements TSPLCommand<byte[]> {
+public class ClearBuffer extends TSPLStringCommand {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
-        return (SystemCommand.CLS.name() + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        return SystemCommand.CLS.name() + NEW_LINE_FEED;
     }
 }

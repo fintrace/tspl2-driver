@@ -13,33 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl;
+package org.fintrace.core.drivers.tspl.commands.label;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public final class DriverConstants {
+public enum LabelFormatCommand {
 
     /**
-     * SET prefix for the device configuration commands
+     * barcode
      */
-    public static final String SET_PREFIX = "SET";
-
-    public static final String STATUS_COMMAND_PREFIX = "!";
-
-    public static final String COMMA = ",";
-
-    public static final String EMPTY_SPACE = " ";
-
-    public static final String NEW_LINE_FEED = "\n";
-
-    public static final String ESCAPED_DOUBLE_QUOTE = "\"";
-
-    public static final String UNIT_MM = "mm";
+    BAR,
 
     /**
-     * private to prevent un-necessary instantiation.
+     * 1D barcodes.
      */
-    private DriverConstants() {
-    }
+    BARCODE,
+
+    /**
+     * to draw rectangles on the label.
+     */
+    BOX,
+
+    /**
+     * to draw circle on the label.
+     */
+    CIRCLE,
+
+    /**
+     * to draw an ellipse on the label.
+     */
+    ELLIPSE,
+
+    /**
+     * DataMatrix 2D bar code
+     */
+    DMATRIX,
+
+    /**
+     * CODABLOCK
+     */
+    CODABLOCK
 }

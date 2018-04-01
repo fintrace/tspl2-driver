@@ -17,10 +17,10 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.ELLIPSE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.ELLIPSE;
 
 /**
  * This command draws an ellipse on the label.<br>
@@ -38,7 +38,7 @@ import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.ELLIPSE
  */
 @Data
 @Builder
-public class Ellipse implements TSPLCommand<byte[]> {
+public class Ellipse extends TSPLStringCommand {
 
     /**
      * x-coordinate of upper left corner (in dots)
@@ -69,12 +69,16 @@ public class Ellipse implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
-        return (ELLIPSE.name() + " "
-                + xCoordinate + ","
-                + yCoordinate + ","
-                + width + ","
-                + height + ","
-                + lineThickness + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(ELLIPSE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(width).append(COMMA)
+                .append(height).append(COMMA)
+                .append(lineThickness)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

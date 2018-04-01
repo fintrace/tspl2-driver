@@ -15,12 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
 /**
  * This command defines the print speed.<br>
@@ -31,9 +32,9 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-@NoArgsConstructor
 @Data
-public class Speed implements TSPLCommand<byte[]> {
+@Builder
+public class Speed extends TSPLStringCommand {
 
     /**
      * Printing speed in inch per second
@@ -41,24 +42,17 @@ public class Speed implements TSPLCommand<byte[]> {
     private Double printSpeed;
 
     /**
-     * @param printSpeed Printing speed in inch per second
-     */
-    public Speed(Double printSpeed) {
-        if (printSpeed == null) {
-            throw new LabelParserException("ParseException SPEED Command: speed can't be empty");
-        }
-        this.printSpeed = printSpeed;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
+    public String getCommand() {
         if (printSpeed == null) {
             throw new LabelParserException("ParseException SPEED Command: speed can't be empty");
         }
 
-        return (SystemCommand.SPEED.name() + " " + printSpeed + "\n").getBytes(US_ASCII);
+        return SystemCommand.SPEED.name()
+                + EMPTY_SPACE
+                + printSpeed
+                + NEW_LINE_FEED;
     }
 }

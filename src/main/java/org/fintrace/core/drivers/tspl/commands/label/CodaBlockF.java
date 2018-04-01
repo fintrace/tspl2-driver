@@ -17,9 +17,9 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command draws CODABLOCK F mode barcode.
@@ -31,16 +31,16 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @Builder
-public class CodaBlockF implements TSPLCommand<byte[]> {
+public class CodaBlockF extends TSPLStringCommand {
     /**
      * x-coordinate of codabar on the label
      */
-    private int xCoordinate;
+    private Integer xCoordinate;
 
     /**
      * y-coordinate of codabar on the label
      */
-    private int yCoordinate;
+    private Integer yCoordinate;
 
     /**
      * rotation
@@ -52,14 +52,12 @@ public class CodaBlockF implements TSPLCommand<byte[]> {
      * Row height (in dots).<br>
      * The height of individual row equals to row height x module width (Default is 8)
      */
-    @Builder.Default
-    private int rowHeight = 8;
+    private Integer rowHeight;
 
     /**
      * Width of narrow element of CODABLOCK in dots (Default is 2)
      */
-    @Builder.Default
-    private int moduleWidth = 2;
+    private Integer moduleWidth;
 
     /**
      * content of CODABLOCK bar code
@@ -70,16 +68,25 @@ public class CodaBlockF implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
-        StringBuilder command = new StringBuilder(LabelCommand.CODABLOCK.name());
-        command.append(" ")
-                .append(xCoordinate).append(",")
-                .append(yCoordinate).append(",")
-                .append(rotation.getRotation()).append(",")
-                .append(rowHeight).append(",")
-                .append(moduleWidth).append(",")
-                .append(" ").append("\"").append(content).append("\"\n");
+    public String getCommand() {
+        StringBuilder command = new StringBuilder(LabelFormatCommand.CODABLOCK.name());
+        command.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(rotation.getRotation()).append(COMMA);
 
-        return command.toString().getBytes(US_ASCII);
+        if (rowHeight != null) {
+            command.append(rowHeight).append(COMMA);
+        }
+
+        if (moduleWidth != null) {
+            command.append(moduleWidth).append(COMMA);
+        }
+
+        command.append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
+                .append(NEW_LINE_FEED);
+
+        return command.toString();
     }
 }

@@ -17,9 +17,11 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
 /**
  * This command draws rectangles on the label.<br>
@@ -46,7 +48,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @Builder
-public class Box implements TSPLCommand<byte[]> {
+public class Box extends TSPLStringCommand {
     /**
      * x-coordinate of upper left corner (in dots)
      */
@@ -78,13 +80,21 @@ public class Box implements TSPLCommand<byte[]> {
     @Builder.Default
     private Integer radius = 0;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] getCommand() {
-        return (LabelCommand.BOX.name() + " " + xCoordinate + ","
-                + yCoordinate + ","
-                + xEndCoordinate + ","
-                + yEndCoordinate + ","
-                + lineThickness + ","
-                + radius + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BOX.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(xEndCoordinate).append(COMMA)
+                .append(yEndCoordinate).append(COMMA)
+                .append(lineThickness).append(COMMA)
+                .append(radius)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

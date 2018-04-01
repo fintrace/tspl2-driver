@@ -17,10 +17,11 @@ package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
 /**
  * This command sets the printing darkness.<br>
@@ -37,7 +38,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @NoArgsConstructor
 @Data
-public class Density implements TSPLCommand<byte[]> {
+public class Density extends TSPLStringCommand {
 
     /**
      * printer darkness
@@ -59,12 +60,14 @@ public class Density implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
+    public String getCommand() {
         if (darkness == null) {
             throw new LabelParserException("ParseException DENSITY Command: "
                     + "darkness can't be empty");
         }
 
-        return (SystemCommand.DENSITY.name() + " " + darkness + "\n").getBytes(US_ASCII);
+        return SystemCommand.DENSITY.name()
+                + EMPTY_SPACE + darkness
+                + NEW_LINE_FEED;
     }
 }

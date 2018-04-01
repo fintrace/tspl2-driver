@@ -15,12 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 
 /**
@@ -33,45 +33,56 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-@NoArgsConstructor
 @Data
-public class Size implements TSPLCommand<byte[]> {
+@Builder
+public class Size extends TSPLStringCommand {
     /**
-     * Label width (mm)
+     * Label width
      */
     private Integer labelWidth;
 
     /**
-     * Label length (mm)
+     * Label length
      */
     private Integer labelLength;
 
     /**
-     * @param labelWidth
-     * @param labelLength
+     * indicates the size measurement system to be used
      */
-    public Size(Integer labelWidth, Integer labelLength) {
-        if (labelWidth == null || labelLength == null) {
-            throw new LabelParserException("ParseException SIZE Command: "
-                    + "label width and label length should be specified");
-        }
-
-        this.labelWidth = labelWidth;
-        this.labelLength = labelLength;
-    }
+    @Builder.Default
+    private GapMeasurementSystem sizeMeasurementSystem = GapMeasurementSystem.ENGLISH;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
+    public String getCommand() {
         if (labelWidth == null || labelLength == null) {
             throw new LabelParserException("ParseException SIZE Command: "
                     + "label width and label length should be specified");
         }
 
-        return (SystemCommand.SIZE.name() + " "
-                + labelWidth + " mm," + labelLength
-                + " mm\n").getBytes(US_ASCII);
+        StringBuilder commandBuilder = new StringBuilder(SystemCommand.SIZE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(labelWidth);
+
+        if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
+            commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
+        } else if (sizeMeasurementSystem == GapMeasurementSystem.DOT) {
+            commandBuilder.append(EMPTY_SPACE).append("dot");
+        }
+
+        commandBuilder.append(COMMA)
+                .append(labelLength);
+
+        if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
+            commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
+        } else if (sizeMeasurementSystem == GapMeasurementSystem.DOT) {
+            commandBuilder.append(EMPTY_SPACE).append("dot");
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

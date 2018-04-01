@@ -17,9 +17,9 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command prints 1D barcodes. The available barcodes are listed below:<br>
@@ -69,7 +69,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @Builder
-public class Barcode implements TSPLCommand<byte[]> {
+public class Barcode extends TSPLStringCommand {
     /**
      * x-coordinate of bar code on the label
      */
@@ -126,16 +126,24 @@ public class Barcode implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
-        return (LabelCommand.BARCODE.name() + " " + xCoordinate + ","
-                + yCoordinate + ","
-                + "\"" + codeType.getCodeType() + "\"" + ","
-                + height + ","
-                + hrcAlignment.getAlignment() + ","
-                + rotation + ","
-                + narrow + ","
-                + wide + ","
-                + alignment.getAlignment() + ","
-                + "\"" + content + "\"\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BARCODE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE)
+                .append(codeType.getCodeType()).append(ESCAPED_DOUBLE_QUOTE).append(COMMA)
+                .append(height).append(COMMA)
+                .append(hrcAlignment.getAlignment()).append(COMMA)
+                .append(rotation).append(COMMA)
+                .append(narrow).append(COMMA)
+                .append(wide).append(COMMA)
+                .append(alignment.getAlignment()).append(COMMA)
+                .append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

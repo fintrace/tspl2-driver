@@ -24,7 +24,7 @@ import org.fintrace.core.drivers.tspl.commands.values.HeadCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.PartialCutterValues;
 import org.fintrace.core.drivers.tspl.commands.values.PeelCommandValues;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
 
 /**
  * TSPL2 Device Reconfiguration Commands.
@@ -34,7 +34,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
+public enum TSPLDeviceConfigurationCommands implements TSPLCommand<String> {
 
     /**
      * Disable cutter function.
@@ -125,9 +125,13 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
-        return (DriverConstants.SET_PREFIX + " " + this.command.name()
-                + " " + this.commandValue.getCommandValue())
-                .getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(DriverConstants.SET_PREFIX);
+        commandBuilder.append(EMPTY_SPACE)
+                .append(this.command.name())
+                .append(EMPTY_SPACE)
+                .append(this.commandValue.getCommandValue());
+
+        return commandBuilder.toString();
     }
 }

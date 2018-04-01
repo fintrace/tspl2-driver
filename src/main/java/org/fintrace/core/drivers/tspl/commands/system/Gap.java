@@ -15,12 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * Defines the gap distance between two labels.<br>
@@ -32,9 +32,9 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-@NoArgsConstructor
 @Data
-public class Gap implements TSPLCommand<byte[]> {
+@Builder
+public class Gap extends TSPLStringCommand {
 
     /**
      * The gap distance between two labels
@@ -47,31 +47,42 @@ public class Gap implements TSPLCommand<byte[]> {
     private Integer labelOffsetDistance;
 
     /**
-     * @param labelDistance
-     * @param labelOffsetDistance
+     * indicates which system to use for the gap
      */
-    public Gap(Integer labelDistance, Integer labelOffsetDistance) {
-        if (labelDistance == null || labelOffsetDistance == null) {
-            throw new LabelParserException("ParseException GAP Command: "
-                    + "label distance and label offset should be specified");
-        }
-
-        this.labelDistance = labelDistance;
-        this.labelOffsetDistance = labelOffsetDistance;
-    }
+    @Builder.Default
+    private GapMeasurementSystem gapMeasurementSystem = GapMeasurementSystem.ENGLISH;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() {
+    public String getCommand() {
         if (labelDistance == null && labelOffsetDistance != null) {
             throw new LabelParserException("ParseException GAP Command: "
                     + "label distance and label offset should be specified");
         }
 
-        return (SystemCommand.GAP.name() + " "
-                + labelDistance + " mm," + labelOffsetDistance
-                + " mm\n").getBytes(US_ASCII);
+        StringBuilder commandBuilder = new StringBuilder(SystemCommand.GAP.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(labelDistance);
+
+        if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
+            commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
+        } else if (gapMeasurementSystem == GapMeasurementSystem.DOT) {
+            commandBuilder.append(EMPTY_SPACE).append("dot");
+        }
+
+        commandBuilder.append(COMMA)
+                .append(labelOffsetDistance);
+
+        if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
+            commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
+        } else if (gapMeasurementSystem == GapMeasurementSystem.DOT) {
+            commandBuilder.append(EMPTY_SPACE).append("dot");
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

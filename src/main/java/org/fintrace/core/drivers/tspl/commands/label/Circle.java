@@ -17,10 +17,12 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.CIRCLE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.CIRCLE;
 
 /**
  * This command draws a circle on the label.<br>
@@ -36,7 +38,7 @@ import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.CIRCLE;
  */
 @Data
 @Builder
-public class Circle implements TSPLCommand<byte[]> {
+public class Circle extends TSPLStringCommand {
 
     /**
      * x-coordinate of upper left corner (in dots)
@@ -58,12 +60,19 @@ public class Circle implements TSPLCommand<byte[]> {
      */
     private Integer thickness;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] getCommand() {
-        return (CIRCLE.name() + " "
-                + xStart + ","
-                + yStart + ","
-                + diameter + ","
-                + thickness + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(CIRCLE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xStart).append(COMMA)
+                .append(yStart).append(COMMA)
+                .append(diameter).append(COMMA)
+                .append(thickness)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

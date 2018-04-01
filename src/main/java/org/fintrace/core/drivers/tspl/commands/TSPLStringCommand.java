@@ -13,45 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl.commands.label;
+package org.fintrace.core.drivers.tspl.commands;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum LabelCommand {
-
-    /**
-     * barcode
-     */
-    BAR,
-
-    /**
-     * 1D barcodes.
-     */
-    BARCODE,
-
-    /**
-     * to draw rectangles on the label.
-     */
-    BOX,
-
-    /**
-     * to draw circle on the label.
-     */
-    CIRCLE,
-
-    /**
-     * to draw an ellipse on the label.
-     */
-    ELLIPSE,
-
-    /**
-     * DataMatrix 2D bar code
-     */
-    DMATRIX,
-
-    /**
-     * CODABLOCK
-     */
-    CODABLOCK
+public abstract class TSPLStringCommand implements TSPLCommand<String> {
 }
