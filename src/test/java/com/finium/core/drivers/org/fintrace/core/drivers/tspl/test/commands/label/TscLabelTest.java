@@ -56,6 +56,10 @@ public class TscLabelTest {
                 .element(Print.builder().nbLabels(1).nbCopies(1).build())
                 .build();
 
+        Assertions.assertNotNull(tscLabel.getElements());
+        Assertions.assertEquals(8, tscLabel.getElements().size());
         Assertions.assertEquals(expectedCode, tscLabel.getTsplCode());
+        Assertions.assertNotNull(tscLabel.getElements());
+        Assertions.assertEquals(8, tscLabel.getElements().size());
     }
 }
