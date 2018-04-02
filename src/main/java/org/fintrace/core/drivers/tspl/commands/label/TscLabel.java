@@ -13,10 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl.commands;
+package org.fintrace.core.drivers.tspl.commands.label;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.Singular;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public abstract class TSPLStringCommand implements TSPLCommand<String> {
+@Builder
+@Data
+public class TscLabel {
+
+    @Singular
+    private List<TSPLCommand> elements;
+
+    /**
+     *
+     * @return
+     */
+    public String getTsplCode() {
+        return elements.stream().map(i -> i.getCommand()).collect(Collectors.joining(""));
+    }
 }

@@ -20,12 +20,12 @@ package org.fintrace.core.drivers.tspl.commands;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public interface TSPLCommand<T> {
+public interface TSPLCommand {
 
     /**
      * returns the TSPL2 command
      *
      * @return
      */
-    T getCommand();
+    String getCommand();
 }

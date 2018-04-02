@@ -17,7 +17,6 @@ package org.fintrace.core.drivers.tspl.commands.status;
 
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.fintrace.core.drivers.tspl.DriverConstants.STATUS_COMMAND_PREFIX;
 
 /**
@@ -29,7 +28,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.STATUS_COMMAND_PREF
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
+public enum TSPLStatusPollCommands implements TSPLCommand {
     /**
      * This command obtains the printer status at any time, even in the event
      * of printer error. An inquiry request is solicited by sending
@@ -189,7 +188,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand<byte[]> {
      * @return TSPL Command in ASCII bytes
      */
     @Override
-    public byte[] getCommand() {
-        return ((char) 27 + STATUS_COMMAND_PREFIX + command).getBytes(US_ASCII);
+    public String getCommand() {
+        return ((char) 27 + STATUS_COMMAND_PREFIX + command);
     }
 }

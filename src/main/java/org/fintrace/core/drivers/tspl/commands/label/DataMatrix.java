@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.DMATRIX;
@@ -45,7 +45,7 @@ import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.D
  */
 @Data
 @Builder
-public class DataMatrix extends TSPLStringCommand {
+public class DataMatrix implements TSPLCommand {
     /**
      * Horizontal start position (in dots)
      */
@@ -129,16 +129,14 @@ public class DataMatrix extends TSPLStringCommand {
      * 180 : Rotate 180 degrees clockwise<br>
      * 270 : Rotate 270 degrees clockwise<br>
      */
-    @Builder.Default
-    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
+    private BarcodeRotation rotation;
 
     /**
      * Shape<br>
      * 0 : Square (default)
      * 1 : Rectangle
      */
-    @Builder.Default
-    private Boolean isRectangle = Boolean.FALSE;
+    private Boolean isRectangle;
 
     /**
      * size of row: 10 to 144
@@ -178,7 +176,9 @@ public class DataMatrix extends TSPLStringCommand {
             dataMatrix.append("r").append(rotation.getRotation()).append(COMMA);
         }
 
-        dataMatrix.append("a").append(isRectangle ? 1 : 0).append(COMMA);
+        if (isRectangle != null) {
+            dataMatrix.append("a").append(isRectangle ? 1 : 0).append(COMMA);
+        }
 
         if (nbRows != null) {
             dataMatrix.append(nbRows).append(COMMA);

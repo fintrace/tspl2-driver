@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
@@ -37,7 +37,7 @@ import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.PRINT
  */
 @Data
 @Builder
-public class Print extends TSPLStringCommand {
+public class Print implements TSPLCommand {
     /**
      * Specifies how many sets of labels will be printed.
      */

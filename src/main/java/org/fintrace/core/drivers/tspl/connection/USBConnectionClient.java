@@ -16,6 +16,7 @@
 package org.fintrace.core.drivers.tspl.connection;
 
 import lombok.extern.slf4j.Slf4j;
+import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
 import org.fintrace.core.drivers.tspl.exceptions.PrinterException;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
@@ -202,8 +203,19 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
         send(tsplMessage.getBytes(US_ASCII));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void send(byte[] message) {
+    public void send(TscLabel label) {
+        send(label.getTsplCode().getBytes(US_ASCII));
+    }
+
+    /**
+     * @param message
+     */
+
+    private void send(byte[] message) {
         if (!isConnected) {
             throw new PrinterException("Printer is not connected");
         }

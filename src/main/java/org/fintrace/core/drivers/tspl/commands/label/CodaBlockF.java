@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
@@ -31,7 +31,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.*;
  */
 @Data
 @Builder
-public class CodaBlockF extends TSPLStringCommand {
+public class CodaBlockF implements TSPLCommand {
     /**
      * x-coordinate of codabar on the label
      */

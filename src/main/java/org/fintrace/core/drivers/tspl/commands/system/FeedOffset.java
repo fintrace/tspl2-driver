@@ -16,7 +16,7 @@
 package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
@@ -31,7 +31,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.*;
  * @author Venkaiah Chowdary Koneru
  */
 @NoArgsConstructor
-public class FeedOffset extends TSPLStringCommand {
+public class FeedOffset implements TSPLCommand {
     /**
      * The offset distance (mm).<br>
      * <b>CAUTION: </b>Impropriety offset value may cause paper jam.

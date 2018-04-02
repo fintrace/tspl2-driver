@@ -34,7 +34,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum TSPLDeviceConfigurationCommands implements TSPLCommand<String> {
+public enum TSPLDeviceConfigurationCommands implements TSPLCommand {
 
     /**
      * Disable cutter function.

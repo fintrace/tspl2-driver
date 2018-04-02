@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
@@ -38,7 +38,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  */
 @NoArgsConstructor
 @Data
-public class Density extends TSPLStringCommand {
+public class Density implements TSPLCommand {
 
     /**
      * printer darkness

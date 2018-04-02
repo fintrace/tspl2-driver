@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
@@ -34,7 +34,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  */
 @Data
 @Builder
-public class Speed extends TSPLStringCommand {
+public class Speed implements TSPLCommand {
 
     /**
      * Printing speed in inch per second

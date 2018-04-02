@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
 import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
@@ -48,7 +48,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  */
 @Data
 @Builder
-public class Box extends TSPLStringCommand {
+public class Box implements TSPLCommand {
     /**
      * x-coordinate of upper left corner (in dots)
      */

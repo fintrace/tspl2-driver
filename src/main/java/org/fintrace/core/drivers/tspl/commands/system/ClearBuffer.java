@@ -15,7 +15,9 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import lombok.Builder;
+import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
@@ -32,7 +34,9 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public class ClearBuffer extends TSPLStringCommand {
+@Data
+@Builder
+public class ClearBuffer implements TSPLCommand {
 
     /**
      * {@inheritDoc}

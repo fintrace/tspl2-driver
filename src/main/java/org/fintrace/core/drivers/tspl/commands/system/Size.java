@@ -17,7 +17,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fintrace.core.drivers.tspl.commands.TSPLStringCommand;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
@@ -35,7 +35,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.*;
  */
 @Data
 @Builder
-public class Size extends TSPLStringCommand {
+public class Size implements TSPLCommand {
     /**
      * Label width
      */
