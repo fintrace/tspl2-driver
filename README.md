@@ -44,7 +44,7 @@ Once initialized, Establish the connection
 tsplConnectionClient.connect();
 ```
 
-Once the connection is established, Either construct the label or send the plain TSPL string to print the label.
+Once the connection is established, Either construct the label (using fluent API) or send the plain TSPL string to print the label.
 ```java
 TscLabel tscLabel = TscLabel.builder()
                 .element(Size.builder().labelWidth(4).labelLength(3).build())
