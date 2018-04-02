@@ -6,7 +6,7 @@
     <artifactId>tspl2-driver</artifactId>
     <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>tspl2-driver</name>
+    <name>TSC TSPL2 Java driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
     <description>Java client for TSPL2 generator and USB communication</description>
     <properties>
@@ -18,7 +18,6 @@
         <lombok.version>1.16.20</lombok.version>
         <slf4j.version>1.7.7</slf4j.version>
         <usb4java.version>1.2.0</usb4java.version>
-        <junit.version>4.11</junit.version>
         <junit.jupiter.version>5.1.0</junit.jupiter.version>
     </properties>
     <profiles>
