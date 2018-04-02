@@ -13,33 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl;
+package org.fintrace.core.drivers.tspl.commands.system;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public final class DriverConstants {
+public enum GapMeasurementSystem {
+    /**
+     * English system (inch)
+     */
+    ENGLISH,
 
     /**
-     * SET prefix for the device configuration commands
+     * Metric system (mm)
      */
-    public static final String SET_PREFIX = "SET";
-
-    public static final String STATUS_COMMAND_PREFIX = "!";
-
-    public static final String COMMA = ",";
-
-    public static final String EMPTY_SPACE = " ";
-
-    public static final String NEW_LINE_FEED = "\n";
-
-    public static final String ESCAPED_DOUBLE_QUOTE = "\"";
-
-    public static final String UNIT_MM = "mm";
+    METRIC,
 
     /**
-     * private to prevent un-necessary instantiation.
+     * Dot measurement
      */
-    private DriverConstants() {
-    }
+    DOT
 }

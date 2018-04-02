@@ -15,15 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
+import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.UnsupportedEncodingException;
-
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.PRINT;
-import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * This command prints the label format currently stored in the image buffer.<br>
@@ -38,8 +36,8 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * @author Venkaiah Chowdary Koneru
  */
 @Data
-@NoArgsConstructor
-public class Print implements TSPLCommand<byte[]> {
+@Builder
+public class Print implements TSPLCommand {
     /**
      * Specifies how many sets of labels will be printed.
      */
@@ -51,35 +49,26 @@ public class Print implements TSPLCommand<byte[]> {
     private Integer nbCopies;
 
     /**
-     * @param nbLabels
+     * {@inheritDoc}
      */
-    public Print(Integer nbLabels) {
-        this(nbLabels, 1);
-    }
-
-    /**
-     * @param nbLabels
-     * @param nbCopies
-     */
-    public Print(Integer nbLabels, Integer nbCopies) {
-        if (nbLabels == null) {
-            throw new LabelParserException("ParseException PRINT Command: "
-                    + "number of sets of labels is required");
-        }
-
-        this.nbLabels = nbLabels;
-        this.nbCopies = nbCopies;
-    }
-
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public String getCommand() {
         if (nbLabels == null) {
             throw new LabelParserException("ParseException PRINT Command: "
                     + "number of sets of labels is required");
         }
 
-        return (PRINT.name() + " " + nbLabels
-                + (nbCopies != null ? ("," + nbCopies) : "") + "\n")
-                .getBytes(US_ASCII);
+        StringBuilder commandBuilder = new StringBuilder(PRINT.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(nbLabels);
+
+        if (nbCopies != null) {
+            commandBuilder.append(COMMA)
+                    .append(nbCopies);
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

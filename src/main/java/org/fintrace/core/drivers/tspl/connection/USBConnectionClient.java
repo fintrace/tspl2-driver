@@ -15,10 +15,11 @@
  */
 package org.fintrace.core.drivers.tspl.connection;
 
+import lombok.extern.slf4j.Slf4j;
+import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
 import org.fintrace.core.drivers.tspl.exceptions.PrinterException;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.usb.UsbConfiguration;
 import javax.usb.UsbDevice;
@@ -28,7 +29,6 @@ import javax.usb.UsbException;
 import javax.usb.UsbHostManager;
 import javax.usb.UsbHub;
 import javax.usb.UsbInterface;
-import javax.usb.UsbInterfacePolicy;
 import javax.usb.UsbPipe;
 import javax.usb.UsbServices;
 import javax.usb.event.UsbDeviceDataEvent;
@@ -52,10 +52,9 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Slf4j
 public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListener {
-    private List<ClientListener> clientListeners = new ArrayList<ClientListener>();
-    private List<DataListener> dataListeners = new ArrayList<DataListener>();
+    private List<ClientListener> clientListeners = new ArrayList<>();
+    private List<DataListener> dataListeners = new ArrayList<>();
     private ExecutorService executorService = Executors.newCachedThreadPool();
-    private ExecutorService commExecutorService = Executors.newSingleThreadExecutor();
     private short tscVendorId = 0x1203;
     private short tscProductId = 0x0172;
     private short outPipeAddress = -126;
@@ -180,7 +179,7 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
             usbInterface.release();
             usbInterface = null;
         } catch (UsbException e) {
-            log.error("", e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -204,8 +203,19 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
         send(tsplMessage.getBytes(US_ASCII));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void send(byte[] message) {
+    public void send(TscLabel label) {
+        send(label.getTsplCode().getBytes(US_ASCII));
+    }
+
+    /**
+     * @param message
+     */
+
+    private void send(byte[] message) {
         if (!isConnected) {
             throw new PrinterException("Printer is not connected");
         }
@@ -252,13 +262,18 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * @param productId USB device product id
      * @return matched USBDevice object
      */
+    @SuppressWarnings("unchecked")
     private UsbDevice findDevice(UsbHub hub, short vendorId, short productId) {
         for (UsbDevice device : (List<UsbDevice>) hub.getAttachedUsbDevices()) {
             UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
-            if (desc.idVendor() == vendorId && desc.idProduct() == productId) return device;
+            if (desc.idVendor() == vendorId && desc.idProduct() == productId) {
+                return device;
+            }
             if (device.isUsbHub()) {
                 device = findDevice((UsbHub) device, vendorId, productId);
-                if (device != null) return device;
+                if (device != null) {
+                    return device;
+                }
             }
         }
         return null;
@@ -267,18 +282,14 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
     /**
      * Finds the USBDevice's interface and claims the interface
      */
+    @SuppressWarnings("unchecked")
     private void findAndClaimInterface() {
         UsbConfiguration configuration = usbDevice.getActiveUsbConfiguration();
         usbInterface = configuration.getUsbInterface((byte) 0);
         try {
-            usbInterface.claim(new UsbInterfacePolicy() {
-                @Override
-                public boolean forceClaim(UsbInterface usbInterface) {
-                    return true;
-                }
-            });
+            usbInterface.claim(usbInterface -> true);
         } catch (UsbException e) {
-            log.error("", e);
+            log.error(e.getMessage(), e);
         }
 
         ((List<UsbEndpoint>) usbInterface.getUsbEndpoints()).forEach(p -> {
@@ -360,9 +371,7 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * connection establishment to the TSPL2 device.
      */
     private void notifyConnection() {
-        clientListeners.forEach((listener) -> {
-            listener.connectionEstablished(this);
-        });
+        clientListeners.forEach(listener -> listener.connectionEstablished(this));
     }
 
     /**
@@ -370,9 +379,7 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * to the TSPL2 device.
      */
     private void notifyConnectionLost() {
-        clientListeners.forEach((listener) -> {
-            listener.connectionLost(this);
-        });
+        clientListeners.forEach(listener -> listener.connectionLost(this));
     }
 
     /**
@@ -380,8 +387,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * to the TSPL2 device.
      */
     private void notifyConnectionFailed() {
-        clientListeners.forEach((listener) -> {
-            //listener.connectionIsFailing(this);
-        });
+        clientListeners.forEach(listener -> listener.connectionIsFailing(this, null));
     }
 }

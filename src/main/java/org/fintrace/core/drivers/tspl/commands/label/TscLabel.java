@@ -13,33 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl;
+package org.fintrace.core.drivers.tspl.commands.label;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.Singular;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public final class DriverConstants {
+@Builder
+@Data
+public class TscLabel {
+
+    @Singular
+    private List<TSPLCommand> elements;
 
     /**
-     * SET prefix for the device configuration commands
+     *
+     * @return
      */
-    public static final String SET_PREFIX = "SET";
-
-    public static final String STATUS_COMMAND_PREFIX = "!";
-
-    public static final String COMMA = ",";
-
-    public static final String EMPTY_SPACE = " ";
-
-    public static final String NEW_LINE_FEED = "\n";
-
-    public static final String ESCAPED_DOUBLE_QUOTE = "\"";
-
-    public static final String UNIT_MM = "mm";
-
-    /**
-     * private to prevent un-necessary instantiation.
-     */
-    private DriverConstants() {
+    public String getTsplCode() {
+        return elements.stream().map(i -> i.getCommand()).collect(Collectors.joining(""));
     }
 }

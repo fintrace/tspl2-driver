@@ -18,7 +18,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum LabelCommand {
+public enum LabelFormatCommand {
 
     /**
      * barcode

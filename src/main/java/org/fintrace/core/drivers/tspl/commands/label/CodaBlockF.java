@@ -19,45 +19,45 @@ import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command draws CODABLOCK F mode barcode.
  * <br><br>
  * <b>Syntax</b><br>
- *     CODABLOCK x,y,rotation,[row height,]module width,] "content"
+ * CODABLOCK x,y,rotation,[row height,]module width,] "content"
+ *
  * @author Venkaiah Chowdary Koneru
  */
 @Data
 @Builder
-public class CodaBlockF implements TSPLCommand<byte[]> {
+public class CodaBlockF implements TSPLCommand {
     /**
      * x-coordinate of codabar on the label
      */
-    private int xCoordinate;
+    private Integer xCoordinate;
 
     /**
      * y-coordinate of codabar on the label
      */
-    private int yCoordinate;
+    private Integer yCoordinate;
 
     /**
      * rotation
      */
-    private BarcodeRotation rotation;
+    @Builder.Default
+    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
 
     /**
      * Row height (in dots).<br>
      * The height of individual row equals to row height x module width (Default is 8)
      */
-    private int rowHeight = 8;
+    private Integer rowHeight;
 
     /**
      * Width of narrow element of CODABLOCK in dots (Default is 2)
      */
-    private int moduleWidth = 2;
+    private Integer moduleWidth;
 
     /**
      * content of CODABLOCK bar code
@@ -68,9 +68,25 @@ public class CodaBlockF implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (LabelCommand.CODABLOCK.name() + " " + xCoordinate
-                + "," + yCoordinate + "," + rotation + "," + rowHeight
-                + "," + moduleWidth + ", \"" + content + "\"").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder command = new StringBuilder(LabelFormatCommand.CODABLOCK.name());
+        command.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(rotation.getRotation()).append(COMMA);
+
+        if (rowHeight != null) {
+            command.append(rowHeight).append(COMMA);
+        }
+
+        if (moduleWidth != null) {
+            command.append(moduleWidth).append(COMMA);
+        }
+
+        command.append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
+                .append(NEW_LINE_FEED);
+
+        return command.toString();
     }
 }

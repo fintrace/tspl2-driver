@@ -15,13 +15,11 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command draws a bar on the label format.<br>
@@ -46,7 +44,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @NoArgsConstructor
-public class Bar implements TSPLCommand<byte[]> {
+public class Bar implements TSPLCommand {
 
     /**
      * The upper left corner x-coordinate (in dots)
@@ -85,9 +83,15 @@ public class Bar implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (LabelCommand.BAR.name() + " " + xCoordinate + ","
-                + yCoordinate + ","
-                + width + "," + height + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BAR.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(width).append(COMMA)
+                .append(height)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

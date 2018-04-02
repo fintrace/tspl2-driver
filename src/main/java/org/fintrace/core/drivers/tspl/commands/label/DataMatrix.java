@@ -15,14 +15,12 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.DMATRIX;
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.DMATRIX;
 
 /**
  * This command defines a DataMatrix 2D bar code. Currently, only
@@ -47,7 +45,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @Builder
-public class DataMatrix implements TSPLCommand<byte[]> {
+public class DataMatrix implements TSPLCommand {
     /**
      * Horizontal start position (in dots)
      */
@@ -138,7 +136,7 @@ public class DataMatrix implements TSPLCommand<byte[]> {
      * 0 : Square (default)
      * 1 : Rectangle
      */
-    private boolean isRectangle = false;
+    private Boolean isRectangle;
 
     /**
      * size of row: 10 to 144
@@ -159,38 +157,41 @@ public class DataMatrix implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public String getCommand() {
         StringBuilder dataMatrix = new StringBuilder(DMATRIX.name());
-        dataMatrix.append(" ")
-                .append(xCoordinate).append(",")
-                .append(yCoordinate).append(",")
-                .append(width).append(",")
-                .append(height).append(",");
+        dataMatrix.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(width).append(COMMA)
+                .append(height).append(COMMA);
         if (escapeSequenceCharacter != null) {
-            dataMatrix.append("c").append(escapeSequenceCharacter).append(",");
+            dataMatrix.append("c").append(escapeSequenceCharacter).append(COMMA);
         }
 
         if (moduleSize != null) {
-            dataMatrix.append("x").append(moduleSize).append(",");
+            dataMatrix.append("x").append(moduleSize).append(COMMA);
         }
 
         if (rotation != null) {
-            dataMatrix.append("r").append(rotation.getRotation()).append(",");
+            dataMatrix.append("r").append(rotation.getRotation()).append(COMMA);
         }
 
-        dataMatrix.append("a").append(isRectangle ? 1 : 0).append(",");
+        if (isRectangle != null) {
+            dataMatrix.append("a").append(isRectangle ? 1 : 0).append(COMMA);
+        }
 
         if (nbRows != null) {
-            dataMatrix.append(nbRows).append(",");
+            dataMatrix.append(nbRows).append(COMMA);
         }
 
         if (nbCols != null) {
-            dataMatrix.append(nbCols).append(",");
+            dataMatrix.append(nbCols).append(COMMA);
         }
 
-        dataMatrix.append(" ")
-                .append("\"").append(content).append("\"\n");
+        dataMatrix.append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
+                .append(NEW_LINE_FEED);
 
-        return dataMatrix.toString().getBytes(US_ASCII);
+        return dataMatrix.toString();
     }
 }

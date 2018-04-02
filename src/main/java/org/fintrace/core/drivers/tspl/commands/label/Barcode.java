@@ -15,13 +15,11 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command prints 1D barcodes. The available barcodes are listed below:<br>
@@ -65,13 +63,13 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * LOGMARS A special use of Code 39.<br>
  * </pre>
  * <b>Syntax</b><br>
- * BARCODE X,Y, "code type",height,human readable,rotation,narrow,wide,[alignment,] "content "<br>
+ * BARCODE X,Y, "code type",height,human readable,rotation,narrow,wide,[alignment,] "content"<br>
  *
  * @author Venkaiah Chowdary Koneru
  */
 @Data
 @Builder
-public class Barcode implements TSPLCommand<byte[]> {
+public class Barcode implements TSPLCommand {
     /**
      * x-coordinate of bar code on the label
      */
@@ -100,7 +98,8 @@ public class Barcode implements TSPLCommand<byte[]> {
     /**
      * rotation
      */
-    private BarcodeRotation rotation;
+    @Builder.Default
+    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
 
     /**
      * Width of narrow element (in dots)
@@ -115,6 +114,7 @@ public class Barcode implements TSPLCommand<byte[]> {
     /**
      * alignment of barcode. Default is (0) : left
      */
+    @Builder.Default
     private BarcodeAlignment alignment = BarcodeAlignment.DEFAULT_LEFT;
 
     /**
@@ -126,16 +126,24 @@ public class Barcode implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (LabelCommand.BARCODE.name() + " " + xCoordinate + ","
-                + yCoordinate + ","
-                + "\"" + codeType.getCodeType() + "\"" + ","
-                + height + ","
-                + hrcAlignment.getAlignment() + ","
-                + rotation + ","
-                + narrow + ","
-                + wide + ","
-                + alignment.getAlignment() + ","
-                + "\"" + content + "\"\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BARCODE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE)
+                .append(codeType.getCodeType()).append(ESCAPED_DOUBLE_QUOTE).append(COMMA)
+                .append(height).append(COMMA)
+                .append(hrcAlignment.getAlignment()).append(COMMA)
+                .append(rotation).append(COMMA)
+                .append(narrow).append(COMMA)
+                .append(wide).append(COMMA)
+                .append(alignment.getAlignment()).append(COMMA)
+                .append(EMPTY_SPACE)
+                .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

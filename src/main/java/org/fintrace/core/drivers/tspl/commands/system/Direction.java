@@ -15,14 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import java.io.UnsupportedEncodingException;
-
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.DIRECTION;
-import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * This command defines the printout direction and mirror image. This will be stored in the printer
@@ -36,26 +35,32 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * @author Venkaiah Chowdary Koneru
  */
 @Data
-@NoArgsConstructor
-public class Direction implements TSPLCommand<byte[]> {
-    private boolean printPositionAsFeed = true;
-    private boolean printMirrorImage = false;
-
-    /**
-     * @param printPositionAsFeed
-     * @param printMirrorImage
-     */
-    public Direction(boolean printPositionAsFeed, boolean printMirrorImage) {
-        this.printPositionAsFeed = printPositionAsFeed;
-        this.printMirrorImage = printMirrorImage;
-    }
+@Builder
+public class Direction implements TSPLCommand {
+    private Boolean printPositionAsFeed;
+    private Boolean printMirrorImage;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (DIRECTION.name() + (printPositionAsFeed ? "1" : "0") + ","
-                + (printMirrorImage ? "1" : "0") + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        if (printPositionAsFeed == null) {
+            throw new LabelParserException("ParseException Direction Command: print "
+                    + "position must be set");
+        }
+
+        StringBuilder commandBuilder = new StringBuilder(DIRECTION.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(printPositionAsFeed ? "1" : "0");
+
+        if (printMirrorImage != null) {
+            commandBuilder.append(COMMA)
+                    .append(printMirrorImage ? "1" : "0");
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

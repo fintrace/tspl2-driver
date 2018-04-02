@@ -16,6 +16,7 @@
 package org.fintrace.core.drivers.tspl.connection;
 
 
+import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
@@ -29,34 +30,6 @@ import javax.usb.UsbException;
  * @author Venkaiah Chowdary Koneru
  */
 public interface TSPLConnectionClient {
-
-    /**
-     * Add a ClientListener to this client. This method will not check for
-     * duplicated listener. So please be careful not to add the listener twice,
-     * cause if you do, your listener will receive multiple notification.
-     *
-     * @param listener Listener to add.
-     */
-    void addClientListener(ClientListener listener);
-
-    /**
-     * Remove the previously added ClientListener. If the specified listener listener
-     * doesn't exist, the method will not do anything.
-     *
-     * @param listener The listener to remove.
-     */
-    void removeClientListener(ClientListener listener);
-
-    /**
-     * Add a DataListener to this client. This method will not check for duplicated listener.
-     */
-    void addDataListener(DataListener listener);
-
-    /**
-     * Remove the previously added DataListener.
-     * If the specified listener doesn't exist, the method will not do anything.
-     */
-    void removeDataListener(DataListener listener);
 
     /**
      * initializes the printer with defaults.
@@ -105,9 +78,42 @@ public interface TSPLConnectionClient {
      */
     void send(String tsplMessage);
 
+
     /**
+     * Instruct the client to send TSPL2 format label. This method will
+     * either return immediately or block until the submission is complete depending
+     * on the implementation. Listen for response using the provided listeners
+     * call backs. (ie, DataListener).
      *
-     * @param message
+     * @param label tsc label with required elements
      */
-    void send(byte[] message);
+    void send(TscLabel label);
+
+    /**
+     * Add a ClientListener to this client. This method will not check for
+     * duplicated listener. So please be careful not to add the listener twice,
+     * cause if you do, your listener will receive multiple notification.
+     *
+     * @param listener Listener to add.
+     */
+    void addClientListener(ClientListener listener);
+
+    /**
+     * Remove the previously added ClientListener. If the specified listener listener
+     * doesn't exist, the method will not do anything.
+     *
+     * @param listener The listener to remove.
+     */
+    void removeClientListener(ClientListener listener);
+
+    /**
+     * Add a DataListener to this client. This method will not check for duplicated listener.
+     */
+    void addDataListener(DataListener listener);
+
+    /**
+     * Remove the previously added DataListener.
+     * If the specified listener doesn't exist, the method will not do anything.
+     */
+    void removeDataListener(DataListener listener);
 }

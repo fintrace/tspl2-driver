@@ -18,41 +18,31 @@ package org.fintrace.core.drivers.tspl.commands.system;
 import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
-import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
 import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
 
 /**
- * This command defines the print speed.<br>
+ * This command clears the image buffer.
  * <p>
- * <b>Syntax</b><br>
- * SPEED n<br>
- * <blockquote><i>n Printing speed in inch per second</i></blockquote>
+ * <b>Syntax:</b><br>
+ * CLS
+ * </p>
+ * <p>
+ * <i>NOTE:</i><br>
+ * This command must be placed after SIZE command.<br>
+ * </p>
  *
  * @author Venkaiah Chowdary Koneru
  */
 @Data
 @Builder
-public class Speed implements TSPLCommand {
-
-    /**
-     * Printing speed in inch per second
-     */
-    private Double printSpeed;
+public class ClearBuffer implements TSPLCommand {
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String getCommand() {
-        if (printSpeed == null) {
-            throw new LabelParserException("ParseException SPEED Command: speed can't be empty");
-        }
-
-        return SystemCommand.SPEED.name()
-                + EMPTY_SPACE
-                + printSpeed
-                + NEW_LINE_FEED;
+        return SystemCommand.CLS.name() + NEW_LINE_FEED;
     }
 }

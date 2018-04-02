@@ -15,6 +15,7 @@
  */
 package org.fintrace.core.drivers.tspl.commands.device;
 
+import org.fintrace.core.drivers.tspl.DriverConstants;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.commands.values.BackCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.CommandValues;
@@ -22,11 +23,8 @@ import org.fintrace.core.drivers.tspl.commands.values.EncoderCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.HeadCommandValues;
 import org.fintrace.core.drivers.tspl.commands.values.PartialCutterValues;
 import org.fintrace.core.drivers.tspl.commands.values.PeelCommandValues;
-import org.fintrace.core.drivers.tspl.DriverConstants;
 
-import java.io.UnsupportedEncodingException;
-
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
 
 /**
  * TSPL2 Device Reconfiguration Commands.
@@ -36,7 +34,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
+public enum TSPLDeviceConfigurationCommands implements TSPLCommand {
 
     /**
      * Disable cutter function.
@@ -127,9 +125,13 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (DriverConstants.SET_PREFIX + " " + this.command.name()
-                + " " + this.commandValue.getCommandValue())
-                .getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(DriverConstants.SET_PREFIX);
+        commandBuilder.append(EMPTY_SPACE)
+                .append(this.command.name())
+                .append(EMPTY_SPACE)
+                .append(this.commandValue.getCommandValue());
+
+        return commandBuilder.toString();
     }
 }

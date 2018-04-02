@@ -15,14 +15,14 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
-import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import lombok.Builder;
 import lombok.Data;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.fintrace.core.drivers.tspl.commands.label.LabelCommand.CIRCLE;
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
+import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
+import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.CIRCLE;
 
 /**
  * This command draws a circle on the label.<br>
@@ -38,7 +38,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  */
 @Data
 @Builder
-public class Circle implements TSPLCommand<byte[]> {
+public class Circle implements TSPLCommand {
 
     /**
      * x-coordinate of upper left corner (in dots)
@@ -60,12 +60,19 @@ public class Circle implements TSPLCommand<byte[]> {
      */
     private Integer thickness;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
-        return (CIRCLE.name() + " "
-                + xStart + ","
-                + yStart + ","
-                + diameter + ","
-                + thickness + "\n").getBytes(US_ASCII);
+    public String getCommand() {
+        StringBuilder commandBuilder = new StringBuilder(CIRCLE.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(xStart).append(COMMA)
+                .append(yStart).append(COMMA)
+                .append(diameter).append(COMMA)
+                .append(thickness)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

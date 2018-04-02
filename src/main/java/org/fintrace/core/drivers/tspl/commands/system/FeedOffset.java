@@ -15,13 +15,11 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.NoArgsConstructor;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
-import lombok.NoArgsConstructor;
 
-import java.io.UnsupportedEncodingException;
-
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 
 /**
  * This command defines the selective, extra label feeding length
@@ -33,7 +31,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * @author Venkaiah Chowdary Koneru
  */
 @NoArgsConstructor
-public class FeedOffset implements TSPLCommand<byte[]> {
+public class FeedOffset implements TSPLCommand {
     /**
      * The offset distance (mm).<br>
      * <b>CAUTION: </b>Impropriety offset value may cause paper jam.
@@ -57,11 +55,16 @@ public class FeedOffset implements TSPLCommand<byte[]> {
      * {@inheritDoc}
      */
     @Override
-    public byte[] getCommand() throws UnsupportedEncodingException {
+    public String getCommand() {
         if (offsetDistance == null) {
             throw new LabelParserException("ParseException OFFSET Command: offset can't be empty");
         }
 
-        return (SystemCommand.OFFSET.name() + " " + offsetDistance + " mm\n").getBytes(US_ASCII);
+        StringBuilder commandBuilder = new StringBuilder(SystemCommand.OFFSET.name());
+        commandBuilder.append(EMPTY_SPACE)
+                .append(offsetDistance).append(EMPTY_SPACE).append(UNIT_MM)
+                .append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

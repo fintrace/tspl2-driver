@@ -4,7 +4,7 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
     <name>tspl2-driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
@@ -15,10 +15,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <lombok.version>1.16.10</lombok.version>
+        <lombok.version>1.16.20</lombok.version>
         <slf4j.version>1.7.7</slf4j.version>
         <usb4java.version>1.2.0</usb4java.version>
         <junit.version>4.11</junit.version>
+        <junit.jupiter.version>5.1.0</junit.jupiter.version>
     </properties>
     <profiles>
         <profile>
@@ -255,9 +256,9 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
