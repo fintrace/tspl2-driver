@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017 fintrace (https://fintrace.org/)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
@@ -188,11 +203,13 @@ public class Text implements TSPLCommand {
 
         //TODO: check for font
 
-        if (xMultiplicationFactor != null && (xMultiplicationFactor <= 0 || xMultiplicationFactor > 10)) {
+        if (xMultiplicationFactor != null && (xMultiplicationFactor <= 0
+                || xMultiplicationFactor > 10)) {
             throw new LabelParserException("TEXT: Available xMultiplication factors: 1~10");
         }
 
-        if (yMultiplicationFactor != null && (yMultiplicationFactor <= 0 || yMultiplicationFactor > 10)) {
+        if (yMultiplicationFactor != null && (yMultiplicationFactor <= 0
+                || yMultiplicationFactor > 10)) {
             throw new LabelParserException("TEXT: Available yMultiplication factors: 1~10");
         }
 
@@ -204,14 +221,15 @@ public class Text implements TSPLCommand {
         commandBuilder.append(EMPTY_SPACE)
                 .append(xCoordinate).append(COMMA)
                 .append(yCoordinate).append(COMMA)
-                .append(ESCAPED_DOUBLE_QUOTE).append(fontName).append(ESCAPED_DOUBLE_QUOTE).append(COMMA);
+                .append(ESCAPED_DOUBLE_QUOTE).append(fontName).append(ESCAPED_DOUBLE_QUOTE)
+                .append(COMMA);
 
         if (rotation != null) {
             commandBuilder.append(rotation.getRotation()).append(COMMA);
         }
 
         // For "ROMAN.TTF" true type font, xMultiplicationFactor parameter is ignored.
-        if (!fontName.equals("ROMAN.TTF")) {
+        if (!"ROMAN.TTF".equals(fontName)) {
             if (!hasFloatDecimals(xMultiplicationFactor)) {
                 commandBuilder.append(xMultiplicationFactor.intValue());
             } else {

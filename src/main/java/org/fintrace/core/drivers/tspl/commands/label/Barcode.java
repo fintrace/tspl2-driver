@@ -122,7 +122,8 @@ public class Barcode implements TSPLCommand {
      * <td colspan="3">Start (CODE C)</td>
      * </tr>
      * </table>
-     * <br><b><i>Use "!" as a starting character for the control code followed by three control codes.<br>
+     * <br><b><i>Use "!" as a starting character for the control code followed by three
+     * control codes.<br>
      * If the start subset is not set, the default starting subset is B.</i></b>
      * </td>
      * </tr>
@@ -280,8 +281,8 @@ public class Barcode implements TSPLCommand {
      * </tr>
      * </table>
      * Note:<br>
-     * TDP-643 Plus , TTP-243, TTP-342, TTP-244ME and TTP-342M models are not supported MSI, MSIC, PLESSY, ITF14,
-     * EAN14 and 11.<br>
+     * TDP-643 Plus , TTP-243, TTP-342, TTP-244ME and TTP-342M models are not supported MSI,
+     * MSIC, PLESSY, ITF14, EAN14 and 11.<br>
      * TTP-248M model are not supported MSIC and 11<br>
      */
     private BarcodeType codeType;
