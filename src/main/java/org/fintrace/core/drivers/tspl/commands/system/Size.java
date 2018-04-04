@@ -21,6 +21,7 @@ import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 
 /**
@@ -39,12 +40,12 @@ public class Size implements TSPLCommand {
     /**
      * Label width
      */
-    private Integer labelWidth;
+    private Float labelWidth;
 
     /**
      * Label length
      */
-    private Integer labelLength;
+    private Float labelLength;
 
     /**
      * indicates the size measurement system to be used
@@ -63,8 +64,13 @@ public class Size implements TSPLCommand {
         }
 
         StringBuilder commandBuilder = new StringBuilder(SystemCommand.SIZE.name());
-        commandBuilder.append(EMPTY_SPACE)
-                .append(labelWidth);
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(labelWidth)) {
+            commandBuilder.append(labelWidth.intValue());
+        } else {
+            commandBuilder.append(labelWidth);
+        }
 
         if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
@@ -72,8 +78,13 @@ public class Size implements TSPLCommand {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
-        commandBuilder.append(COMMA)
-                .append(labelLength);
+        commandBuilder.append(COMMA);
+
+        if (!hasFloatDecimals(labelLength)) {
+            commandBuilder.append(labelLength.intValue());
+        } else {
+            commandBuilder.append(labelLength);
+        }
 
         if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);

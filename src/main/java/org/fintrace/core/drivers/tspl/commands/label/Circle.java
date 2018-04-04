@@ -18,10 +18,9 @@ package org.fintrace.core.drivers.tspl.commands.label;
 import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
-import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
-import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
-import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.CIRCLE;
 
 /**
@@ -29,10 +28,10 @@ import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.C
  * <p>
  * <b>Syntax</b><br>
  * CIRCLE X_start,Y_start,diameter,thickness<br>
- * X_start Specify x-coordinate of upper left corner (in dots)<br>
- * Y_start Specify y-coordinate of upper left corner (in dots)<br>
- * diameter Specify the diameter of the circle (in dots)<br>
- * thickness Thickness of the circle (in dots)<br>
+ * X_start: Specify x-coordinate of upper left corner (in dots)<br>
+ * Y_start: Specify y-coordinate of upper left corner (in dots)<br>
+ * diameter: Specify the diameter of the circle (in dots)<br>
+ * thickness: Thickness of the circle (in dots)<br>
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -65,6 +64,18 @@ public class Circle implements TSPLCommand {
      */
     @Override
     public String getCommand() {
+        if (xStart == null || yStart == null) {
+            throw new LabelParserException("CIRCLE: x and y positions are required");
+        }
+
+        if (diameter == null) {
+            throw new LabelParserException("CIRCLE: please specify diameter");
+        }
+
+        if (thickness == null) {
+            throw new LabelParserException("CIRCLE: please specify thickness");
+        }
+
         StringBuilder commandBuilder = new StringBuilder(CIRCLE.name());
         commandBuilder.append(EMPTY_SPACE)
                 .append(xStart).append(COMMA)

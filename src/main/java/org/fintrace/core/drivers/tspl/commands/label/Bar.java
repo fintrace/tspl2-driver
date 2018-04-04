@@ -15,11 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.label;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command draws a bar on the label format.<br>
@@ -43,18 +45,18 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.*;
  * @author Venkaiah Chowdary Koneru
  */
 @Data
-@NoArgsConstructor
+@Builder
 public class Bar implements TSPLCommand {
 
     /**
      * The upper left corner x-coordinate (in dots)
      */
-    private Integer xCoordinate;
+    private Float xCoordinate;
 
     /**
      * The upper left corner y-coordinate (in dots)
      */
-    private Integer yCoordinate;
+    private Float yCoordinate;
 
     /**
      * width Bar width (in dots)
@@ -67,27 +69,32 @@ public class Bar implements TSPLCommand {
     private Integer height;
 
     /**
-     * @param xCoordinate The upper left corner x-coordinate (in dots)
-     * @param yCoordinate The upper left corner y-coordinate (in dots)
-     * @param width       width Bar width (in dots)
-     * @param height      height Bar height (in dots)
-     */
-    public Bar(Integer xCoordinate, Integer yCoordinate, Integer width, Integer height) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.width = width;
-        this.height = height;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public String getCommand() {
+        if (xCoordinate == null || yCoordinate == null) {
+            throw new LabelParserException("BAR: x and y positions are required");
+        }
+
         StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BAR.name());
-        commandBuilder.append(EMPTY_SPACE)
-                .append(xCoordinate).append(COMMA)
-                .append(yCoordinate).append(COMMA)
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(xCoordinate)) {
+            commandBuilder.append(xCoordinate.intValue());
+        } else {
+            commandBuilder.append(xCoordinate);
+        }
+
+        commandBuilder.append(COMMA);
+
+        if (!hasFloatDecimals(yCoordinate)) {
+            commandBuilder.append(yCoordinate.intValue());
+        } else {
+            commandBuilder.append(yCoordinate);
+        }
+
+        commandBuilder.append(COMMA)
                 .append(width).append(COMMA)
                 .append(height)
                 .append(NEW_LINE_FEED);

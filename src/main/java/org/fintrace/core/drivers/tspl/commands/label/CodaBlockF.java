@@ -18,8 +18,10 @@ package org.fintrace.core.drivers.tspl.commands.label;
 import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command draws CODABLOCK F mode barcode.
@@ -35,18 +37,17 @@ public class CodaBlockF implements TSPLCommand {
     /**
      * x-coordinate of codabar on the label
      */
-    private Integer xCoordinate;
+    private Float xCoordinate;
 
     /**
      * y-coordinate of codabar on the label
      */
-    private Integer yCoordinate;
+    private Float yCoordinate;
 
     /**
      * rotation
      */
-    @Builder.Default
-    private BarcodeRotation rotation = BarcodeRotation.NO_ROTATION;
+    private BarcodeRotation rotation;
 
     /**
      * Row height (in dots).<br>
@@ -69,24 +70,46 @@ public class CodaBlockF implements TSPLCommand {
      */
     @Override
     public String getCommand() {
-        StringBuilder command = new StringBuilder(LabelFormatCommand.CODABLOCK.name());
-        command.append(EMPTY_SPACE)
-                .append(xCoordinate).append(COMMA)
-                .append(yCoordinate).append(COMMA)
+        if (xCoordinate == null || yCoordinate == null) {
+            throw new LabelParserException("CODABLOCK: x and y co-ordinates are required");
+        }
+
+        if (rotation == null) {
+            throw new LabelParserException("CODABLOCK: please specify a rotation");
+        }
+
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.CODABLOCK.name());
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(xCoordinate)) {
+            commandBuilder.append(xCoordinate.intValue());
+        } else {
+            commandBuilder.append(xCoordinate);
+        }
+
+        commandBuilder.append(COMMA);
+
+        if (!hasFloatDecimals(yCoordinate)) {
+            commandBuilder.append(yCoordinate.intValue());
+        } else {
+            commandBuilder.append(yCoordinate);
+        }
+
+        commandBuilder.append(COMMA)
                 .append(rotation.getRotation()).append(COMMA);
 
         if (rowHeight != null) {
-            command.append(rowHeight).append(COMMA);
+            commandBuilder.append(rowHeight).append(COMMA);
         }
 
         if (moduleWidth != null) {
-            command.append(moduleWidth).append(COMMA);
+            commandBuilder.append(moduleWidth).append(COMMA);
         }
 
-        command.append(EMPTY_SPACE)
+        commandBuilder.append(EMPTY_SPACE)
                 .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
                 .append(NEW_LINE_FEED);
 
-        return command.toString();
+        return commandBuilder.toString();
     }
 }

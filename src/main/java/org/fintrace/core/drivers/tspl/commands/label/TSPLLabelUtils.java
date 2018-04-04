@@ -49,4 +49,13 @@ public final class TSPLLabelUtils {
 
         return localTemplate.getBytes(US_ASCII);
     }
+
+    /**
+     * @param f float number
+     * @return true if it contains decimal otherwise false.
+     */
+    public static boolean hasFloatDecimals(Float f) {
+        return (f - f.intValue() != 0);
+    }
+
 }

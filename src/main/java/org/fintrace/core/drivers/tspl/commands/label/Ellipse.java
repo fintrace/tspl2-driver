@@ -18,6 +18,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.ELLIPSE;
@@ -70,6 +71,22 @@ public class Ellipse implements TSPLCommand {
      */
     @Override
     public String getCommand() {
+        if (xCoordinate == null || yCoordinate == null) {
+            throw new LabelParserException("ELLIPSE: x and y positions are required");
+        }
+
+        if (width == null) {
+            throw new LabelParserException("ELLIPSE: please specify the width");
+        }
+
+        if (height == null) {
+            throw new LabelParserException("ELLIPSE: please specify the height");
+        }
+
+        if (lineThickness == null) {
+            throw new LabelParserException("ELLIPSE: please specify line thickness");
+        }
+
         StringBuilder commandBuilder = new StringBuilder(ELLIPSE.name());
         commandBuilder.append(EMPTY_SPACE)
                 .append(xCoordinate).append(COMMA)

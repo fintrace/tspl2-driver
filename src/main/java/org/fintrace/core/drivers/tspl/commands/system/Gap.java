@@ -21,6 +21,7 @@ import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * Defines the gap distance between two labels.<br>
@@ -39,12 +40,12 @@ public class Gap implements TSPLCommand {
     /**
      * The gap distance between two labels
      */
-    private Integer labelDistance;
+    private Float labelDistance;
 
     /**
      * The offset distance of the gap
      */
-    private Integer labelOffsetDistance;
+    private Float labelOffsetDistance;
 
     /**
      * indicates which system to use for the gap
@@ -63,8 +64,13 @@ public class Gap implements TSPLCommand {
         }
 
         StringBuilder commandBuilder = new StringBuilder(SystemCommand.GAP.name());
-        commandBuilder.append(EMPTY_SPACE)
-                .append(labelDistance);
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(labelDistance)) {
+            commandBuilder.append(labelDistance.intValue());
+        } else {
+            commandBuilder.append(labelDistance);
+        }
 
         if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
@@ -72,8 +78,13 @@ public class Gap implements TSPLCommand {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
-        commandBuilder.append(COMMA)
-                .append(labelOffsetDistance);
+        commandBuilder.append(COMMA);
+
+        if (!hasFloatDecimals(labelOffsetDistance)) {
+            commandBuilder.append(labelOffsetDistance.intValue());
+        } else {
+            commandBuilder.append(labelOffsetDistance);
+        }
 
         if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);

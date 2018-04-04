@@ -18,6 +18,7 @@ package org.fintrace.core.drivers.tspl.commands.label;
 import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
 import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.DMATRIX;
@@ -158,6 +159,22 @@ public class DataMatrix implements TSPLCommand {
      */
     @Override
     public String getCommand() {
+        if (xCoordinate == null || yCoordinate == null) {
+            throw new LabelParserException("DMATRIX: x and y co-ordinates are required");
+        }
+
+        if (width == null) {
+            throw new LabelParserException("DMATRIX: please specify the width");
+        }
+
+        if (height == null) {
+            throw new LabelParserException("DMATRIX: please specify height");
+        }
+
+        if (content == null) {
+            throw new LabelParserException("DMATRIX: content is required");
+        }
+
         StringBuilder dataMatrix = new StringBuilder(DMATRIX.name());
         dataMatrix.append(EMPTY_SPACE)
                 .append(xCoordinate).append(COMMA)
