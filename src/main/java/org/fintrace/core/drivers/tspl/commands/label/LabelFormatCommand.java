@@ -56,6 +56,11 @@ public enum LabelFormatCommand {
     CODABLOCK,
 
     /**
+     * ERASE
+     */
+    ERASE,
+
+    /**
      * TEXT
      */
     TEXT
