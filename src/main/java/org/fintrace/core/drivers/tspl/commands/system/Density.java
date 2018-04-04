@@ -15,8 +15,8 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
@@ -36,25 +36,14 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  *
  * @author Venkaiah Chowdary Koneru
  */
-@NoArgsConstructor
 @Data
+@Builder
 public class Density implements TSPLCommand {
 
     /**
      * printer darkness
      */
     private Integer darkness;
-
-    /**
-     * @param darkness printer darkness
-     */
-    public Density(Integer darkness) {
-        if (darkness == null) {
-            throw new LabelParserException("ParseException DENSITY Command: "
-                    + "darkness can't be empty");
-        }
-        this.darkness = darkness;
-    }
 
     /**
      * {@inheritDoc}

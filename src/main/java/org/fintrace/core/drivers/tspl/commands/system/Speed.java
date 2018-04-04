@@ -22,6 +22,7 @@ import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
 import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command defines the print speed.<br>
@@ -39,7 +40,7 @@ public class Speed implements TSPLCommand {
     /**
      * Printing speed in inch per second
      */
-    private Double printSpeed;
+    private Float printSpeed;
 
     /**
      * {@inheritDoc}
@@ -50,9 +51,17 @@ public class Speed implements TSPLCommand {
             throw new LabelParserException("ParseException SPEED Command: speed can't be empty");
         }
 
-        return SystemCommand.SPEED.name()
-                + EMPTY_SPACE
-                + printSpeed
-                + NEW_LINE_FEED;
+        StringBuilder commandBuilder = new StringBuilder(SystemCommand.SPEED.name());
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(printSpeed)) {
+            commandBuilder.append(printSpeed.intValue());
+        } else {
+            commandBuilder.append(printSpeed);
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
+
+        return commandBuilder.toString();
     }
 }

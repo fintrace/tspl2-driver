@@ -19,7 +19,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 </dependency>
 ```
 
@@ -47,8 +47,8 @@ tsplConnectionClient.connect();
 Once the connection is established, Either construct the label (using fluent API) or send the plain TSPL string to print the label.
 ```java
 TscLabel tscLabel = TscLabel.builder()
-                .element(Size.builder().labelWidth(4).labelLength(3).build())
-                .element(Gap.builder().labelDistance(0).labelOffsetDistance(0).build())
+                .element(Size.builder().labelWidth(4f).labelLength(3f).build())
+                .element(Gap.builder().labelDistance(0f).labelOffsetDistance(0f).build())
                 .element(Direction.builder().printPositionAsFeed(Boolean.TRUE).build())
                 .element(ClearBuffer.builder().build())
                 .element(DataMatrix.builder().xCoordinate(10).yCoordinate(110).width(400)

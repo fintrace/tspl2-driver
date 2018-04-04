@@ -34,7 +34,7 @@ public class CodaBlockFTest {
         Assertions.assertNull(codaBlockF.getContent());
         Assertions.assertNull(codaBlockF.getXCoordinate());
         Assertions.assertNull(codaBlockF.getYCoordinate());
-        Assertions.assertEquals(BarcodeRotation.NO_ROTATION, codaBlockF.getRotation());
+        Assertions.assertNull(codaBlockF.getRotation());
     }
 
     @Test
@@ -44,8 +44,8 @@ public class CodaBlockFTest {
         CodaBlockF codaBlockF = CodaBlockF.builder()
                 .content(content)
                 .rotation(BarcodeRotation.NO_ROTATION)
-                .xCoordinate(10)
-                .yCoordinate(50)
+                .xCoordinate(10f)
+                .yCoordinate(50f)
                 .build();
 
         Assertions.assertNull(codaBlockF.getRowHeight());

@@ -15,11 +15,13 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command defines the selective, extra label feeding length
@@ -30,26 +32,14 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.*;
  *
  * @author Venkaiah Chowdary Koneru
  */
-@NoArgsConstructor
+@Data
+@Builder
 public class FeedOffset implements TSPLCommand {
     /**
      * The offset distance (mm).<br>
      * <b>CAUTION: </b>Impropriety offset value may cause paper jam.
      */
-    private Integer offsetDistance;
-
-    /**
-     * @param offsetDistance The offset distance (mm).
-     *                       Impropriety offset value may cause paper jam.
-     * @throws LabelParserException if offsetDistance is null
-     */
-    public FeedOffset(Integer offsetDistance) {
-        if (offsetDistance == null) {
-            throw new LabelParserException("ParseException OFFSET Command: offset can't be empty");
-        }
-
-        this.offsetDistance = offsetDistance;
-    }
+    private Float offsetDistance;
 
     /**
      * {@inheritDoc}
@@ -61,8 +51,15 @@ public class FeedOffset implements TSPLCommand {
         }
 
         StringBuilder commandBuilder = new StringBuilder(SystemCommand.OFFSET.name());
-        commandBuilder.append(EMPTY_SPACE)
-                .append(offsetDistance).append(EMPTY_SPACE).append(UNIT_MM)
+        commandBuilder.append(EMPTY_SPACE);
+
+        if (!hasFloatDecimals(offsetDistance)) {
+            commandBuilder.append(offsetDistance.intValue());
+        } else {
+            commandBuilder.append(offsetDistance);
+        }
+
+        commandBuilder.append(EMPTY_SPACE).append(UNIT_MM)
                 .append(NEW_LINE_FEED);
 
         return commandBuilder.toString();

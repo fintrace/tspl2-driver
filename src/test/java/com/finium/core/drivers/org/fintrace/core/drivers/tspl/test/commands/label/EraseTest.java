@@ -13,55 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.tspl.commands.label;
+package com.finium.core.drivers.org.fintrace.core.drivers.tspl.test.commands.label;
+
+import org.fintrace.core.drivers.tspl.commands.label.Erase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum LabelFormatCommand {
+public class EraseTest {
 
-    /**
-     * barcode
-     */
-    BAR,
+    @Test
+    public void testEraseCommand() {
+        String stringCommand = "ERASE 150,150,200,200\n";
 
-    /**
-     * 1D barcodes.
-     */
-    BARCODE,
+        Erase eraseCommand = Erase.builder().xCoordinate(150).yCoordinate(150)
+                .width(200).height(200).build();
 
-    /**
-     * to draw rectangles on the label.
-     */
-    BOX,
+        Assertions.assertEquals(stringCommand, eraseCommand.getCommand());
+    }
 
-    /**
-     * to draw circle on the label.
-     */
-    CIRCLE,
-
-    /**
-     * to draw an ellipse on the label.
-     */
-    ELLIPSE,
-
-    /**
-     * DataMatrix 2D bar code
-     */
-    DMATRIX,
-
-    /**
-     * CODABLOCK
-     */
-    CODABLOCK,
-
-    /**
-     * ERASE
-     */
-    ERASE,
-
-    /**
-     * TEXT
-     */
-    TEXT
 }

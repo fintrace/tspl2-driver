@@ -38,6 +38,6 @@ public class TscLabel {
      * @return
      */
     public String getTsplCode() {
-        return elements.stream().map(i -> i.getCommand()).collect(Collectors.joining(""));
+        return elements.stream().map(TSPLCommand::getCommand).collect(Collectors.joining(""));
     }
 }

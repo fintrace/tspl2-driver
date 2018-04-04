@@ -21,79 +21,80 @@ import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
-import static org.fintrace.core.drivers.tspl.commands.label.LabelFormatCommand.ELLIPSE;
 
 /**
- * This command draws an ellipse on the label.<br>
- * <p>
+ * This command clears a specified region in the image buffer.<br>
  * <b>Syntax</b><br>
- * ELLIPSE x,y,width,height,thickness<br>
- * <p>
- * x Specify x-coordinate of upper left corner (in dots)<br>
- * y Specify y-coordinate of upper left corner (in dots)<br>
- * width Specify the width of the ellipse (in dots)<br>
- * height Specify the height of the ellipse (in dots)<br>
- * thickness Thickness of the ellipse (in dots)<br>
+ * ERASE x,y,x_width,y_height<br>
+ * <table valign="top" border="1">
+ * <tr>
+ * <th>Parameter</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>x</td>
+ * <td>The x-coordinate of the starting point (in dots)</td>
+ * </tr>
+ * <tr>
+ * <td>y</td>
+ * <td>The y-coordinate of the starting point (in dots)</td>
+ * </tr>
+ * <tr>
+ * <td>x_width</td>
+ * <td>The region width in x-axis direction (in dots)</td>
+ * </tr>
+ * <tr>
+ * <td>y_height</td>
+ * <td>The region height in y-axis direction (in dots)</td>
+ * </tr>
+ * </table>
  *
  * @author Venkaiah Chowdary Koneru
  */
 @Data
 @Builder
-public class Ellipse implements TSPLCommand {
+public class Erase implements TSPLCommand {
 
     /**
-     * x-coordinate of upper left corner (in dots)
+     * The x-coordinate of the starting point (in dots)
      */
     private Integer xCoordinate;
 
     /**
-     * y-coordinate of upper left corner (in dots)
+     * The y-coordinate of the starting point (in dots)
      */
     private Integer yCoordinate;
 
     /**
-     * width of the ellipse (in dots)
+     * The region width in x-axis direction (in dots)
      */
     private Integer width;
 
     /**
-     * height of the ellipse (in dots)
+     * The region height in y-axis direction (in dots)
      */
     private Integer height;
 
-    /**
-     * Line thickness (in dots)
-     */
-    private Integer lineThickness;
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getCommand() {
         if (xCoordinate == null || yCoordinate == null) {
-            throw new LabelParserException("ELLIPSE: x and y positions are required");
+            throw new LabelParserException("ERASE: x and y positions are required");
         }
 
         if (width == null) {
-            throw new LabelParserException("ELLIPSE: please specify the width");
+            throw new LabelParserException("ERASE: please specify width");
         }
 
         if (height == null) {
-            throw new LabelParserException("ELLIPSE: please specify the height");
+            throw new LabelParserException("ERASE: please specify height");
         }
 
-        if (lineThickness == null) {
-            throw new LabelParserException("ELLIPSE: please specify line thickness");
-        }
-
-        StringBuilder commandBuilder = new StringBuilder(ELLIPSE.name());
+        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.ERASE.name());
         commandBuilder.append(EMPTY_SPACE)
                 .append(xCoordinate).append(COMMA)
                 .append(yCoordinate).append(COMMA)
                 .append(width).append(COMMA)
-                .append(height).append(COMMA)
-                .append(lineThickness)
+                .append(height)
                 .append(NEW_LINE_FEED);
 
         return commandBuilder.toString();

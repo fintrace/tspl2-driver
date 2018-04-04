@@ -19,9 +19,8 @@ import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import static org.fintrace.core.drivers.tspl.DriverConstants.COMMA;
-import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
-import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.DriverConstants.*;
+import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command draws rectangles on the label.<br>
@@ -36,13 +35,19 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
  * line thickness Line thickness (in dots)<br>
  * radius Optional. Specify the round corner. Default is 0.<br>
  * <p>
- * <b>Note:</b><br>
- * - 200 DPI : 1 mm = 8 dots<br>
- * 300 DPI : 1 mm = 12 dots<br>
- * - Recommended max. thickness of box is 12 mm at 4” width. Thickness of box larger than 12
+ * <b>Note:<br>
+ * <ul>
+ * <li>200 DPI : 1 mm = 8 dots<br>
+ * 300 DPI : 1 mm = 12 dots
+ * </li>
+ * <li>
+ * Recommended max. thickness of box is 12 mm at 4” width. Thickness of box larger than 12
  * mm may damage the power supply and affect the print quality. Max. print ratio is different
  * for each printer model. Desktop and industrial printer print ratio is limited to 20% and 30%
  * respectively
+ * </li>
+ * </ul>
+ * </b>
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -77,8 +82,7 @@ public class Box implements TSPLCommand {
     /**
      * Optional. radius of the round corner. Default is 0.
      */
-    @Builder.Default
-    private Integer radius = 0;
+    private Float radius;
 
     /**
      * {@inheritDoc}
@@ -91,9 +95,18 @@ public class Box implements TSPLCommand {
                 .append(yCoordinate).append(COMMA)
                 .append(xEndCoordinate).append(COMMA)
                 .append(yEndCoordinate).append(COMMA)
-                .append(lineThickness).append(COMMA)
-                .append(radius)
-                .append(NEW_LINE_FEED);
+                .append(lineThickness);
+
+        if (radius != null) {
+            commandBuilder.append(COMMA);
+            if (!hasFloatDecimals(radius)) {
+                commandBuilder.append(radius.intValue());
+            } else {
+                commandBuilder.append(radius);
+            }
+        }
+
+        commandBuilder.append(NEW_LINE_FEED);
 
         return commandBuilder.toString();
     }
