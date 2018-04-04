@@ -92,6 +92,9 @@ public class TLC39 implements TSPLCommand {
      */
     private String additionalData;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCommand() {
 
