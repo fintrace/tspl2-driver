@@ -63,5 +63,10 @@ public enum LabelFormatCommand {
     /**
      * TEXT
      */
-    TEXT
+    TEXT,
+
+    /**
+     * TLC39
+     */
+    TLC39
 }
