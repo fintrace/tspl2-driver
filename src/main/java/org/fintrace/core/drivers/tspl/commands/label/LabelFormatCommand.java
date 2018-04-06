@@ -78,5 +78,10 @@ public enum LabelFormatCommand {
     /**
      * PDF417
      */
-    PDF417
+    PDF417,
+
+    /**
+     * QRCODE
+     */
+    QRCODE
 }
