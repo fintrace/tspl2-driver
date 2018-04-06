@@ -68,5 +68,10 @@ public enum LabelFormatCommand {
     /**
      * TLC39
      */
-    TLC39
+    TLC39,
+
+    /**
+     * MAXICODE
+     */
+    MAXICODE
 }
