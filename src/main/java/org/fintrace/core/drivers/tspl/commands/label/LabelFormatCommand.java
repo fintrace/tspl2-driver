@@ -73,5 +73,10 @@ public enum LabelFormatCommand {
     /**
      * MAXICODE
      */
-    MAXICODE
+    MAXICODE,
+
+    /**
+     * PDF417
+     */
+    PDF417
 }
