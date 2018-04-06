@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017 fintrace (https://fintrace.org/)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.fintrace.core.drivers.tspl.commands.label;
 
 import lombok.Builder;
@@ -149,17 +164,17 @@ public class PDF417 implements TSPLCommand {
 
         if (options != null) {
             if (options.containsKey("P")) {
-                commandBuilder.append("P").append(((Integer)options.get("P")).intValue())
+                commandBuilder.append("P").append(((Integer) options.get("P")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("E")) {
-                commandBuilder.append("E").append(((Integer)options.get("E")).intValue())
+                commandBuilder.append("E").append(((Integer) options.get("E")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("M")) {
-                commandBuilder.append("M").append(((Integer)options.get("M")).intValue())
+                commandBuilder.append("M").append(((Integer) options.get("M")).intValue())
                         .append(COMMA);
             }
 
@@ -169,32 +184,32 @@ public class PDF417 implements TSPLCommand {
             }
 
             if (options.containsKey("W")) {
-                commandBuilder.append("W").append(((Integer)options.get("W")).intValue())
+                commandBuilder.append("W").append(((Integer) options.get("W")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("H")) {
-                commandBuilder.append("H").append(((Integer)options.get("H")).intValue())
+                commandBuilder.append("H").append(((Integer) options.get("H")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("R")) {
-                commandBuilder.append("R").append(((Integer)options.get("R")).intValue())
+                commandBuilder.append("R").append(((Integer) options.get("R")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("C")) {
-                commandBuilder.append("C").append(((Integer)options.get("C")).intValue())
+                commandBuilder.append("C").append(((Integer) options.get("C")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("T")) {
-                commandBuilder.append("T").append(((Integer)options.get("T")).intValue())
+                commandBuilder.append("T").append(((Integer) options.get("T")).intValue())
                         .append(COMMA);
             }
 
             if (options.containsKey("L")) {
-                commandBuilder.append("L").append(((Integer)options.get("L")).intValue())
+                commandBuilder.append("L").append(((Integer) options.get("L")).intValue())
                         .append(COMMA);
             }
         }
