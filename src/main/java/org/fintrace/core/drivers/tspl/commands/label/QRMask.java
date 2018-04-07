@@ -18,70 +18,14 @@ package org.fintrace.core.drivers.tspl.commands.label;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum LabelFormatCommand {
-
-    /**
-     * barcode
-     */
-    BAR,
-
-    /**
-     * 1D barcodes.
-     */
-    BARCODE,
-
-    /**
-     * to draw rectangles on the label.
-     */
-    BOX,
-
-    /**
-     * to draw circle on the label.
-     */
-    CIRCLE,
-
-    /**
-     * to draw an ellipse on the label.
-     */
-    ELLIPSE,
-
-    /**
-     * DataMatrix 2D bar code
-     */
-    DMATRIX,
-
-    /**
-     * CODABLOCK
-     */
-    CODABLOCK,
-
-    /**
-     * ERASE
-     */
-    ERASE,
-
-    /**
-     * TEXT
-     */
-    TEXT,
-
-    /**
-     * TLC39
-     */
-    TLC39,
-
-    /**
-     * MAXICODE
-     */
-    MAXICODE,
-
-    /**
-     * PDF417
-     */
-    PDF417,
-
-    /**
-     * QRCODE
-     */
-    QRCODE
+public enum QRMask {
+    S0,
+    S1,
+    S2,
+    S3,
+    S4,
+    S5,
+    S6,
+    S7,
+    S8
 }

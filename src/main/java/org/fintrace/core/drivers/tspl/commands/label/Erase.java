@@ -75,6 +75,9 @@ public class Erase implements TSPLCommand {
      */
     private Integer height;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCommand() {
         if (xCoordinate == null || yCoordinate == null) {

@@ -4,7 +4,7 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
     <name>TSC TSPL2 Java driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
@@ -16,7 +16,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
         <lombok.version>1.16.20</lombok.version>
-        <slf4j.version>1.7.7</slf4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
         <usb4java.version>1.2.0</usb4java.version>
         <junit.jupiter.version>5.1.0</junit.jupiter.version>
     </properties>

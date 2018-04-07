@@ -13,25 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.finium.core.drivers.org.fintrace.core.drivers.tspl.test.commands.label;
-
-import org.fintrace.core.drivers.tspl.commands.label.Erase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+package org.fintrace.core.drivers.tspl.commands.label;
 
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public class EraseTest {
+public enum ErrorCorrectionLevel {
+    /**
+     * 7%
+     */
+    L,
 
-    @Test
-    public void testEraseCommand() {
-        String stringCommand = "ERASE 150,150,200,200\n";
+    /**
+     * 15%
+     */
+    M,
 
-        Erase eraseCommand = Erase.builder().xCoordinate(150).yCoordinate(150)
-                .width(200).height(200).build();
+    /**
+     * 25%
+     */
+    Q,
 
-        Assertions.assertEquals(stringCommand, eraseCommand.getCommand());
-    }
-
+    /**
+     * 30%
+     */
+    H
 }
