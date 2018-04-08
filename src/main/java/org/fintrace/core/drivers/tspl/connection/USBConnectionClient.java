@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
 import org.fintrace.core.drivers.tspl.exceptions.PrinterException;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
-import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
 import javax.usb.UsbConfiguration;
 import javax.usb.UsbDevice;
@@ -38,10 +37,7 @@ import javax.usb.event.UsbDeviceListener;
 import javax.usb.event.UsbPipeDataEvent;
 import javax.usb.event.UsbPipeErrorEvent;
 import javax.usb.event.UsbPipeListener;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
@@ -51,10 +47,8 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
  * @author Venkaiah Chowdary Koneru
  */
 @Slf4j
-public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListener {
-    private List<ClientListener> clientListeners = new ArrayList<>();
-    private List<DataListener> dataListeners = new ArrayList<>();
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+public class USBConnectionClient extends AbstractConnectionClient implements UsbDeviceListener {
+
     private short tscVendorId = 0x1203;
     private short tscProductId = 0x0172;
     private short outPipeAddress = -126;
@@ -63,7 +57,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
     private UsbInterface usbInterface;
     private UsbPipe writePipe;
     private UsbPipe readPipe;
-    private boolean isConnected = Boolean.FALSE;
 
     /**
      * @param tscVendorId
@@ -94,38 +87,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
         } catch (UsbException e) {
             log.error("USBException ", e);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addClientListener(ClientListener listener) {
-        this.clientListeners.add(listener);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeClientListener(ClientListener listener) {
-        this.clientListeners.remove(listener);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addDataListener(DataListener listener) {
-        this.dataListeners.add(listener);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeDataListener(DataListener listener) {
-        this.dataListeners.remove(listener);
     }
 
     /**
@@ -187,8 +148,8 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
      * {@inheritDoc}
      */
     @Override
-    public boolean isConnected() {
-        return isConnected;
+    public void send(TscLabel label) {
+        send(label.getTsplCode());
     }
 
     /**
@@ -201,14 +162,6 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
     @Override
     public void send(String tsplMessage) {
         send(tsplMessage.getBytes(US_ASCII));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void send(TscLabel label) {
-        send(label.getTsplCode().getBytes(US_ASCII));
     }
 
     /**
@@ -338,55 +291,5 @@ public class USBConnectionClient implements TSPLConnectionClient, UsbDeviceListe
             }
         });
         return localWritePipe;
-    }
-
-    /**
-     * Notifies all the dataListeners about the received message.
-     *
-     * @param dataEvent
-     */
-    private void notifyReadDataEvent(UsbPipeDataEvent dataEvent) {
-        dataListeners.forEach((DataListener dataListener) -> {
-            executorService.execute(() -> {
-                dataListener.messageReceived(new String(dataEvent.getData(), US_ASCII));
-            });
-        });
-    }
-
-    /**
-     * Notifies all the dataListeners about the submitted message.
-     *
-     * @param dataEvent
-     */
-    private void notifyWriteDataEvent(UsbPipeDataEvent dataEvent) {
-        dataListeners.forEach((DataListener dataListener) -> {
-            executorService.execute(() -> {
-                dataListener.messageSent(new String(dataEvent.getData(), US_ASCII));
-            });
-        });
-    }
-
-    /**
-     * All the client listeners will be informed about the successful
-     * connection establishment to the TSPL2 device.
-     */
-    private void notifyConnection() {
-        clientListeners.forEach(listener -> listener.connectionEstablished(this));
-    }
-
-    /**
-     * All the client listeners will be informed about loss of connection
-     * to the TSPL2 device.
-     */
-    private void notifyConnectionLost() {
-        clientListeners.forEach(listener -> listener.connectionLost(this));
-    }
-
-    /**
-     * All the client listeners will be informed about persistent connection failure
-     * to the TSPL2 device.
-     */
-    private void notifyConnectionFailed() {
-        clientListeners.forEach(listener -> listener.connectionIsFailing(this, null));
     }
 }

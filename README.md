@@ -5,7 +5,7 @@ This library will help you to communicate with TSPL2 (TSC brand) based printers.
 
 This drivers supports communication with printer over 
 * USB Communication
-* Ethernet (TODO)
+* Ethernet (WIP)
 * Bluetooth (TODO)
 
 How to use
