@@ -24,13 +24,17 @@ Add dependency in your pom
 ```
 
 
-Create a USB Client
+Create a connection client
 
 ```java
+// USB Client
 TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
         (short) Integer.parseInt(properties().getProperty("tsc.vendor.id"), 16),
         (short) Integer.parseInt(properties().getProperty("tsc.product.id"), 16));
 
+// Or Ethernet Client
+
+TSPLConnectionClient tsplConnectionClient = new EthernetConnectionClient("x.x.x.x", 9100);
 ```
 
 Initialize the printer with defaults
