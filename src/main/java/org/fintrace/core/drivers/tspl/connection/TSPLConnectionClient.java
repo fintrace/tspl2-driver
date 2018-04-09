@@ -45,8 +45,8 @@ public interface TSPLConnectionClient {
     /**
      * Instruct the client to execute disconnect routines. This method will
      * return immediately. You should listen for connection status using the
-     * provided listeners call backs. (ie, ClientListener). OR, using is
-     * Connected method. Connection close might not happen instantly after the
+     * provided listeners call backs. (ie, ClientListener). OR, using
+     * isConnected method. Connection close might not happen instantly after the
      * method call.
      */
     void disconnect();

@@ -15,27 +15,33 @@
  */
 package org.fintrace.core.drivers.tspl.connection;
 
+import org.fintrace.core.drivers.tspl.exceptions.ConnectionClientException;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
-import javax.usb.event.UsbPipeDataEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
-
 /**
  * Generic client connection implementation for TSPL2 device
+ * <p>
+ * IMPORTANT : Each notifications fired by this class for each of its registered
+ * listeners is done by their own independent thread. This means new thread for
+ * each notification. Thus, the listener implementation added into this
+ * socket do not need to implement "Fast Return" method and will not clog the
+ * selector thread.
+ * </p>
  *
  * @author Venkaiah Chowdary Koneru
  */
 public abstract class AbstractConnectionClient implements TSPLConnectionClient {
     protected List<ClientListener> clientListeners = new ArrayList<>();
     protected List<DataListener> dataListeners = new ArrayList<>();
-    protected ExecutorService executorService = Executors.newCachedThreadPool();
+    protected ExecutorService listenerExecutorService = Executors.newCachedThreadPool();
     protected boolean isConnected = Boolean.FALSE;
+    protected boolean alive = Boolean.FALSE;
 
     /**
      * {@inheritDoc}
@@ -80,27 +86,40 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
     /**
      * Notifies all the dataListeners about the received message.
      *
-     * @param dataEvent
+     * @param message
      */
-    protected void notifyReadDataEvent(UsbPipeDataEvent dataEvent) {
-        dataListeners.forEach((DataListener dataListener) -> {
-            executorService.execute(() -> {
-                dataListener.messageReceived(new String(dataEvent.getData(), US_ASCII));
-            });
-        });
+    protected void notifyMessageReceived(String message) {
+        dataListeners.forEach(dataListener -> listenerExecutorService.execute(() ->
+                dataListener.messageReceived(message)
+        ));
     }
 
     /**
      * Notifies all the dataListeners about the submitted message.
      *
-     * @param dataEvent
+     * @param message
      */
-    protected void notifyWriteDataEvent(UsbPipeDataEvent dataEvent) {
-        dataListeners.forEach((DataListener dataListener) -> {
-            executorService.execute(() -> {
-                dataListener.messageSent(new String(dataEvent.getData(), US_ASCII));
-            });
-        });
+    protected void notifyMessageSent(String message) {
+        dataListeners.forEach(dataListener -> listenerExecutorService.execute(() ->
+                dataListener.messageSent(message)
+        ));
+    }
+
+    /**
+     * Notifies all the dataListeners about the failure to send message.
+     *
+     * @param exception
+     * @param messageToSend
+     */
+    protected void notifyMessageSendFailed(final ConnectionClientException exception,
+                                           final String messageToSend) {
+        /*
+         * For each listener, create a separate independent thread for firing
+         * the listener methods.
+         */
+        dataListeners.forEach(dataListener -> listenerExecutorService.execute(() ->
+                dataListener.messageSendFailed(exception, messageToSend)
+        ));
     }
 
     /**
@@ -108,7 +127,13 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
      * connection establishment to the TSPL2 device.
      */
     protected void notifyConnection() {
-        clientListeners.forEach(listener -> listener.connectionEstablished(this));
+        /*
+         * For each listener, create a separate independent thread for firing
+         * the listener methods.
+         */
+        clientListeners.forEach(clientListener -> listenerExecutorService.execute(() ->
+                clientListener.connectionEstablished(AbstractConnectionClient.this)
+        ));
     }
 
     /**
@@ -116,7 +141,13 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
      * to the TSPL2 device.
      */
     protected void notifyConnectionLost() {
-        clientListeners.forEach(listener -> listener.connectionLost(this));
+        /*
+         * For each listener, create a separate independent thread for firing
+         * the listener methods.
+         */
+        clientListeners.forEach(clientListener -> listenerExecutorService.execute(() ->
+                clientListener.connectionLost(AbstractConnectionClient.this)
+        ));
     }
 
     /**
@@ -124,6 +155,25 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
      * to the TSPL2 device.
      */
     protected void notifyConnectionFailed() {
-        clientListeners.forEach(listener -> listener.connectionIsFailing(this, null));
+        /*
+         * For each listener, create a separate independent thread for firing
+         * the listener methods.
+         */
+        clientListeners.forEach(clientListener -> listenerExecutorService.execute(() ->
+                clientListener.connectionIsFailing(AbstractConnectionClient.this, null)
+        ));
+    }
+
+    /**
+     *
+     */
+    protected void notifyDisconnected() {
+        /*
+         * For each listener, create a separate independent thread for firing
+         * the listener methods.
+         */
+        clientListeners.forEach(clientListener -> listenerExecutorService.execute(() ->
+                clientListener.connectionLost(AbstractConnectionClient.this)
+        ));
     }
 }
