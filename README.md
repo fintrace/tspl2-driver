@@ -42,11 +42,12 @@ Initialize the printer with defaults
 tsplConnectionClient.init();
 ```
 
-you may use any available device config command to overwrite the defaults.
 Once initialized, Establish the connection
 ```java
 tsplConnectionClient.connect();
 ```
+
+You may use any available device config command to overwrite the printer defaults.
 
 Once the connection is established, Either construct the label (using fluent API) or send the plain TSPL string to print the label.
 ```java

@@ -60,6 +60,10 @@ public class EthernetConnectionClient extends AbstractConnectionClient
     private SocketChannel channel;
     private Selector selector;
 
+    // The buffer into which we'll read data when it's available
+    private ByteBuffer readBuffer = ByteBuffer.allocate(8192);
+    private ByteBuffer readDataBuffer = ByteBuffer.allocate(8192);
+
     private Runnable connectionRunnable = new Runnable() {
         public void run() {
             if (!isConnected) {
@@ -84,6 +88,8 @@ public class EthernetConnectionClient extends AbstractConnectionClient
                                 makeConnect(key);
                                 isConnected = true;
                                 notifyConnection();
+                            } else if (key.isReadable()) {
+                                read(key);
                             } else {
                                 log.warn("Unrecognized key {}", key);
                             }
@@ -210,5 +216,42 @@ public class EthernetConnectionClient extends AbstractConnectionClient
             channel.finishConnect();
         }
         channel.configureBlocking(false);
+    }
+
+    /**
+     * @param key
+     * @throws IOException
+     */
+    private void read(SelectionKey key) throws IOException {
+        SocketChannel channel = (SocketChannel) key.channel();
+        try {
+            readBuffer.clear();
+            int readed = channel.read(readBuffer);
+            readBuffer.flip();
+            while (readed > 0 && readBuffer.hasRemaining()) {
+                byte b = readBuffer.get();
+                if (b != 0x0A && b != 0x0D) {
+                    readDataBuffer.put(b);
+                }
+                if (b == 0x0D) {
+                    readDataBuffer.put((byte) '\n');
+                    readDataBuffer.flip();
+
+                    byte[] data = new byte[readDataBuffer.limit()];
+                    readDataBuffer.get(data);
+
+                    notifyMessageReceived(new String(data));
+                    readDataBuffer.clear();
+                }
+            }
+            channel.register(selector, SelectionKey.OP_READ);
+        } catch (IOException e) {
+            readDataBuffer.clear();
+            readBuffer.clear();
+            readBuffer.limit(0);
+            key.cancel();
+            channel.close();
+            return;
+        }
     }
 }
