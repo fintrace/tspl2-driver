@@ -82,7 +82,7 @@ public class Circle implements TSPLCommand {
                 .append(yStart).append(COMMA)
                 .append(diameter).append(COMMA)
                 .append(thickness)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

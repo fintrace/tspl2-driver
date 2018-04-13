@@ -31,16 +31,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.fintrace.core.drivers.tspl.DriverConstants.CR_BYTES;
+import static org.fintrace.core.drivers.tspl.DriverConstants.LF_BYTES;
 
 /**
  * This class is an implementation of <code>TSPLConnectionClient</code> That
  * will communicate with supported TSC printer using TCP/IP connectivity protocol and
  * their supported medium (LAN, INTERNET or simple cross UTP).
- *
+ * <p>
  * This implementation is using high performance NIO non blocking method.
  * However, it employs single independent thread that do the channel selector
  * and invocation.
- *
+ * <p>
  * IMPORTANT : Each notifications fired by this class for each of its registered
  * listeners is done by their own independent thread. This means new thread for
  * each notification. Thus, the listener implementation added into this
@@ -52,11 +54,9 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 @Slf4j
 public class EthernetConnectionClient extends AbstractConnectionClient
         implements TSPLConnectionClient {
-    private ExecutorService connectionExecutorService = Executors.newSingleThreadExecutor();
-
     private final String host;
     private final int port;
-
+    private ExecutorService connectionExecutorService = Executors.newSingleThreadExecutor();
     private SocketChannel channel;
     private Selector selector;
 
@@ -88,6 +88,7 @@ public class EthernetConnectionClient extends AbstractConnectionClient
                                 makeConnect(key);
                                 isConnected = true;
                                 notifyConnection();
+                                channel.register(selector, SelectionKey.OP_READ);
                             } else if (key.isReadable()) {
                                 read(key);
                             } else {
@@ -120,11 +121,9 @@ public class EthernetConnectionClient extends AbstractConnectionClient
     /**
      * Constructor
      *
-     * @param host
-     *            The zebra printer host address or IP address.
-     * @param port
-     *            The port number on zebra printer that will accept the
-     *            connection.
+     * @param host The zebra printer host address or IP address.
+     * @param port The port number on zebra printer that will accept the
+     *             connection.
      */
     public EthernetConnectionClient(String host, int port) {
         this.host = host;
@@ -206,7 +205,6 @@ public class EthernetConnectionClient extends AbstractConnectionClient
     }
 
     /**
-     *
      * @param key
      * @throws IOException
      */
@@ -230,17 +228,17 @@ public class EthernetConnectionClient extends AbstractConnectionClient
             readBuffer.flip();
             while (readed > 0 && readBuffer.hasRemaining()) {
                 byte b = readBuffer.get();
-                if (b != 0x0A && b != 0x0D) {
+                if (b != CR_BYTES[0] && b != LF_BYTES[0]) {
                     readDataBuffer.put(b);
                 }
-                if (b == 0x0D) {
+                if (b == LF_BYTES[0]) {
                     readDataBuffer.put((byte) '\n');
                     readDataBuffer.flip();
 
                     byte[] data = new byte[readDataBuffer.limit()];
                     readDataBuffer.get(data);
 
-                    notifyMessageReceived(new String(data));
+                    notifyMessageReceived(new String(data, US_ASCII));
                     readDataBuffer.clear();
                 }
             }
@@ -251,7 +249,6 @@ public class EthernetConnectionClient extends AbstractConnectionClient
             readBuffer.limit(0);
             key.cancel();
             channel.close();
-            return;
         }
     }
 }

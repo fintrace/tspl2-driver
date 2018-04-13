@@ -108,7 +108,7 @@ public class CodaBlockF implements TSPLCommand {
 
         commandBuilder.append(EMPTY_SPACE)
                 .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

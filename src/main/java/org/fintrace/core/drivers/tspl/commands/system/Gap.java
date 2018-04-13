@@ -92,7 +92,7 @@ public class Gap implements TSPLCommand {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
-        commandBuilder.append(NEW_LINE_FEED);
+        commandBuilder.append(LF);
 
         return commandBuilder.toString();
     }

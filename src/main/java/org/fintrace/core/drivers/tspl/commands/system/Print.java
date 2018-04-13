@@ -67,7 +67,7 @@ public class Print implements TSPLCommand {
                     .append(nbCopies);
         }
 
-        commandBuilder.append(NEW_LINE_FEED);
+        commandBuilder.append(LF);
 
         return commandBuilder.toString();
     }

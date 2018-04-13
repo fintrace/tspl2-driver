@@ -60,7 +60,7 @@ public class FeedOffset implements TSPLCommand {
         }
 
         commandBuilder.append(EMPTY_SPACE).append(UNIT_MM)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

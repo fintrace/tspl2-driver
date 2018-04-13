@@ -94,7 +94,7 @@ public class Ellipse implements TSPLCommand {
                 .append(width).append(COMMA)
                 .append(height).append(COMMA)
                 .append(lineThickness)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

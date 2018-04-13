@@ -15,6 +15,8 @@
  */
 package org.fintrace.core.drivers.tspl;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
+
 /**
  * @author Venkaiah Chowdary Koneru
  */
@@ -31,11 +33,19 @@ public final class DriverConstants {
 
     public static final String EMPTY_SPACE = " ";
 
-    public static final String NEW_LINE_FEED = "\n";
+    public static final String LF = "\n";
+
+    public static final String CR = "\r";
+
+    public static final String CR_LF = "\r\n";
 
     public static final String ESCAPED_DOUBLE_QUOTE = "\"";
 
     public static final String UNIT_MM = "mm";
+
+    public static final byte[] LF_BYTES = LF.getBytes(US_ASCII);
+    public static final byte[] CR_BYTES = CR.getBytes(US_ASCII);
+    public static final byte[] CR_LF_BYTES = CR_LF.getBytes(US_ASCII);
 
     /**
      * private to prevent un-necessary instantiation.
