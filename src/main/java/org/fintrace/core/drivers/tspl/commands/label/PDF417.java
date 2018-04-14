@@ -223,7 +223,7 @@ public class PDF417 implements TSPLCommand {
             commandBuilder.append(ESCAPED_DOUBLE_QUOTE);
         }
 
-        commandBuilder.append(NEW_LINE_FEED);
+        commandBuilder.append(LF);
 
         return commandBuilder.toString();
     }

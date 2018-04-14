@@ -17,11 +17,12 @@ package org.fintrace.core.drivers.tspl.commands.status;
 
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
+import static org.fintrace.core.drivers.tspl.DriverConstants.LF;
 import static org.fintrace.core.drivers.tspl.DriverConstants.STATUS_COMMAND_PREFIX;
 
 /**
  * These commands support RS-232, USB and Ethernet.
- * <p>
+ *
  * <b>Syntax</b><br>
  * &lt;ESC&gt;!&lt;COMMAND&gt;<br><br>
  * <i>&lt;ESC&gt; is ASCII 27, escape character</i>
@@ -35,10 +36,10 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
      * to the printer. A one byte character is returned, flagging the printer status.
      * A 0 signifies the printer is ready to print labels.
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!?
-     * <p>
+     *
      * <b>Response Format</b>
      * <b>Hex Receive Printer Status</b><br>
      * 00 Normal<br>
@@ -64,7 +65,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * event of printer error. An inquiry request is solicited by sending
      * an &lt;ESC&gt; (ASCII 27, escape character) as the beginning control character
      * to the printer. 8 bytes will be returned, flagging the printer status.
-     * <p>
+     *
      * <b>Syntax </b><br>
      * &lt;ESC&gt;!S
      * <p><br>
@@ -114,7 +115,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * This command is using to PAUSE the printer. The beginning of the command
      * is an ESCAPE character
      * (ASCII 27).
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!P
      */
@@ -124,7 +125,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * This command is using to cancel the PAUSE status of printer. The
      * beginning of the command is an
      * ESCAPE character (ASCII 27).
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!O
      */
@@ -134,7 +135,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * This command resets the printer. The beginning of the command is
      * an ESCAPE character (ASCII 27). The files downloaded in memory
      * will be deleted. This command cannot be sent in dump mode.
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!R
      */
@@ -144,7 +145,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * This command is using to feed a label. This function is the same as
      * to press the FEED button. The beginning of the command is
      * an ESCAPE character (ASCII 27).
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!F
      */
@@ -154,7 +155,7 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      * This command can cancel all printing files. The beginning of the
      * command is an ESCAPE character
      * (ASCII 27).
-     * <p>
+     *
      * <b>Syntax</b><br>
      * &lt;ESC&gt;!.
      */
@@ -189,6 +190,6 @@ public enum TSPLStatusPollCommands implements TSPLCommand {
      */
     @Override
     public String getCommand() {
-        return ((char) 27 + STATUS_COMMAND_PREFIX + command);
+        return ((char) 27 + STATUS_COMMAND_PREFIX + command + LF);
     }
 }

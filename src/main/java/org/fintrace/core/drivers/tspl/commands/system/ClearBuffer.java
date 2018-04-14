@@ -19,7 +19,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 
-import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.DriverConstants.LF;
 
 /**
  * This command clears the image buffer.
@@ -43,6 +43,6 @@ public class ClearBuffer implements TSPLCommand {
      */
     @Override
     public String getCommand() {
-        return SystemCommand.CLS.name() + NEW_LINE_FEED;
+        return SystemCommand.CLS.name() + LF;
     }
 }

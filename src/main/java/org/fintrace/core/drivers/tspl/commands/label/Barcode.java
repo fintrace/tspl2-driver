@@ -573,7 +573,7 @@ public class Barcode implements TSPLCommand {
         }
 
         commandBuilder.append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

@@ -66,7 +66,7 @@ public class CounterExpression implements TSPLCommand {
         commandBuilder.append(counterNumber)
                 .append("=")
                 .append(ESCAPED_DOUBLE_QUOTE).append(expression).append(ESCAPED_DOUBLE_QUOTE)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

@@ -59,7 +59,7 @@ public class Direction implements TSPLCommand {
                     .append(printMirrorImage ? "1" : "0");
         }
 
-        commandBuilder.append(NEW_LINE_FEED);
+        commandBuilder.append(LF);
 
         return commandBuilder.toString();
     }

@@ -207,7 +207,7 @@ public class DataMatrix implements TSPLCommand {
 
         dataMatrix.append(EMPTY_SPACE)
                 .append(ESCAPED_DOUBLE_QUOTE).append(content).append(ESCAPED_DOUBLE_QUOTE)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return dataMatrix.toString();
     }

@@ -170,7 +170,7 @@ public class TLC39 implements TSPLCommand {
         }
 
         commandBuilder.append(ESCAPED_DOUBLE_QUOTE)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

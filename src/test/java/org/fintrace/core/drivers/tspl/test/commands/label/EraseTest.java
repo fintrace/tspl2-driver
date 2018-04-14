@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fintrace.core.drivers.org.fintrace.core.drivers.tspl.test.commands.label;
+package org.fintrace.core.drivers.tspl.test.commands.label;
 
 import org.fintrace.core.drivers.tspl.commands.label.Erase;
 import org.junit.jupiter.api.Assertions;

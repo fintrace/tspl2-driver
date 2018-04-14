@@ -5,7 +5,7 @@ This library will help you to communicate with TSPL2 (TSC brand) based printers.
 
 This drivers supports communication with printer over 
 * USB Communication
-* Ethernet (TODO)
+* Ethernet
 * Bluetooth (TODO)
 
 How to use
@@ -19,18 +19,22 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 </dependency>
 ```
 
 
-Create a USB Client
+Create a connection client
 
 ```java
+// USB Client
 TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
         (short) Integer.parseInt(properties().getProperty("tsc.vendor.id"), 16),
         (short) Integer.parseInt(properties().getProperty("tsc.product.id"), 16));
 
+// Or Ethernet Client
+
+TSPLConnectionClient tsplConnectionClient = new EthernetConnectionClient("x.x.x.x", 9100);
 ```
 
 Initialize the printer with defaults
@@ -38,11 +42,12 @@ Initialize the printer with defaults
 tsplConnectionClient.init();
 ```
 
-you may use any available device config command to overwrite the defaults.
 Once initialized, Establish the connection
 ```java
 tsplConnectionClient.connect();
 ```
+
+You may use any available device config command to overwrite the printer defaults.
 
 Once the connection is established, Either construct the label (using fluent API) or send the plain TSPL string to print the label.
 ```java

@@ -97,7 +97,7 @@ public class Bar implements TSPLCommand {
         commandBuilder.append(COMMA)
                 .append(width).append(COMMA)
                 .append(height)
-                .append(NEW_LINE_FEED);
+                .append(LF);
 
         return commandBuilder.toString();
     }

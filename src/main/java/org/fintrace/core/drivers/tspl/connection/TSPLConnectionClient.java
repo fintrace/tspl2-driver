@@ -20,8 +20,6 @@ import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
-import javax.usb.UsbException;
-
 /**
  * This interface define the Connection level contract with the
  * TSPL (a.k.a TSC branded printer) system. Implementation can be done
@@ -42,13 +40,13 @@ public interface TSPLConnectionClient {
      * listeners call backs. (ie, ClientListener). OR, using the isConnected
      * method. Connection might not happen instantly after the method call.
      */
-    void connect() throws UsbException;
+    void connect();
 
     /**
      * Instruct the client to execute disconnect routines. This method will
      * return immediately. You should listen for connection status using the
-     * provided listeners call backs. (ie, ClientListener). OR, using is
-     * Connected method. Connection close might not happen instantly after the
+     * provided listeners call backs. (ie, ClientListener). OR, using
+     * isConnected method. Connection close might not happen instantly after the
      * method call.
      */
     void disconnect();

@@ -106,7 +106,7 @@ public class Box implements TSPLCommand {
             }
         }
 
-        commandBuilder.append(NEW_LINE_FEED);
+        commandBuilder.append(LF);
 
         return commandBuilder.toString();
     }

@@ -21,7 +21,7 @@ import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.EMPTY_SPACE;
-import static org.fintrace.core.drivers.tspl.DriverConstants.NEW_LINE_FEED;
+import static org.fintrace.core.drivers.tspl.DriverConstants.LF;
 
 /**
  * This command sets the printing darkness.<br>
@@ -57,6 +57,6 @@ public class Density implements TSPLCommand {
 
         return SystemCommand.DENSITY.name()
                 + EMPTY_SPACE + darkness
-                + NEW_LINE_FEED;
+                + LF;
     }
 }
