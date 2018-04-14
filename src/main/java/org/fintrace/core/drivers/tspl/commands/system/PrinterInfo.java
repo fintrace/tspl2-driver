@@ -51,12 +51,12 @@ import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.SELFT
  */
 @Data
 @Builder
-public class SelfTest implements TSPLCommand {
+public class PrinterInfo implements TSPLCommand {
 
     /**
      * if omitted, prints a self-test page with whole printer information.
      */
-    private SelfTestPage page;
+    private PrinterInfoPage page;
 
     /**
      * {@inheritDoc}

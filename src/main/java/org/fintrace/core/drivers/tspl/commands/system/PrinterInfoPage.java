@@ -18,7 +18,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum SelfTestPage {
+public enum PrinterInfoPage {
     /**
      * a pattern to check the status of print head heat line.
      */
