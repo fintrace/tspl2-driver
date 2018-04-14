@@ -59,5 +59,15 @@ public enum SystemCommand {
     /**
      * prints the label
      */
-    PRINT
+    PRINT,
+
+    /**
+     * activates the cutter
+     */
+    CUT,
+
+    /**
+     * Self test to print the printer information
+     */
+    SELFTEST
 }
