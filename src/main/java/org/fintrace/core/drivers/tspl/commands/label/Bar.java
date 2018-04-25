@@ -21,11 +21,10 @@ import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
 import org.fintrace.core.drivers.tspl.exceptions.LabelParserException;
 
 import static org.fintrace.core.drivers.tspl.DriverConstants.*;
-import static org.fintrace.core.drivers.tspl.commands.label.TSPLLabelUtils.hasFloatDecimals;
 
 /**
  * This command draws a bar on the label format.<br>
- * <p>
+ *
  * <b>Syntax</b><br>
  * BAR x,y,width,height<br>
  * <p>
@@ -51,12 +50,12 @@ public class Bar implements TSPLCommand {
     /**
      * The upper left corner x-coordinate (in dots)
      */
-    private Float xCoordinate;
+    private Integer xCoordinate;
 
     /**
      * The upper left corner y-coordinate (in dots)
      */
-    private Float yCoordinate;
+    private Integer yCoordinate;
 
     /**
      * width Bar width (in dots)
@@ -77,28 +76,19 @@ public class Bar implements TSPLCommand {
             throw new LabelParserException("BAR: x and y positions are required");
         }
 
-        StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BAR.name());
-        commandBuilder.append(EMPTY_SPACE);
-
-        if (!hasFloatDecimals(xCoordinate)) {
-            commandBuilder.append(xCoordinate.intValue());
-        } else {
-            commandBuilder.append(xCoordinate);
+        if (width == null) {
+            throw new LabelParserException("BAR: width is required");
         }
 
-        commandBuilder.append(COMMA);
-
-        if (!hasFloatDecimals(yCoordinate)) {
-            commandBuilder.append(yCoordinate.intValue());
-        } else {
-            commandBuilder.append(yCoordinate);
+        if (height == null) {
+            throw new LabelParserException("BAR: height is required");
         }
 
-        commandBuilder.append(COMMA)
-                .append(width).append(COMMA)
-                .append(height)
-                .append(LF);
-
-        return commandBuilder.toString();
+        return LabelFormatCommand.BAR.name() + EMPTY_SPACE
+                + xCoordinate + COMMA
+                + yCoordinate + COMMA
+                + width + COMMA
+                + height
+                + LF;
     }
 }

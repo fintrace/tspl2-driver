@@ -16,58 +16,36 @@
 package org.fintrace.core.drivers.tspl.commands.system;
 
 /**
- * Setup and System Commands as part of label formatting
- *
  * @author Venkaiah Chowdary Koneru
  */
-public enum SystemCommand {
+public enum PrinterInfoPage {
     /**
-     * This command defines the label width and length.
+     * a pattern to check the status of print head heat line.
      */
-    SIZE,
+    PATTERN,
 
     /**
-     * Defines the gap distance between two labels.
+     * a self-test page with Ethernet settings.
      */
-    GAP,
+    ETHERNET,
 
     /**
-     * extra label feeding length
+     * a self-test page with Wi-Fi settings.
      */
-    OFFSET,
+    WLAN,
 
     /**
-     * Printing speed in inch per second
+     * a self-test page with RS-232 settings.
      */
-    SPEED,
+    RS232,
 
     /**
-     * printing darkness
+     * a self-test page with printer settings.
      */
-    DENSITY,
+    SYSTEM,
 
     /**
-     * printout direction and mirror image.
+     * a self-test page with emulated language settings.
      */
-    DIRECTION,
-
-    /**
-     * clears buffer
-     */
-    CLS,
-
-    /**
-     * prints the label
-     */
-    PRINT,
-
-    /**
-     * activates the cutter
-     */
-    CUT,
-
-    /**
-     * Self test to print the printer information
-     */
-    SELFTEST
+    Z
 }

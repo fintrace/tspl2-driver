@@ -83,5 +83,10 @@ public enum LabelFormatCommand {
     /**
      * QRCODE
      */
-    QRCODE
+    QRCODE,
+
+    /**
+     * AZTEC
+     */
+    AZTEC
 }

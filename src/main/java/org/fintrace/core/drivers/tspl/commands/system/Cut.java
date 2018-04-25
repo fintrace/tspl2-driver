@@ -15,59 +15,29 @@
  */
 package org.fintrace.core.drivers.tspl.commands.system;
 
+import lombok.Builder;
+import org.fintrace.core.drivers.tspl.commands.TSPLCommand;
+
+import static org.fintrace.core.drivers.tspl.DriverConstants.LF;
+import static org.fintrace.core.drivers.tspl.commands.system.SystemCommand.CUT;
+
 /**
- * Setup and System Commands as part of label formatting
+ * This command activates the cutter to immediately cut the labels without back feeding the label.
+ * <p>
+ * <b><i>Syntax</i></b><br>
+ * CUT
+ * </p>
  *
  * @author Venkaiah Chowdary Koneru
  */
-public enum SystemCommand {
-    /**
-     * This command defines the label width and length.
-     */
-    SIZE,
+@Builder
+public class Cut implements TSPLCommand {
 
     /**
-     * Defines the gap distance between two labels.
+     * {@inheritDoc}
      */
-    GAP,
-
-    /**
-     * extra label feeding length
-     */
-    OFFSET,
-
-    /**
-     * Printing speed in inch per second
-     */
-    SPEED,
-
-    /**
-     * printing darkness
-     */
-    DENSITY,
-
-    /**
-     * printout direction and mirror image.
-     */
-    DIRECTION,
-
-    /**
-     * clears buffer
-     */
-    CLS,
-
-    /**
-     * prints the label
-     */
-    PRINT,
-
-    /**
-     * activates the cutter
-     */
-    CUT,
-
-    /**
-     * Self test to print the printer information
-     */
-    SELFTEST
+    @Override
+    public String getCommand() {
+        return CUT.name() + LF;
+    }
 }
