@@ -16,7 +16,7 @@
 package org.fintrace.core.drivers.tspl.connection;
 
 import lombok.extern.slf4j.Slf4j;
-import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
+import org.fintrace.core.drivers.tspl.commands.label.TSPLLabel;
 import org.fintrace.core.drivers.tspl.exceptions.ConnectionClientException;
 import org.fintrace.core.drivers.tspl.exceptions.PrinterException;
 
@@ -28,7 +28,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * This class is an implementation of <code>TSPLConnectionClient</code> That will
- * communicate with supported TSC printer via USB.
+ * communicate with supported printer via USB.
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -151,7 +151,7 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
      * {@inheritDoc}
      */
     @Override
-    public void send(TscLabel label) {
+    public void send(TSPLLabel label) {
         send(label.getTsplCode());
     }
 
