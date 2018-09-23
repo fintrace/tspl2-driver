@@ -19,7 +19,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.9-SNAPSHOT</version>
+    <version>0.0.9</version>
 </dependency>
 ```
 
