@@ -45,8 +45,11 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     private UsbPipe readPipe;
 
     /**
-     * This works as expected only when one printer is connected. <br> If more than one printer is connected, either use
+     * This works as expected only when one printer is connected.
+     *
+     * <p> If more than one printer is connected, either use
      * more fine-grained constructor (refer below) or use ethernet connector.
+     * </p>
      *
      * @param tscVendorId
      */
@@ -153,8 +156,8 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Note that submissions (except interrupt and bulk in-direction) will not block indefinitely, they will complete or
-     * fail within a finite amount of time.
+     * Note that submissions (except interrupt and bulk in-direction) will not
+     * block indefinitely, they will complete or fail within a finite amount of time.
      * <p>
      * {@inheritDoc}
      */
@@ -233,7 +236,8 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Retrieves the desired USB device from the given root hub based on the vendorId and productId.
+     * Retrieves the desired USB device from the given root hub based on the vendorId
+     * and productId.
      *
      * @param hub       the root hub services object
      * @param vendorId  USB device vendor id
