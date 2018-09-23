@@ -8,6 +8,9 @@ This drivers supports communication with printer over
 * Ethernet
 * Bluetooth (TODO)
 
+> **Disclaimer:** This is not official or supported by TSC Auto ID Technology Co., Ltd. 
+> This work is originated purely because there are no equivalent libraries exists for java to communicate to TSPL based printers.
+
 How to use
 =================
 
