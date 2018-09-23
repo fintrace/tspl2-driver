@@ -29,8 +29,8 @@ Create a connection client
 ```java
 // USB Client
 TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
-        (short) Integer.parseInt(properties().getProperty("tsc.vendor.id"), 16),
-        (short) Integer.parseInt(properties().getProperty("tsc.product.id"), 16));
+        (short) xxxx, 16), // tsc vendor id
+        (short) xxxx, 16)); // ${tsc product id
 
 // Or Ethernet Client
 
