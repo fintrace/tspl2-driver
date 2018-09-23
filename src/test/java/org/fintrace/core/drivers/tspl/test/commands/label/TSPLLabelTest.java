@@ -21,7 +21,7 @@ import org.fintrace.core.drivers.tspl.commands.label.BarcodeAlignment;
 import org.fintrace.core.drivers.tspl.commands.label.BarcodeRotation;
 import org.fintrace.core.drivers.tspl.commands.label.DataMatrix;
 import org.fintrace.core.drivers.tspl.commands.label.Text;
-import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
+import org.fintrace.core.drivers.tspl.commands.label.TSPLLabel;
 import org.fintrace.core.drivers.tspl.commands.system.ClearBuffer;
 import org.fintrace.core.drivers.tspl.commands.system.Direction;
 import org.fintrace.core.drivers.tspl.commands.system.Gap;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public class TscLabelTest {
+public class TSPLLabelTest {
 
     @Test
     public void testDataMatrix() {
@@ -46,7 +46,7 @@ public class TscLabelTest {
                 "DMATRIX 10,310,400,400,x8,18,18, \"DMATRIX EXAMPLE 3\"\n" +
                 "PRINT 1,1\n";
 
-        TscLabel tscLabel = TscLabel.builder()
+        TSPLLabel tsplLabel = TSPLLabel.builder()
                 .element(Size.builder().labelWidth(4f).labelLength(3f).build())
                 .element(Gap.builder().labelDistance(0f).labelOffsetDistance(0f).build())
                 .element(Direction.builder().printPositionAsFeed(Boolean.TRUE).build())
@@ -61,11 +61,11 @@ public class TscLabelTest {
                 .element(Print.builder().nbLabels(1).nbCopies(1).build())
                 .build();
 
-        Assertions.assertNotNull(tscLabel.getElements());
-        Assertions.assertEquals(8, tscLabel.getElements().size());
-        Assertions.assertEquals(expectedCode, tscLabel.getTsplCode());
-        Assertions.assertNotNull(tscLabel.getElements());
-        Assertions.assertEquals(8, tscLabel.getElements().size());
+        Assertions.assertNotNull(tsplLabel.getElements());
+        Assertions.assertEquals(8, tsplLabel.getElements().size());
+        Assertions.assertEquals(expectedCode, tsplLabel.getTsplCode());
+        Assertions.assertNotNull(tsplLabel.getElements());
+        Assertions.assertEquals(8, tsplLabel.getElements().size());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TscLabelTest {
                 "TEXT 600,30,\"3\",0,1,1,3,\"Label\" +@3+\"-------------------------\"\n" +
                 "PRINT 5\n";
 
-        TscLabel tscLabel = TscLabel.builder()
+        TSPLLabel tsplLabel = TSPLLabel.builder()
                 .element(Counter.builder().counterNumber(0).step(1).build())
                 .element(Counter.builder().counterNumber(1).step(0).build())
                 .element(Counter.builder().counterNumber(2).step(-1).build())
@@ -110,10 +110,10 @@ public class TscLabelTest {
                 .element(Print.builder().nbLabels(5).build())
                 .build();
 
-        Assertions.assertNotNull(tscLabel.getElements());
-        Assertions.assertEquals(15, tscLabel.getElements().size());
-        Assertions.assertEquals(expectedLabel, tscLabel.getTsplCode());
-        Assertions.assertNotNull(tscLabel.getElements());
-        Assertions.assertEquals(15, tscLabel.getElements().size());
+        Assertions.assertNotNull(tsplLabel.getElements());
+        Assertions.assertEquals(15, tsplLabel.getElements().size());
+        Assertions.assertEquals(expectedLabel, tsplLabel.getTsplCode());
+        Assertions.assertNotNull(tsplLabel.getElements());
+        Assertions.assertEquals(15, tsplLabel.getElements().size());
     }
 }

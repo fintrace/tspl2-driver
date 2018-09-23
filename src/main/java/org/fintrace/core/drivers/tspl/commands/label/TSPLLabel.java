@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @Builder
 @Data
-public class TscLabel {
+public class TSPLLabel {
 
     @Singular
     private List<TSPLCommand> elements;

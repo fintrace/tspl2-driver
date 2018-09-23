@@ -16,7 +16,7 @@
 package org.fintrace.core.drivers.tspl.connection;
 
 import lombok.extern.slf4j.Slf4j;
-import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
+import org.fintrace.core.drivers.tspl.commands.label.TSPLLabel;
 import org.fintrace.core.drivers.tspl.exceptions.ConnectionClientException;
 import org.fintrace.core.drivers.tspl.exceptions.PrinterException;
 
@@ -36,7 +36,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.LF_BYTES;
 
 /**
  * This class is an implementation of <code>TSPLConnectionClient</code> That
- * will communicate with supported TSC printer using TCP/IP connectivity protocol and
+ * will communicate with supported TSPL2 based printer using TCP/IP connectivity protocol and
  * their supported medium (LAN, INTERNET or simple cross UTP).
  * <p>
  * This implementation is using high performance NIO non blocking method.
@@ -172,7 +172,7 @@ public class EthernetConnectionClient extends AbstractConnectionClient
      * {@inheritDoc}
      */
     @Override
-    public void send(TscLabel label) {
+    public void send(TSPLLabel label) {
         send(label.getTsplCode());
     }
 

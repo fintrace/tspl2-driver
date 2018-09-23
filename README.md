@@ -1,12 +1,15 @@
 tspl2-driver
 ============
 
-This library will help you to communicate with TSPL2 (TSC brand) based printers.
+This library will help you to communicate with TSPL2 (by TSC) based printers.
 
 This drivers supports communication with printer over 
 * USB Communication
 * Ethernet
 * Bluetooth (TODO)
+
+> **Disclaimer:** This is not official or supported by TSC Auto ID Technology Co., Ltd. 
+> This work is originated purely because there are no equivalent libraries exists for java to communicate to TSPL based printers.
 
 How to use
 =================
@@ -19,7 +22,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
 </dependency>
 ```
 
@@ -29,8 +32,8 @@ Create a connection client
 ```java
 // USB Client
 TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
-        (short) xxxx, 16), // tsc vendor id
-        (short) xxxx, 16)); // ${tsc product id
+        (short) xxxx, 16), // vendor id of TSPL2 based printer
+        (short) xxxx, 16)); // product id of TSPL2 based printer
 
 // Or Ethernet Client
 
@@ -51,7 +54,7 @@ You may use any available device config command to overwrite the printer default
 
 Once the connection is established, Either construct the label (using fluent API) or send the plain TSPL string to print the label.
 ```java
-TscLabel tscLabel = TscLabel.builder()
+TSPLLabel tsplLabel = TSPLLabel.builder()
                 .element(Size.builder().labelWidth(4f).labelLength(3f).build())
                 .element(Gap.builder().labelDistance(0f).labelOffsetDistance(0f).build())
                 .element(Direction.builder().printPositionAsFeed(Boolean.TRUE).build())
@@ -66,7 +69,7 @@ TscLabel tscLabel = TscLabel.builder()
                 .element(Print.builder().nbLabels(1).nbCopies(1).build())
                 .build();
 
-tsplConnectionClient.send(tscLabel);
+tsplConnectionClient.send(tsplLabel);
 
 ```
 
@@ -103,8 +106,19 @@ Implement [DataListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/
 Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/ClientListener.java) to listen for the network related events.
 
 
+Notable Changes
+=================
+##### from 0.0.8 to 0.0.9
+* Renamed TscLabel class to TSPLLabel (breaking change)
+
+##### from 0.0.7 to 0.0.8
+* Introduced an additional single argument constructor (only with vendor id) to USBConnectionClient.
+
+
 Other documentation
 =================
 
 Documentation about TSPL could be find here
 http://www.tscprinters.com/cms/upload/download_en/TSPL_TSPL2_Programming.pdf
+or 
+http://mediaform.de/fileadmin/support/handbuecher/Armilla/Handbuecher/TSC_TSPL_TSPL2_Programming.pdf

@@ -16,13 +16,13 @@
 package org.fintrace.core.drivers.tspl.connection;
 
 
-import org.fintrace.core.drivers.tspl.commands.label.TscLabel;
+import org.fintrace.core.drivers.tspl.commands.label.TSPLLabel;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
 /**
  * This interface define the Connection level contract with the
- * TSPL (a.k.a TSC branded printer) system. Implementation can be done
+ * TSPL system. Implementation can be done
  * with TCP/IP Socket, USB or other mechanism.
  *
  * @author Venkaiah Chowdary Koneru
@@ -85,7 +85,7 @@ public interface TSPLConnectionClient {
      *
      * @param label tsc label with required elements
      */
-    void send(TscLabel label);
+    void send(TSPLLabel label);
 
     /**
      * Add a ClientListener to this client. This method will not check for
