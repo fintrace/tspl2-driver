@@ -19,7 +19,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 </dependency>
 ```
 
@@ -29,8 +29,8 @@ Create a connection client
 ```java
 // USB Client
 TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
-        (short) Integer.parseInt(properties().getProperty("tsc.vendor.id"), 16),
-        (short) Integer.parseInt(properties().getProperty("tsc.product.id"), 16));
+        (short) xxxx, 16), // tsc vendor id
+        (short) xxxx, 16)); // ${tsc product id
 
 // Or Ethernet Client
 
