@@ -27,8 +27,8 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
- * This class is an implementation of <code>TSPLConnectionClient</code> That
- * will communicate with supported TSC printer via USB.
+ * This class is an implementation of <code>TSPLConnectionClient</code> That will communicate with supported TSC printer
+ * via USB.
  *
  * @author Venkaiah Chowdary Koneru
  */
@@ -43,6 +43,16 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     private UsbInterface usbInterface;
     private UsbPipe writePipe;
     private UsbPipe readPipe;
+
+    /**
+     * This works as expected only when one printer is connected. <br> If more than one printer is connected, either use
+     * more fine-grained constructor (refer below) or use ethernet connector.
+     *
+     * @param tscVendorId
+     */
+    public USBConnectionClient(short tscVendorId) {
+        this.tscVendorId = tscVendorId;
+    }
 
     /**
      * @param tscVendorId
@@ -67,7 +77,11 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
             log.info("Service API version: {}", services.getApiVersion());
 
             // find the USB device from the root USB hub
-            usbDevice = findDevice(services.getRootUsbHub(), tscVendorId, tscProductId);
+            if (tscProductId == 0) {
+                usbDevice = findAndGetDeviceByVendor(services.getRootUsbHub(), tscVendorId);
+            } else {
+                usbDevice = findDevice(services.getRootUsbHub(), tscVendorId, tscProductId);
+            }
 
             findAndClaimInterface();
         } catch (UsbException e) {
@@ -139,9 +153,8 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Note that submissions (except interrupt and bulk in-direction)
-     * will not block indefinitely, they will complete or fail within
-     * a finite amount of time.
+     * Note that submissions (except interrupt and bulk in-direction) will not block indefinitely, they will complete or
+     * fail within a finite amount of time.
      * <p>
      * {@inheritDoc}
      */
@@ -193,16 +206,43 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Retrieves the desired USB device from the given root hub based on the
-     * vendorId and productId.
+     * Retrieves the USB device from the given root hub based on the vendor id.
+     *
+     * @param hub      the root hub services object
+     * @param vendorId USB device vendor id
+     *
+     * @return matched USBDevice object
+     */
+    @SuppressWarnings("unchecked")
+    private UsbDevice findAndGetDeviceByVendor(UsbHub hub, short vendorId) {
+        for (UsbDevice device : (List<UsbDevice>) hub.getAttachedUsbDevices()) {
+            UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
+            if (desc.idVendor() == vendorId) {
+                tscProductId = desc.idProduct();
+                return device;
+            }
+            if (device.isUsbHub()) {
+                device = findAndGetDeviceByVendor((UsbHub) device, vendorId);
+                if (device != null) {
+                    tscProductId = desc.idProduct();
+                    return device;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Retrieves the desired USB device from the given root hub based on the vendorId and productId.
      *
      * @param hub       the root hub services object
      * @param vendorId  USB device vendor id
      * @param productId USB device product id
+     *
      * @return matched USBDevice object
      */
     @SuppressWarnings("unchecked")
-    private UsbDevice findDevice(UsbHub hub, short vendorId, short productId) {
+    private static UsbDevice findDevice(UsbHub hub, short vendorId, short productId) {
         for (UsbDevice device : (List<UsbDevice>) hub.getAttachedUsbDevices()) {
             UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
             if (desc.idVendor() == vendorId && desc.idProduct() == productId) {
@@ -233,7 +273,7 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
 
         ((List<UsbEndpoint>) usbInterface.getUsbEndpoints()).forEach(p ->
                 log.info("Interface Direction: {}, Interface Address: {}",
-                p.getDirection(), p.getUsbEndpointDescriptor().bEndpointAddress())
+                        p.getDirection(), p.getUsbEndpointDescriptor().bEndpointAddress())
         );
     }
 
