@@ -27,8 +27,8 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
- * This class is an implementation of <code>TSPLConnectionClient</code> That will communicate with supported TSC printer
- * via USB.
+ * This class is an implementation of <code>TSPLConnectionClient</code> That will
+ * communicate with supported TSC printer via USB.
  *
  * @author Venkaiah Chowdary Koneru
  */
