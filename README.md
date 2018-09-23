@@ -103,6 +103,15 @@ Implement [DataListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/
 Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/ClientListener.java) to listen for the network related events.
 
 
+Notable Changes
+=================
+##### from 0.0.8 to 0.0.9
+* Renamed TscLabel class to TSPLLabel (breaking change)
+
+##### from 0.0.7 to 0.0.8
+* Introduced an additional single argument constructor (only with vendor id) to USBConnectionClient.
+
+
 Other documentation
 =================
 
