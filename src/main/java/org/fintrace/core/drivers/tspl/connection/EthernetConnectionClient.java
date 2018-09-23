@@ -36,7 +36,7 @@ import static org.fintrace.core.drivers.tspl.DriverConstants.LF_BYTES;
 
 /**
  * This class is an implementation of <code>TSPLConnectionClient</code> That
- * will communicate with supported TSC printer using TCP/IP connectivity protocol and
+ * will communicate with supported TSPL2 based printer using TCP/IP connectivity protocol and
  * their supported medium (LAN, INTERNET or simple cross UTP).
  * <p>
  * This implementation is using high performance NIO non blocking method.

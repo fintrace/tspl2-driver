@@ -6,7 +6,7 @@
     <artifactId>tspl2-driver</artifactId>
     <version>0.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>TSC TSPL2 Java driver</name>
+    <name>TSPL2 (by TSC) Java driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
     <description>Java client for TSPL2 generator and USB communication</description>
     <properties>

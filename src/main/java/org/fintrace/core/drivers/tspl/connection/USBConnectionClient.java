@@ -27,16 +27,16 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
- * This class is an implementation of <code>TSPLConnectionClient</code> That will
- * communicate with supported printer via USB.
+ * This class is an implementation of <code>TSPLConnectionClient</code> That will communicate with
+ * supported printer via USB.
  *
  * @author Venkaiah Chowdary Koneru
  */
 @Slf4j
 public class USBConnectionClient extends AbstractConnectionClient implements UsbDeviceListener {
 
-    private short tscVendorId;
-    private short tscProductId;
+    private short vendorId;
+    private short productId;
     private short outPipeAddress = -126;
     private short inPipeAddress = 1;
     private UsbDevice usbDevice;
@@ -51,19 +51,19 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
      * more fine-grained constructor (refer below) or use ethernet connector.
      * </p>
      *
-     * @param tscVendorId
+     * @param vendorId printer's USB vendor id
      */
-    public USBConnectionClient(short tscVendorId) {
-        this.tscVendorId = tscVendorId;
+    public USBConnectionClient(short vendorId) {
+        this.vendorId = vendorId;
     }
 
     /**
-     * @param tscVendorId
-     * @param tscProductId
+     * @param vendorId  printer's USB vendor id
+     * @param productId printer's USB product id
      */
-    public USBConnectionClient(short tscVendorId, short tscProductId) {
-        this.tscVendorId = tscVendorId;
-        this.tscProductId = tscProductId;
+    public USBConnectionClient(short vendorId, short productId) {
+        this.vendorId = vendorId;
+        this.productId = productId;
     }
 
     /**
@@ -80,10 +80,10 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
             log.info("Service API version: {}", services.getApiVersion());
 
             // find the USB device from the root USB hub
-            if (tscProductId == 0) {
-                usbDevice = findAndGetDeviceByVendor(services.getRootUsbHub(), tscVendorId);
+            if (productId == 0) {
+                usbDevice = findAndGetDeviceByVendor(services.getRootUsbHub(), vendorId);
             } else {
-                usbDevice = findDevice(services.getRootUsbHub(), tscVendorId, tscProductId);
+                usbDevice = findDevice(services.getRootUsbHub(), vendorId, productId);
             }
 
             findAndClaimInterface();
@@ -156,8 +156,8 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Note that submissions (except interrupt and bulk in-direction) will not
-     * block indefinitely, they will complete or fail within a finite amount of time.
+     * Note that submissions (except interrupt and bulk in-direction) will not block indefinitely,
+     * they will complete or fail within a finite amount of time.
      * <p>
      * {@inheritDoc}
      */
@@ -221,13 +221,13 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
         for (UsbDevice device : (List<UsbDevice>) hub.getAttachedUsbDevices()) {
             UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
             if (desc.idVendor() == vendorId) {
-                tscProductId = desc.idProduct();
+                productId = desc.idProduct();
                 return device;
             }
             if (device.isUsbHub()) {
                 device = findAndGetDeviceByVendor((UsbHub) device, vendorId);
                 if (device != null) {
-                    tscProductId = desc.idProduct();
+                    productId = desc.idProduct();
                     return device;
                 }
             }
@@ -236,8 +236,8 @@ public class USBConnectionClient extends AbstractConnectionClient implements Usb
     }
 
     /**
-     * Retrieves the desired USB device from the given root hub based on the vendorId
-     * and productId.
+     * Retrieves the desired USB device from the given root hub based on the vendorId and
+     * productId.
      *
      * @param hub       the root hub services object
      * @param vendorId  USB device vendor id

@@ -22,7 +22,7 @@ import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
 /**
  * This interface define the Connection level contract with the
- * TSPL (a.k.a TSC branded printer) system. Implementation can be done
+ * TSPL system. Implementation can be done
  * with TCP/IP Socket, USB or other mechanism.
  *
  * @author Venkaiah Chowdary Koneru
