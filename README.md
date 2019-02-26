@@ -22,7 +22,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
 </dependency>
 ```
 
@@ -108,6 +108,9 @@ Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listener
 
 Notable Changes
 =================
+##### from 0.0.8 to 0.0.10
+* Bugfix for [Barcode rotation](https://github.com/fintrace/tspl2-driver/issues/18)
+
 ##### from 0.0.8 to 0.0.9
 * Renamed TscLabel class to TSPLLabel (breaking change)
 

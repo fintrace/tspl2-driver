@@ -541,6 +541,22 @@ public class Barcode implements TSPLCommand {
             throw new LabelParserException("BARCODE: x and y positions are required");
         }
 
+        if (codeType == null) {
+            throw new LabelParserException("BARCODE: codeType is required");
+        }
+
+        if (content == null || content.trim().length() == 0) {
+            throw new LabelParserException("BARCODE: content is required");
+        }
+
+        if (hrcAlignment == null) {
+            hrcAlignment = BarcodeHRCAlignment.NO_HRC_DISPLAY;
+        }
+
+        if (rotation == null) {
+            rotation = BarcodeRotation.NO_ROTATION;
+        }
+
         StringBuilder commandBuilder = new StringBuilder(LabelFormatCommand.BARCODE.name());
         commandBuilder.append(EMPTY_SPACE);
 
@@ -564,7 +580,7 @@ public class Barcode implements TSPLCommand {
                 .append(codeType.getCodeType()).append(ESCAPED_DOUBLE_QUOTE).append(COMMA)
                 .append(height).append(COMMA)
                 .append(hrcAlignment.getAlignment()).append(COMMA)
-                .append(rotation).append(COMMA)
+                .append(rotation.getRotation()).append(COMMA)
                 .append(narrow).append(COMMA)
                 .append(wide).append(COMMA);
 
