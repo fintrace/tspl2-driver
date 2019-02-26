@@ -108,7 +108,7 @@ Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listener
 
 Notable Changes
 =================
-##### from 0.0.8 to 0.0.10
+##### from 0.0.9 to 0.0.10
 * Bugfix for [Barcode rotation](https://github.com/fintrace/tspl2-driver/issues/18)
 
 ##### from 0.0.8 to 0.0.9
