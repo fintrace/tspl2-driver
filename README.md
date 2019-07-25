@@ -22,7 +22,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.10</version>
+    <version>0.0.11-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -108,13 +108,13 @@ Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listener
 
 Notable Changes
 =================
-##### from 0.0.9 to 0.0.10
+##### 0.0.10
 * Bugfix for [Barcode rotation](https://github.com/fintrace/tspl2-driver/issues/18)
 
-##### from 0.0.8 to 0.0.9
+##### 0.0.9
 * Renamed TscLabel class to TSPLLabel (breaking change)
 
-##### from 0.0.7 to 0.0.8
+##### 0.0.8
 * Introduced an additional single argument constructor (only with vendor id) to USBConnectionClient.
 
 
@@ -125,3 +125,7 @@ Documentation about TSPL could be find here
 http://www.tscprinters.com/cms/upload/download_en/TSPL_TSPL2_Programming.pdf
 or 
 http://mediaform.de/fileadmin/support/handbuecher/Armilla/Handbuecher/TSC_TSPL_TSPL2_Programming.pdf
+
+Contributions
+=================
+Contributions of any type are welcome. Please contact via issues to discuss further.
