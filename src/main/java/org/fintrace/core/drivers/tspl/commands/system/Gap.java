@@ -51,7 +51,7 @@ public class Gap implements TSPLCommand {
      * indicates which system to use for the gap
      */
     @Builder.Default
-    private GapMeasurementSystem gapMeasurementSystem = GapMeasurementSystem.ENGLISH;
+    private MeasurementSystem measurementSystem = MeasurementSystem.ENGLISH;
 
     /**
      * {@inheritDoc}
@@ -72,9 +72,9 @@ public class Gap implements TSPLCommand {
             commandBuilder.append(labelDistance);
         }
 
-        if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
+        if (measurementSystem == MeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
-        } else if (gapMeasurementSystem == GapMeasurementSystem.DOT) {
+        } else if (measurementSystem == MeasurementSystem.DOT) {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
@@ -86,9 +86,9 @@ public class Gap implements TSPLCommand {
             commandBuilder.append(labelOffsetDistance);
         }
 
-        if (gapMeasurementSystem == GapMeasurementSystem.METRIC) {
+        if (measurementSystem == MeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
-        } else if (gapMeasurementSystem == GapMeasurementSystem.DOT) {
+        } else if (measurementSystem == MeasurementSystem.DOT) {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 

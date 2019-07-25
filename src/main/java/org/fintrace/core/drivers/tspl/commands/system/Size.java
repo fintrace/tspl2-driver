@@ -51,7 +51,7 @@ public class Size implements TSPLCommand {
      * indicates the size measurement system to be used
      */
     @Builder.Default
-    private GapMeasurementSystem sizeMeasurementSystem = GapMeasurementSystem.ENGLISH;
+    private MeasurementSystem sizeMeasurementSystem = MeasurementSystem.ENGLISH;
 
     /**
      * {@inheritDoc}
@@ -72,9 +72,9 @@ public class Size implements TSPLCommand {
             commandBuilder.append(labelWidth);
         }
 
-        if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
+        if (sizeMeasurementSystem == MeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
-        } else if (sizeMeasurementSystem == GapMeasurementSystem.DOT) {
+        } else if (sizeMeasurementSystem == MeasurementSystem.DOT) {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
@@ -86,9 +86,9 @@ public class Size implements TSPLCommand {
             commandBuilder.append(labelLength);
         }
 
-        if (sizeMeasurementSystem == GapMeasurementSystem.METRIC) {
+        if (sizeMeasurementSystem == MeasurementSystem.METRIC) {
             commandBuilder.append(EMPTY_SPACE).append(UNIT_MM);
-        } else if (sizeMeasurementSystem == GapMeasurementSystem.DOT) {
+        } else if (sizeMeasurementSystem == MeasurementSystem.DOT) {
             commandBuilder.append(EMPTY_SPACE).append("dot");
         }
 
