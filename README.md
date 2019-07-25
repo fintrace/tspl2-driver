@@ -22,7 +22,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.11-SNAPSHOT</version>
+    <version>0.0.11</version>
 </dependency>
 ```
 
@@ -108,6 +108,9 @@ Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listener
 
 Notable Changes
 =================
+##### 0.0.11
+* Renamed GapMeasurementSystem enum to MeasurementSystem (Thanks to @vidaniello for reporting)
+
 ##### 0.0.10
 * Bugfix for [Barcode rotation](https://github.com/fintrace/tspl2-driver/issues/18)
 
