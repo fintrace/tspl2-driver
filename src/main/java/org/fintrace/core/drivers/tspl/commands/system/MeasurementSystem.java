@@ -18,7 +18,7 @@ package org.fintrace.core.drivers.tspl.commands.system;
 /**
  * @author Venkaiah Chowdary Koneru
  */
-public enum GapMeasurementSystem {
+public enum MeasurementSystem {
     /**
      * English system (inch)
      */
