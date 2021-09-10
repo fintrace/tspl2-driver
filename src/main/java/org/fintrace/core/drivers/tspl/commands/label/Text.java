@@ -229,15 +229,15 @@ public class Text implements TSPLCommand {
         }
 
         // For "ROMAN.TTF" true type font, xMultiplicationFactor parameter is ignored.
-        if (!"ROMAN.TTF".equals(fontName)) {
-            if (!hasFloatDecimals(xMultiplicationFactor)) {
-                commandBuilder.append(xMultiplicationFactor.intValue());
-            } else {
-                commandBuilder.append(xMultiplicationFactor);
-            }
-
-            commandBuilder.append(COMMA);
+       
+        if (!hasFloatDecimals(xMultiplicationFactor)) {
+            commandBuilder.append(xMultiplicationFactor.intValue());
+        } else {
+            commandBuilder.append(xMultiplicationFactor);
         }
+
+        commandBuilder.append(COMMA);
+
 
 
         if (!hasFloatDecimals(yMultiplicationFactor)) {
