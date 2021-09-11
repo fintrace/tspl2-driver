@@ -20,4 +20,4 @@ jobs:
       - name: Run Tests
         run: mvn test
       - name: Checkstyle
-        run: mvn verify
+        run: mvn verify -DskipTests=true
