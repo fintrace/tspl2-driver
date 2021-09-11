@@ -31,8 +31,8 @@ jobs:
       - name: Publish package
         shell: bash
         run: |
-          openssl aes-256-cbc -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/secring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/secring.gpg -d;
-          openssl aes-256-cbc -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg -d;
+          openssl aes-256-cbc -salt -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/secring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/secring.gpg -d;
+          openssl aes-256-cbc -salt -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg -d;
           mvn deploy -B -U --settings ${{ env.SONATYPE_GPG_DIR }}/settings.xml -DperformRelease=true -DskipTests=true;
         env:
           SONATYPE_ENCRYPTION_PASSWORD: ${{ secrets.SONATYPE_ENCRYPTION_PASSWORD }}
