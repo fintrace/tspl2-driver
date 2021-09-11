@@ -1,5 +1,5 @@
 ##### 0.0.12
-* Fix ROMAN.TTF not being printed #36
+* Fix ROMAN.TTF not being printed [#36](https://github.com/fintrace/tspl2-driver/pull/36)
 
 ##### 0.0.11
 * Renamed GapMeasurementSystem enum to MeasurementSystem (Thanks to @vidaniello for reporting)
