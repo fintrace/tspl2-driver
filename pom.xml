@@ -4,7 +4,7 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.11</version>
+    <version>0.0.12</version>
     <packaging>jar</packaging>
     <name>TSPL2 (by TSC) Java driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
@@ -29,8 +29,6 @@
                 <gpg.keyname>${env.SONATYPE_GPG_KEYNAME}</gpg.keyname>
                 <gpg.passphrase>${env.SONATYPE_GPG_PASSPHRASE}</gpg.passphrase>
                 <gpg.defaultKeyring>false</gpg.defaultKeyring>
-                <!--<gpg.publicKeyring>${env.SONATYPE_GPG_DIR}/pubring.gpg</gpg.publicKeyring>-->
-                <!--<gpg.secretKeyring>${env.SONATYPE_GPG_DIR}/secring.gpg</gpg.secretKeyring>-->
             </properties>
             <activation>
                 <property>
