@@ -1,0 +1,38 @@
+name: Publish package to the Maven Central Repository
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    name: Publish package to the Maven Central Repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'zulu'
+          server-id: ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
+          cache: 'maven'
+      - name: Biuld Package
+        run: mvn clean package
+      - name: Generate Release notes
+        shell: bash
+        run: |
+          LOG=git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s"
+      - name: Publish package
+        shell: bash
+        run: |
+          openssl aes-256-cbc -pass pass:$SONATYPE_ENCRYPTION_PASSWORD -in $SONATYPE_GPG_DIR/secring.gpg.enc -out $GPG_DIR/secring.gpg -d;
+          openssl aes-256-cbc -pass pass:$SONATYPE_ENCRYPTION_PASSWORD -in $SONATYPE_GPG_DIR/pubring.gpg.enc -out $GPG_DIR/pubring.gpg -d;
+          mvn deploy -B -U --settings $SONATYPE_GPG_DIR/settings.xml -DperformRelease=true -DskipTests=true;
+        env:
+          SONATYPE_ENCRYPTION_PASSWORD: ${{ secrets.SONATYPE_ENCRYPTION_PASSWORD }}
+          SONATYPE_GPG_DIR: './.github'
+          SONATYPE_GPG_KEYNAME: ${{ secrets.SONATYPE_GPG_KEYNAME }}
+          SONATYPE_GPG_PASSPHRASE: ${{ secrets.SONATYPE_GPG_PASSPHRASE }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}

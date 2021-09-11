@@ -1,0 +1,21 @@
+name: Build & Test
+on:
+  pull_request:
+    branches:
+
+jobs:
+  build:
+    name: Buld & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'zulu'
+          cache: 'maven'
+      - name: Biuld Package
+        run: mvn clean compile
+      - name: Run Tests
+        run: mvn test

@@ -22,7 +22,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.11</version>
+    <version>0.0.12</version>
 </dependency>
 ```
 
@@ -104,21 +104,6 @@ for Data and Network.
 Implement [DataListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/DataListener.java) to listen for data related events from printer.
 
 Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listeners/ClientListener.java) to listen for the network related events.
-
-
-Notable Changes
-=================
-##### 0.0.11
-* Renamed GapMeasurementSystem enum to MeasurementSystem (Thanks to @vidaniello for reporting)
-
-##### 0.0.10
-* Bugfix for [Barcode rotation](https://github.com/fintrace/tspl2-driver/issues/18)
-
-##### 0.0.9
-* Renamed TscLabel class to TSPLLabel (breaking change)
-
-##### 0.0.8
-* Introduced an additional single argument constructor (only with vendor id) to USBConnectionClient.
 
 
 Other documentation
