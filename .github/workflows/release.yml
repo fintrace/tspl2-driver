@@ -21,6 +21,8 @@ jobs:
           server-id: ossrh
           server-username: SONATYPE_USERNAME
           server-password: SONATYPE_PASSWORD
+          gpg-private-key: ${{ secrets.SONATYPE_GPG_PRIVATE_KEY }}
+          gpg-passphrase: SONATYPE_GPG_PASSPHRASE
           cache: 'maven'
       - name: Biuld Package
         run: mvn clean package
@@ -31,12 +33,9 @@ jobs:
       - name: Publish package
         shell: bash
         run: |
-          mvn deploy -B -U -DperformRelease=true -DskipTests=true
-#         openssl aes-256-cbc -pbkdf2 -iter 100000 -salt -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/secring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/secring.gpg -d;
-#         openssl aes-256-cbc -pbkdf2 -iter 100000 -salt -pass pass:${{ env.SONATYPE_ENCRYPTION_PASSWORD }} -in ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg.enc -out ${{ env.SONATYPE_GPG_DIR }}/pubring.gpg -d;
+          mvn clean deploy -B -U --settings ./.github/settings.xml -DperformRelease=true -DskipTests=true
         env:
           SONATYPE_ENCRYPTION_PASSWORD: ${{ secrets.SONATYPE_ENCRYPTION_PASSWORD }}
-          SONATYPE_GPG_DIR: './.github'
           SONATYPE_GPG_KEYNAME: ${{ secrets.SONATYPE_GPG_KEYNAME }}
           SONATYPE_GPG_PASSPHRASE: ${{ secrets.SONATYPE_GPG_PASSPHRASE }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
