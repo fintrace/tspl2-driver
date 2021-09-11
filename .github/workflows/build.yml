@@ -19,3 +19,5 @@ jobs:
         run: mvn clean compile
       - name: Run Tests
         run: mvn test
+      - name: Checkstyle
+        run: mvn verify
