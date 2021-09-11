@@ -4,6 +4,7 @@ on:
     types: [created]
 jobs:
   publish:
+    name: Publish package to the Maven Central Repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,8 +22,7 @@ jobs:
       - name: Generate Release notes
         shell: bash
         run: |
-          curl -s http://search.maven.org/solrsearch/select\?q\=g:"org.fintrace.core.drivers"+AND+a:"tspl2-driver" | jq -r '.response.docs[0].latestVersion'
-
+          LOG=git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s"
       - name: Publish package
         shell: bash
         run: |
