@@ -23,10 +23,10 @@ jobs:
           cache: 'maven'
       - name: Biuld Package
         run: mvn clean package
-      - name: Generate Release notes
-        shell: bash
-        run: |
-          LOG=git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s"
+#      - name: Generate Release notes
+#        shell: bash
+#        run: |
+#          LOG=git log --pretty=oneline $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" | wc l
       - name: Publish package
         shell: bash
         run: |
