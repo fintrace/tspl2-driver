@@ -2,6 +2,10 @@ name: Publish package to the Maven Central Repository
 on:
   release:
     types: [created]
+
+concurrency:
+  group: ${{ github.ref }}
+  
 jobs:
   publish:
     name: Publish package to the Maven Central Repository
