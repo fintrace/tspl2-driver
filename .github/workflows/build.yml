@@ -16,6 +16,6 @@ jobs:
           distribution: 'zulu'
           cache: 'maven'
       - name: Biuld Package
-        run: mvn clean build
+        run: mvn clean compile
       - name: Run Tests
         run: mvn test
