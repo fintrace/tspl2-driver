@@ -14,8 +14,9 @@ This drivers supports communication with printer over
 How to use
 =================
 
-Add dependency in your pom
+[![Maven Central](https://img.shields.io/maven-central/v/org.fintrace.core.drivers/tspl2-driver.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22org.fintrace.core.drivers%22%20AND%20a:%22tspl2-driver%22)
 
+Add dependency in your pom
   	  
 ```xml
 
