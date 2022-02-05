@@ -4,7 +4,7 @@
     "color": "EEEEEE"
   },
   "CHECKS": {
-    "prefixes": ["build:","chore:","ci:","docs:","feat:","fix:","refactor:","style:","perf:","test:"],
+    "prefixes": ["build:","chore:","ci:","docs:","feat:","fix:","refactor:","style:","perf:","test:", "\\[Synk\\]"],
     "regexp": "docs\\(v[0-9]\\): ",
     "ignoreLabels" : ["meta"]
   }
