@@ -19,10 +19,14 @@ import org.fintrace.core.drivers.tspl.exceptions.ConnectionClientException;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static java.nio.charset.StandardCharsets.US_ASCII;
 
 /**
  * Generic client connection implementation for TSPL2 device
@@ -42,6 +46,8 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
     protected ExecutorService listenerExecutorService = Executors.newCachedThreadPool();
     protected boolean isConnected = Boolean.FALSE;
     protected boolean alive = Boolean.FALSE;
+
+    private Charset charset = US_ASCII;
 
     /**
      * {@inheritDoc}
@@ -176,4 +182,15 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
                 clientListener.connectionLost(AbstractConnectionClient.this)
         ));
     }
+
+    public void send(String message){send(message.getBytes(charset));}
+
+    protected abstract void send(byte[] message);
+
+    /** Sets the charset for transmitting Strings as bytes.
+     * Does not add the corresponding CODEPAGE command. */
+    public void setCharset(Charset charset) {this.charset = charset;}
+
+    public Charset getCharset(){return charset;}
+
 }
