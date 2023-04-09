@@ -20,7 +20,6 @@ import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -183,14 +182,20 @@ public abstract class AbstractConnectionClient implements TSPLConnectionClient {
         ));
     }
 
-    public void send(String message){send(message.getBytes(charset));}
+    public void send(String message) {
+        send(message.getBytes(charset));
+    }
 
     protected abstract void send(byte[] message);
 
     /** Sets the charset for transmitting Strings as bytes.
      * Does not add the corresponding CODEPAGE command. */
-    public void setCharset(Charset charset) {this.charset = charset;}
+    public void setCharset(Charset charset) {
+        this.charset = charset;
+    }
 
-    public Charset getCharset(){return charset;}
+    public Charset getCharset() {
+        return charset;
+    }
 
 }
