@@ -177,17 +177,9 @@ public class EthernetConnectionClient extends AbstractConnectionClient
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void send(String tsplMessage) {
-        send(tsplMessage.getBytes(US_ASCII));
-    }
-
-    /**
      * @param message
      */
-    private void send(byte[] message) {
+    protected void send(byte[] message) {
         if (!isConnected) {
             throw new PrinterException("Printer is not connected");
         }
