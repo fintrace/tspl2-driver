@@ -1,3 +1,6 @@
+##### 0.0.13
+* Client can work with different charsets [#48](https://github.com/fintrace/tspl2-driver/pull/48). Fixes [#27](https://github.com/fintrace/tspl2-driver/issues/27)
+
 ##### 0.0.12
 * Fix ROMAN.TTF not being printed [#36](https://github.com/fintrace/tspl2-driver/pull/36)
 
