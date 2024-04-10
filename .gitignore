@@ -89,6 +89,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 ### Java template
+target
 *.class
 
 # BlueJ files
