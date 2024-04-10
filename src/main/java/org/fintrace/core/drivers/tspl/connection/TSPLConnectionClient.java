@@ -20,6 +20,8 @@ import org.fintrace.core.drivers.tspl.commands.label.TSPLLabel;
 import org.fintrace.core.drivers.tspl.listeners.ClientListener;
 import org.fintrace.core.drivers.tspl.listeners.DataListener;
 
+import java.nio.charset.Charset;
+
 /**
  * This interface define the Connection level contract with the
  * TSPL system. Implementation can be done
@@ -114,4 +116,9 @@ public interface TSPLConnectionClient {
      * If the specified listener doesn't exist, the method will not do anything.
      */
     void removeDataListener(DataListener listener);
+
+    /** Sets the charset for transmitting Strings as bytes.
+     * Does not add the corresponding CODEPAGE command. */
+    void setCharset(Charset charset);
+    Charset getCharset();
 }
