@@ -3,7 +3,7 @@
 
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.13</version>
+    <version>0.0.14-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TSPL2 (by TSC) Java driver</name>
     <url>https://github.com/fintrace/tspl2-driver</url>
@@ -303,7 +303,7 @@
         <url>https://github.com/fintrace/tspl2-driver</url>
         <connection>scm:git:git://github.com/fintrace/tspl2-driver.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/fintrace/tspl2-driver.git</developerConnection>
-        <tag>v0.0.13</tag>
+        <tag>HEAD</tag>
     </scm>
     <licenses>
         <license>
