@@ -16,11 +16,11 @@ jobs:
   preflight:
     runs-on: ubuntu-latest
     steps:
-      - uses: thehanimo/pr-title-checker@v1.3
+      - uses: thehanimo/pr-title-checker@v1.4.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           pass_on_octokit_error: false
-          configuration_path: ".github/pr-title-checker-config.json"
+          configuration_path: .github/pr-title-checker-config.json
   build:
     name: Build & Test
     runs-on: ubuntu-latest
