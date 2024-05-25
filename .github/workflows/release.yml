@@ -19,6 +19,11 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
           cache: 'maven'
+          server-id: ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
+          gpg-private-key: ${{ secrets.SONATYPE_GPG_PRIVATE_KEY }}
+          gpg-passphrase: SONATYPE_GPG_PASSPHRASE
       - name: Build Package
         run: mvn clean package
 #      - name: Generate Release notes
@@ -30,6 +35,7 @@ jobs:
         run: |
           mvn clean deploy -B -U --settings ./.github/settings.xml -DperformRelease=true -DskipTests=true
         env:
-          SONATYPE_ENCRYPTION_PASSWORD: ${{ secrets.SONATYPE_ENCRYPTION_PASSWORD }}
+          SONATYPE_GPG_KEYNAME: ${{ secrets.SONATYPE_GPG_KEYNAME }}
+          SONATYPE_GPG_PASSPHRASE: ${{ secrets.SONATYPE_GPG_PASSPHRASE }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
