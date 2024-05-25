@@ -48,7 +48,7 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand {
 
     /**
      * Set number of printing labels per cut. 0<= pieces <=65535.
-     * Shall append the this command with the number of pieces.
+     * Shall append the command with the number of pieces.
      */
     PARTIAL_CUTTER_PIECES(DeviceConfigCommand.PARTIAL_CUTTER, PartialCutterValues.Pieces),
 
@@ -64,7 +64,7 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand {
 
     /**
      * Set number of printing labels per cut. 0<= pieces <=65535.
-     * Shall append the this command with the number of pieces.
+     * Shall append the command with the number of pieces.
      */
     CUTTER_PIECES(DeviceConfigCommand.CUTTER, PartialCutterValues.Pieces),
 
@@ -108,15 +108,15 @@ public enum TSPLDeviceConfigurationCommands implements TSPLCommand {
      */
     ENCODER_OFF(DeviceConfigCommand.ENCODER, EncoderCommandValues.OFF);
 
-    private DeviceConfigCommand command;
-    private CommandValues commandValue;
+    private final DeviceConfigCommand command;
+    private final CommandValues<String> commandValue;
 
     /**
      * @param command
      * @param commandValue
      */
     TSPLDeviceConfigurationCommands(DeviceConfigCommand command,
-                                    CommandValues commandValue) {
+                                    CommandValues<String> commandValue) {
         this.command = command;
         this.commandValue = commandValue;
     }

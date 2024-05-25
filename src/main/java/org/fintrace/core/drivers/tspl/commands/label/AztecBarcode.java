@@ -107,75 +107,72 @@ public class AztecBarcode implements TSPLCommand {
      */
     @Override
     public String getCommand() {
+        validateRequiredFields();
+
+        return new StringBuilder(AZTEC.name())
+                .append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(rotation.getRotation()).append(COMMA)
+                .append(getModuleSizeCommandPart())
+                .append(getErrorControlCommandPart())
+                .append(getEscapeFlagCommandPart())
+                .append(getMenuCommandPart())
+                .append(getMultiCommandPart())
+                .append(getRevCommandPart())
+                .append(getBytesCommandPart())
+                .append(content)
+                .append(LF)
+                .toString();
+    }
+
+    private void validateRequiredFields() {
         if (xCoordinate == null || yCoordinate == null) {
             throw new LabelParserException("AZTEC: x and y positions are required");
         }
-
         if (rotation == null) {
             throw new LabelParserException("AZTEC: rotation is required");
         }
-
         if (moduleSize != null && (moduleSize < 1 || moduleSize > 20)) {
             throw new LabelParserException("AZTEC: invalid module size value");
         }
-
-        if (errorControl != null && (errorControl == 100
-                || (errorControl > 104 && errorControl <= 200)
-                || (errorControl > 232 && errorControl < 300)
-                || (errorControl > 300))) {
+        if (errorControl != null && checkInvalidErrorControl()) {
             throw new LabelParserException("AZTEC: invalid error control parameter");
         }
+    }
 
-        StringBuilder commandBuilder = new StringBuilder(AZTEC.name());
-        commandBuilder.append(EMPTY_SPACE)
-                .append(xCoordinate).append(COMMA)
-                .append(yCoordinate).append(COMMA)
-                .append(rotation.getRotation()).append(COMMA);
+    private boolean checkInvalidErrorControl() {
+        return errorControl == 100
+                || (errorControl > 104 && errorControl <= 200)
+                || (errorControl > 232 && errorControl < 300)
+                || (errorControl > 300);
+    }
 
-        if (moduleSize == null) {
-            commandBuilder.append("6").append(COMMA);
-        } else {
-            commandBuilder.append(moduleSize).append(COMMA);
-        }
+    private String getModuleSizeCommandPart() {
+        return (moduleSize == null ? "6" : moduleSize) + COMMA;
+    }
 
-        if (errorControl == null) {
-            commandBuilder.append("0").append(COMMA);
-        } else {
-            commandBuilder.append(errorControl).append(COMMA);
-        }
+    private String getErrorControlCommandPart() {
+        return (errorControl == null ? "0" : errorControl) + COMMA;
+    }
 
-        commandBuilder.append(escapeFlag).append(COMMA);
+    private String getEscapeFlagCommandPart() {
+        return escapeFlag + COMMA;
+    }
 
-        if (menu == null) {
-            commandBuilder.append("0").append(COMMA);
-        } else {
-            commandBuilder.append(menu ? "1" : "0").append(COMMA);
-        }
+    private String getMenuCommandPart() {
+        return (menu == null ? "0" : (menu ? "1" : "0")) + COMMA;
+    }
 
-        if (multi == null) {
-            commandBuilder.append("6").append(COMMA);
-        } else {
-            commandBuilder.append(multi).append(COMMA);
-        }
+    private String getMultiCommandPart() {
+        return (multi == null ? "6" : multi) + COMMA;
+    }
 
-        if (rev == null) {
-            commandBuilder.append("0").append(COMMA);
-        } else {
-            commandBuilder.append(rev ? "1" : "0").append(COMMA);
-        }
+    private String getRevCommandPart() {
+        return (rev == null ? "0" : (rev ? "1" : "0")) + COMMA;
+    }
 
-        if (bytes != null) {
-            commandBuilder.append(bytes).append(COMMA)
-                    .append("\"");
-        }
-
-        commandBuilder.append(content);
-
-        if (bytes != null) {
-            commandBuilder.append("\"");
-        }
-
-        commandBuilder.append(LF);
-        return commandBuilder.toString();
+    private String getBytesCommandPart() {
+        return bytes == null ? "" : bytes + COMMA + '"';
     }
 }
