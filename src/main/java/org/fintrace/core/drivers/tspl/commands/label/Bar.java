@@ -84,11 +84,11 @@ public class Bar implements TSPLCommand {
             throw new LabelParserException("BAR: height is required");
         }
 
-        return LabelFormatCommand.BAR.name() + EMPTY_SPACE
-                + xCoordinate + COMMA
-                + yCoordinate + COMMA
-                + width + COMMA
-                + height
-                + LF;
+        return new StringBuilder(LabelFormatCommand.BAR.name()).append(EMPTY_SPACE)
+                .append(xCoordinate).append(COMMA)
+                .append(yCoordinate).append(COMMA)
+                .append(width).append(COMMA)
+                .append(height).append(LF)
+                .toString();
     }
 }
