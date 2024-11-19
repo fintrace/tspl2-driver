@@ -23,7 +23,7 @@ Add dependency in your pom
 <dependency>
     <groupId>org.fintrace.core.drivers</groupId>
     <artifactId>tspl2-driver</artifactId>
-    <version>0.0.13</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -37,17 +37,12 @@ TSPLConnectionClient tsplConnectionClient = new USBConnectionClient(
         (short) xxxx, 16)); // product id of TSPL2 based printer
 
 // Or Ethernet Client
+// TSPLConnectionClient tsplConnectionClient = new EthernetConnectionClient("x.x.x.x", 9100);
 
-TSPLConnectionClient tsplConnectionClient = new EthernetConnectionClient("x.x.x.x", 9100);
-```
-
-Initialize the printer with defaults
-```java
+// Initialize the printer with defaults
 tsplConnectionClient.init();
-```
 
-Once initialized, Establish the connection
-```java
+// Once initialized, Establish the connection
 tsplConnectionClient.connect();
 ```
 
@@ -71,7 +66,6 @@ TSPLLabel tsplLabel = TSPLLabel.builder()
                 .build();
 
 tsplConnectionClient.send(tsplLabel);
-
 ```
 
 The above will send the following TSPL2 code to printer 
@@ -110,10 +104,8 @@ Implement [ClientListener](src/main/java/org/fintrace/core/drivers/tspl/listener
 Other documentation
 =================
 
-Documentation about TSPL could be find here
-http://www.tscprinters.com/cms/upload/download_en/TSPL_TSPL2_Programming.pdf
-or 
-http://mediaform.de/fileadmin/support/handbuecher/Armilla/Handbuecher/TSC_TSPL_TSPL2_Programming.pdf
+Documentation about TSPL2 could be found here
+https://shop.mediaform.de/media/wysiwyg/downloads/armilla/TSC_TSPL_TSPL2_Programming.pdf
 
 Contributions
 =================
