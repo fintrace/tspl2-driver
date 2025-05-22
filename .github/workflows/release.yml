@@ -19,7 +19,7 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
           cache: 'maven'
-          server-id: ossrh
+          server-id: central
           server-username: SONATYPE_USERNAME
           server-password: SONATYPE_PASSWORD
           gpg-private-key: ${{ secrets.SONATYPE_GPG_PRIVATE_KEY }}
